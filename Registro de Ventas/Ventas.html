@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro de Movimientos</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<form>
+
+<h2>Registro de Movimientos</h2>
+
+<label>Tipo de operación</label>
+<select class="operacion">
+<option disabled selected>Seleccione una operación</option>
+<option>Venta</option>
+<option>Devolución</option>
+<option>Daño</option>
+<option>Compra a proveedor</option>
+</select>
+
+<label>Producto</label>
+<input type="text" placeholder="Nombre del producto">
+
+<label>Precio</label>
+<input type="number" placeholder="Precio del producto">
+
+<label>Piezas</label>
+<input type="number" placeholder="Cantidad de piezas">
+
+<label>Kilaje</label>
+<input type="number" placeholder="Peso en kg">
+
+<label>Descuento (%)</label>
+<input type="number" placeholder="Porcentaje de descuento">
+
+<label>Método de pago</label>
+<select class="pago">
+<option>Efectivo</option>
+<option>Tarjeta</option>
+</select>
+
+<button>Registrar</button>
+
+</form>
+
+</body>
+</html>
