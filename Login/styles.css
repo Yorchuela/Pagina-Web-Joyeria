@@ -77,3 +77,24 @@ color: #fff;
 button:hover{
 background-color:#6c70b5;
 }
+
+.extra {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.extra p {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.crear-cuenta {
+    color: #9d0208;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.crear-cuenta:hover {
+    text-decoration: underline;
+}

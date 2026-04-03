@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Joyeria Yorch</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">YORCH JEWELRY</div>
+
+    <nav id="menu"></nav>
+
+    <div class="user" id="rolUsuario"></div>
+
+    <!-- BOTONES -->
+    <button id="btnLogin" onclick="irLogin()">Iniciar sesión</button>
+    <button id="btnLogout" onclick="logout()" style="display:none;">Cerrar sesión</button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-text">
+        <h1 id="tituloHero">Elegancia y Estilo</h1>
+        <p id="textoHero">Descubre nuestras piezas exclusivas</p>
+        <button id="btnHero">Ver colección</button>
+    </div>
+</section>
+
+<!-- CATEGORÍAS -->
+<section class="categorias" id="categorias">
+    <div class="card">
+        <img src="https://via.placeholder.com/200">
+        <h3>Anillos</h3>
+    </div>
+    <div class="card">
+        <img src="https://via.placeholder.com/200">
+        <h3>Pulseras</h3>
+    </div>
+    <div class="card">
+        <img src="https://via.placeholder.com/200">
+        <h3>Collares</h3>
+    </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="dashboard" id="dashboard" style="display:none;">
+    <h2 id="bienvenida"></h2>
+    <div class="cards" id="cardsContainer"></div>
+</section>
+
+<footer>
+    <p>© 2026 Joyeria Yorch</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
