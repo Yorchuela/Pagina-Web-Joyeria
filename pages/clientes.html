@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes</title>
+    <link rel="stylesheet" href="../css/clientes.css">
+</head>
+<body>
+
+<h2>Gestión de Clientes</h2>
+
+<!-- BUSCADOR -->
+<input type="text" id="buscador" placeholder="Buscar cliente..." onkeyup="buscarClientes()">
+
+<!-- FORMULARIO -->
+<form onsubmit="guardarCliente(event)">
+    <input type="hidden" id="editIndex">
+
+    <input type="text" id="ap" placeholder="Apellido Paterno" required>
+    <input type="text" id="am" placeholder="Apellido Materno">
+    <input type="text" id="nombre" placeholder="Nombre" required>
+    
+
+    <input type="email" id="correo" placeholder="Correo" required>
+    <input type="tel" id="telefono" placeholder="Teléfono">
+
+    <button type="submit">Guardar Cliente</button>
+</form>
+
+<hr>
+
+<!-- TABLA -->
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="tablaClientes"></tbody>
+</table>
+
+<script src="clientes.js"></script>
+
+</body>
+</html>

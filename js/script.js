@@ -1,5 +1,5 @@
 // 🔐 OBTENER ROL (si no hay, es cliente)
-const rol = localStorage.getItem("rol") || "cliente";
+const rol = localStorage.getItem("rol") || "admin";
 
 document.getElementById("rolUsuario").textContent =
     rol === "cliente" ? "Invitado" : rol.toUpperCase();
@@ -55,39 +55,55 @@ else {
     menu.innerHTML = `
         <a href="#">Inicio</a>
         <a href="#" id="clientes">Clientes</a>
-        <a href="#" id="productos">Inventario</a>
+        <a href="productos.html" id="productos">Productos</a>
         <a href="#" id="ventas">Ventas</a>
         <a href="#" id="reportes">Reportes</a>
     `;
 
     if (rol === "admin") {
-        container.appendChild(card("💰 Ventas"));
-        container.appendChild(card("📦 Inventario"));
-        container.appendChild(card("👤 Clientes"));
-        container.appendChild(card("📊 Reportes"));
-    }
+
+    document.getElementById("bienvenida").textContent = "Panel de Administrador";
+
+    container.appendChild(card("💰 Ventas"));
+    container.appendChild(card("📦 Inventario"));
+    container.appendChild(card("👤 Clientes"));
+    container.appendChild(card("📊 Reportes"));
+    container.appendChild(card("⚙️ Usuarios")); // opcional
+}
 
     if (rol === "cajero") {
-        container.appendChild(card("💰 Nueva Venta"));
-        container.appendChild(card("🔄 Devolución"));
-        container.appendChild(card("👤 Clientes"));
 
-        setTimeout(() => {
-            document.getElementById("productos").style.display = "none";
-            document.getElementById("reportes").style.display = "none";
-        }, 0);
-    }
+    container.appendChild(card("💰 Nueva Venta"));
+    container.appendChild(card("🏷 Aplicar Descuento"));
+    container.appendChild(card("🔄 Devolución"));
+    container.appendChild(card("👤 Clientes"));
+
+    // opcional
+    container.appendChild(card("🧾 Caja del día"));
+
+    // ocultar lo que no corresponde
+    setTimeout(() => {
+        document.getElementById("productos").style.display = "none";
+        document.getElementById("reportes").style.display = "none";
+    }, 0);
+}
 
     if (rol === "almacen") {
-        container.appendChild(card("📦 Entradas"));
-        container.appendChild(card("📦 Salidas"));
-        container.appendChild(card("⚠️ Stock bajo"));
 
-        setTimeout(() => {
-            document.getElementById("ventas").style.display = "none";
-            document.getElementById("reportes").style.display = "none";
-        }, 0);
-    }
+    document.getElementById("bienvenida").textContent = "Panel de Almacén";
+
+    container.appendChild(card("📦 Ver Inventario"));
+    container.appendChild(card("➕ Entrada de productos"));
+    container.appendChild(card("➖ Salida de productos"));
+    container.appendChild(card("🚨 Stock bajo"));
+
+    // ocultar módulos que no usa
+    setTimeout(() => {
+        document.getElementById("ventas").style.display = "none";
+        document.getElementById("clientes").style.display = "none";
+        document.getElementById("reportes").style.display = "none";
+    }, 0);
+}
 }
 
 // 🔐 FUNCIONES
