@@ -1,65 +1,110 @@
 body{
-font-family: Arial, Helvetica, sans-serif;
-background-color:#8387c3;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
-color:#ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:#8387c3;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start; /* 🔥 evita que se estire raro verticalmente */
+    min-height:100vh;
 }
 
-form{
-width:360px;
-padding:35px;
-background-color:#ffffff;
-border-radius:12px;
-box-shadow:0px 10px 25px #00000033;
+/* 🔥 CONTENEDOR PRINCIPAL */
+.container{
+    width:100%;
+    max-width:700px; /* 🔥 mejor responsivo */
+    margin-top:40px;
+    background-color:#ffffff;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0px 10px 25px #00000033;
 }
 
+/* TITULOS */
 h2{
-text-align:center;
-margin-bottom:20px;
-color:#333333;
+    text-align:center;
+    color:#333;
+    margin-bottom:20px;
 }
 
+h3{
+    margin-top:25px;
+    margin-bottom:10px;
+    color:#333;
+}
+
+/* FORM */
 label{
-display:block;
-margin-top:12px;
-font-size:0.95rem;
-color:#333333;
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px; /* 🔥 mejor separación */
+    color:#333;
+    font-size:14px;
 }
 
 input, select{
-width:100%;
-padding:10px;
-margin-top:5px;
-border:1px solid #d0d4ff;
-border-radius:6px;
-font-size:0.95rem;
-background-color:#f5f6ff;
-box-sizing:border-box;
+    width:100%;
+    padding:12px; /* 🔥 igual altura */
+    border:1px solid #d0d4ff;
+    border-radius:6px;
+    background-color:#f5f6ff;
+    font-size:14px;
+    box-sizing:border-box; /* 🔥 clave para que no se desalineen */
 }
 
+/* 🔥 INPUT FOCUS (detalle pro) */
 input:focus, select:focus{
-outline:none;
-border-color:#6a7bdc;
-background-color:#ffffff;
+    outline:none;
+    border-color:#5566c8;
+    background-color:#ffffff;
 }
 
+/* BOTONES */
 button{
-width:100%;
-margin-top:20px;
-padding:11px;
-background-color:#8387c3;
-color:#ffffff;
-border:none;
-border-radius:6px;
-font-weight:bold;
-cursor:pointer;
-transition:0.3s;
+    margin-top:20px;
+    padding:12px;
+    width:100%;
+    background-color:#8387c3;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:bold;
 }
 
 button:hover{
-background-color:#5566c8;
+    background-color:#5566c8;
+}
+
+/* TABLA */
+table{
+    width:100%;
+    margin-top:15px;
+    border-collapse:collapse;
+    background-color:#fff;
+}
+
+th{
+    background-color:#5566c8;
+    color:white;
+    padding:12px;
+    font-size:14px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+tr:hover{
+    background-color:#f5f6ff;
+}
+
+/* TOTAL */
+#total{
+    font-weight:bold;
+    color:#5566c8;
+    font-size:18px;
 }
