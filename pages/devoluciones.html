@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/devoluciones.css">
+    <script src="../js/devoluciones.js" ></script>
+</head>
+<body>
+
+    <div class="container">
+    <h2>Devoluciones</h2>
+
+    <label>Seleccionar Venta</label>
+    <select id="ventaSelect"></select>
+
+    <label>Producto</label>
+    <select id="productoDevolucion"></select>
+
+    <label>Cantidad a devolver</label>
+    <input type="number" id="cantidadDev" placeholder="Cantidad">
+
+    <button onclick="realizarDevolucion()">Procesar Devolución</button>
+
+    <h3>Historial de Devoluciones</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Venta</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody id="tablaDevoluciones"></tbody>
+    </table>
+</div>
+    
+</body>
+</html>

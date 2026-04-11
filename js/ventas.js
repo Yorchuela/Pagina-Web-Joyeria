@@ -152,3 +152,4 @@ function finalizarVenta() {
 
     cargarProductos();
 }
+

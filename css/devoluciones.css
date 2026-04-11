@@ -1,0 +1,120 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:#8387c3;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    min-height:100vh;
+}
+
+/* 🔥 CONTENEDOR PRINCIPAL */
+.container{
+    width:100%;
+    max-width:700px;
+    margin-top:40px;
+    background-color:#ffffff;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0px 10px 25px #00000033;
+}
+
+/* TITULOS */
+h2{
+    text-align:center;
+    color:#333;
+    margin-bottom:20px;
+}
+
+h3{
+    margin-top:25px;
+    margin-bottom:10px;
+    color:#333;
+}
+
+/* FORM */
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+    color:#333;
+    font-size:14px;
+}
+
+input, select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ffd6d6; /* 🔥 tono rojizo suave */
+    border-radius:6px;
+    background-color:#fff5f5; /* 🔥 diferente a ventas */
+    font-size:14px;
+    box-sizing:border-box;
+}
+
+/* 🔥 FOCUS */
+input:focus, select:focus{
+    outline:none;
+    border-color:#c1121f;
+    
+}
+
+/* BOTONES */
+button{
+    margin-top:20px;
+    padding:12px;
+    width:100%;
+    background-color:#c1121f; /* 🔥 color devolución (rojo elegante) */
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:bold;
+}
+
+button:hover{
+    background-color:#780000;
+}
+
+/* TABLA */
+table{
+    width:100%;
+    margin-top:15px;
+    border-collapse:collapse;
+    background-color:#fff;
+}
+
+th{
+    background-color:#c1121f; /* 🔥 encabezado rojo */
+    color:white;
+    padding:12px;
+    font-size:14px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+tr:hover{
+    background-color:#fff0f0;
+}
+
+/* 🔥 MENSAJE IMPORTANTE */
+.alerta{
+    margin-top:15px;
+    padding:10px;
+    background-color:#ffe5e5;
+    color:#900;
+    border-radius:6px;
+    text-align:center;
+    font-size:14px;
+}
+
+/* 🔥 DESTACAR DEVOLUCIÓN */
+.devolucion{
+    color:#c1121f;
+    font-weight:bold;
+}
