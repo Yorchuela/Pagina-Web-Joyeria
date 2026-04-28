@@ -1,19 +1,21 @@
-if (!localStorage.getItem("rol")) {
-    window.location.href = "login.html";
-}
-
+// 🔥 LOGIN
 function login(e) {
-    e.preventDefault(); // evita recarga
+    e.preventDefault();
 
     const correo = document.getElementById("correo").value;
     const password = document.getElementById("password").value;
 
+    if(correo === "" || password === ""){
+        alert("Completa todos los campos");
+        return;
+    }
+
     // 🔴 SIMULACIÓN DE BD
     const usuarios = [
-        { correo: "admin@gmail.com", password: "123", rol: "admin" },
-        { correo: "cajero@gmail.com", password: "123", rol: "cajero" },
-        { correo: "almacen@gmail.com", password: "123", rol: "almacen" },
-        { correo: "cliente@gmail.com", password: "123", rol: "cliente" }
+        { nombre: "Admin", correo: "admin@gmail.com", password: "123", rol: "admin" },
+        { nombre: "Cajero", correo: "cajero@gmail.com", password: "123", rol: "cajero" },
+        { nombre: "Almacen", correo: "almacen@gmail.com", password: "123", rol: "almacen" },
+        { nombre: "Cliente", correo: "cliente@gmail.com", password: "123", rol: "cliente" }
     ];
 
     const usuario = usuarios.find(u => 
@@ -25,9 +27,26 @@ function login(e) {
         return;
     }
 
-    // ✅ guardar rol (simula sesión)
-    localStorage.setItem("rol", usuario.rol);
+    // ✅ GUARDAR USUARIO COMPLETO (MEJOR)
+    localStorage.setItem("usuario", JSON.stringify(usuario));
 
-    // ✅ redirigir al sistema
-    window.location.href = "index.html";
+    // 🔥 REDIRECCIÓN SEGÚN ROL
+    redirigirPorRol(usuario.rol);
+}
+
+// 🔥 REDIRECCIÓN INTELIGENTE
+function redirigirPorRol(rol){
+
+    if(rol === "admin"){
+        window.location.href = "dashboard.html";
+    }
+    else if(rol === "cajero"){
+        window.location.href = "ventas.html";
+    }
+    else if(rol === "almacen"){
+        window.location.href = "inventario.html";
+    }
+    else{
+        window.location.href = "dashboard.html";
+    }
 }
