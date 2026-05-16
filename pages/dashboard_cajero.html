@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Cajero</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+
+<ul>
+    <li><a href="dashboard_cajero.html">Inicio</a></li>
+    <li><a href="ventas.html">Ventas</a></li>
+    <li><a href="clientes.html">Clientes</a></li>
+    <li><a href="devoluciones.html">Devoluciones</a></li>
+</ul>
+
+<div class="container">
+
+    <h2>💰 Panel de Cajero</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Ventas Hoy</h3>
+            <p>$12,500</p>
+        </div>
+
+        <div class="card">
+            <h3>Devoluciones</h3>
+            <p>3</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Tickets</h3>
+            <p>28</p>
+        </div>
+
+    </div>
+
+    <h3>⚡ Accesos rápidos</h3>
+
+    <div class="cards">
+
+        <div class="card">
+            <a href="ventas.html">Nueva Venta</a>
+        </div>
+
+        <div class="card">
+            <a href="clientes.html">Buscar Cliente</a>
+        </div>
+
+        <div class="card">
+            <a href="devoluciones.html">Registrar Devolución</a>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="../js/auth.js"></script>
+
+<script>
+verificarRol(["admin", "cajero"]);
+</script>
+
+</body>
+</html>

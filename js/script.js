@@ -108,7 +108,7 @@ else {
 
 // 🔐 FUNCIONES
 function irLogin() {
-    window.location.href = "Login/login.html";
+    window.location.href = ".//pages/login.html";
 }
 
 function logout() {
