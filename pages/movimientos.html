@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/movimiento_inventario.css">
+<script src="../js/inventario.js"></script>
+<title>Movimientos de Inventario</title>
+</head>
+
+<body>
+
+<form onsubmit="registrarMovimiento(event)">
+
+<h2>Movimientos</h2>
+
+<!-- PRODUCTO -->
+<label>Producto</label>
+<select id="producto" required></select>
+
+<!-- TIPO -->
+<label>Tipo de movimiento</label>
+<select id="tipo" required>
+<option disabled selected>Seleccione una opción</option>
+<option value="entrada">Entrada</option>
+<option value="salida">Salida</option>
+</select>
+
+<!-- CANTIDAD -->
+<label>Cantidad</label>
+<input type="number" id="cantidad" placeholder="Cantidad de productos" required>
+
+<!-- MOTIVO -->
+<label>Motivo</label>
+<select id="motivo" required>
+<option disabled selected>Seleccione una opción</option>
+<option>Venta</option>
+<option>Devolución</option>
+<option>Daño</option>
+<option>Compra a proveedor</option>
+</select>
+
+<button type="submit">Guardar Movimiento</button>
+
+</form>
+
+<hr>
+
+<h3>Historial de Movimientos</h3>
+
+<table border="1">
+<thead>
+<tr>
+<th>Producto</th>
+<th>Tipo</th>
+<th>Cantidad</th>
+<th>Motivo</th>
+</tr>
+</thead>
+<tbody id="tablaMovimientos"></tbody>
+</table>
+
+<script src="../js/inventario.js"></script>
+
+</body>
+<script src="../js/auth.js"></script>
+<script>
+verificarRol(["admin", "almacen"]);
+</script>
+</html>
