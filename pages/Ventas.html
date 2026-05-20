@@ -1,62 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>Ventas</title>
-<link rel="stylesheet" href="../css/ventas.css">
-<script src="../js/ventas.js"></script>
+    <meta charset="UTF-8">
+    <title>Ventas</title>
+    <link rel="stylesheet" href="../css/ventas.css">
+    <script src="../js/ventas.js"></script>
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <h2>Registro de Venta</h2>
+        <h2>Registro de Venta</h2>
 
-    <!-- PRODUCTO -->
-    <label>Producto</label>
-    <select id="producto"></select>
+        <!-- PRODUCTO -->
+        <label>Producto</label>
+        <select id="producto"></select>
 
-    <!-- CANTIDAD -->
-    <label>Piezas</label>
-    <input type="number" id="cantidad" placeholder="Cantidad">
+        <!-- CANTIDAD -->
+        <label>Piezas</label>
+        <input type="number" id="cantidad" placeholder="Cantidad">
 
-    <button onclick="agregarAlCarrito()">Agregar</button>
+        <button onclick="agregarAlCarrito()">Agregar</button>
 
-    <!-- CARRITO -->
-    <h3>Carrito</h3>
+        <!-- CARRITO -->
+        <h3>Carrito</h3>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="carritoTabla"></tbody>
-    </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="carritoTabla"></tbody>
+        </table>
 
-    <!-- DESCUENTO -->
-    <label>Descuento (%)</label>
-    <input type="number" id="descuento" placeholder="Porcentaje">
+        <!-- DESCUENTO -->
+        <label>Descuento (%)</label>
+        <input type="number" id="descuento" placeholder="Porcentaje">
 
-    <!-- MÉTODO DE PAGO -->
-    <label>Método de pago</label>
-    <select id="pago">
-        <option>Efectivo</option>
-        <option>Tarjeta</option>
-    </select>
+        <!-- MÉTODO DE PAGO -->
+        <label>Método de pago</label>
+        <select id="pago">
+            <option>Efectivo</option>
+            <option>Tarjeta</option>
+        </select>
 
-    <h3>Total: $<span id="total">0</span></h3>
+        <h3>Total: $<span id="total">0</span></h3>
 
-    <button onclick="finalizarVenta()">Registrar Venta</button>
+        <button onclick="finalizarVenta()">Registrar Venta</button>
 
-</div>
-
-
-
+    </div>
 </body>
+<script src="../js/protect.js"></script>
+<script>
+
+protegerPagina([
+    "Administrador",
+    "Vendedor"
+]);
+
+</script>
+
 </html>

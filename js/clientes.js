@@ -1,58 +1,98 @@
 document.addEventListener("DOMContentLoaded", mostrarClientes);
 
-function guardarCliente(e) {
+/* GUARDAR CLIENTE */
+
+async function guardarCliente(e){
+
     e.preventDefault();
 
-    const ap = document.getElementById("ap").value;
-    const am = document.getElementById("am").value;
+    const apellido_paterno = document.getElementById("ap").value;
+
+    const apellido_materno = document.getElementById("am").value;
+
     const nombre = document.getElementById("nombre").value;
+
     const correo = document.getElementById("correo").value;
+
     const telefono = document.getElementById("telefono").value;
-    c.telefono.toString().includes(texto)
 
-    let clientes = JSON.parse(localStorage.getItem("clientes")) || [];
+    try{
 
-    // ✏️ EDITAR
-    if (editIndex !== "") {
-        clientes[editIndex] = { nombre, correo, telefono };
-    } else {
-        // ➕ NUEVO
-        clientes.push({ nombre, correo, telefono });
+        const response = await fetch('http://localhost:3000/clientes', {
+
+            method:'POST',
+
+            headers:{
+                'Content-Type':'application/json'
+            },
+
+            body: JSON.stringify({
+
+                apellido_paterno,
+                apellido_materno,
+                nombre,
+                correo,
+                telefono
+
+            })
+
+        });
+
+        const data = await response.json();
+
+        if(data.success){
+
+            alert('Cliente agregado');
+
+            mostrarClientes();
+
+            document.querySelector("form").reset();
+
+        }
+
+    } catch(error){
+
+        console.log(error);
+
     }
 
-    localStorage.setItem("clientes", JSON.stringify(clientes));
-
-    alert("Cliente guardado");
-
-    e.target.reset();
-    document.getElementById("editIndex").value = "";
-
-    mostrarClientes();
 }
 
-// 📋 MOSTRAR
-function mostrarClientes(lista = null) {
-    const tabla = document.getElementById("tablaClientes");
-    tabla.innerHTML = "";
+/* MOSTRAR CLIENTES */
 
-    let clientes = lista || JSON.parse(localStorage.getItem("clientes")) || [];
+async function mostrarClientes(){
 
-    clientes.forEach((c, index) => {
-        const fila = `
-            <tr>
-                <td>${c.nombre}</td>
-                <td>${c.correo}</td>
-                <td>${c.telefono}</td>
-                <td>
-                    <button onclick="editarCliente(${index})">Editar</button>
-                    <button onclick="eliminarCliente(${index})">Eliminar</button>
-                </td>
-            </tr>
-        `;
-        tabla.innerHTML += fila;
-    });
+    try{
+
+        const response = await fetch('http://localhost:3000/clientes');
+
+        const clientes = await response.json();
+
+        const tabla = document.getElementById("tablaClientes");
+
+        tabla.innerHTML = "";
+
+        clientes.forEach(c => {
+
+            tabla.innerHTML += `
+            
+                <tr>
+                    <td>${c.nombre}</td>
+                    <td>${c.correo}</td>
+                    <td>${c.telefono}</td>
+                </tr>
+            
+            `;
+
+        });
+
+    } catch(error){
+
+        console.log(error);
+
+    }
+
 }
-
 // ✏️ EDITAR
 function editarCliente(index) {
     let clientes = JSON.parse(localStorage.getItem("clientes")) || [];

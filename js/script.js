@@ -1,9 +1,15 @@
 // 🔐 OBTENER ROL (si no hay, es cliente)
-const rol = localStorage.getItem("rol") || "admin";
+const rol = localStorage.getItem("rol") || "Invitado";
+console.log("ROL ACTUAL:", rol);
+const nombreUsuario = localStorage.getItem("usuario") || "";
 
 document.getElementById("rolUsuario").textContent =
-    rol === "cliente" ? "Invitado" : rol.toUpperCase();
 
+    rol === "Invitado"
+
+    ? "Invitado"
+
+    : nombreUsuario + " | " + rol;
 const dashboard = document.getElementById("dashboard");
 const categorias = document.getElementById("categorias");
 const container = document.getElementById("cardsContainer");
@@ -11,6 +17,7 @@ const menu = document.getElementById("menu");
 
 const btnLogin = document.getElementById("btnLogin");
 const btnLogout = document.getElementById("btnLogout");
+
 
 // función cards
 function card(texto) {
@@ -21,12 +28,12 @@ function card(texto) {
 }
 
 /// 🔵 CLIENTE / INVITADO
-if (rol === "cliente") {
+if (rol === "Invitado") {
 
     menu.innerHTML = `
         <a href="#">Inicio</a>
         <a href="#categorias">Categorías</a>
-        <a href="#">Productos</a>
+        <a href="./pages/catalogo.html">Productos</a>
         <a href="#">Ofertas</a>
         <a href="#">Carrito 🛒</a>
     `;
@@ -54,25 +61,27 @@ else {
 
     menu.innerHTML = `
         <a href="#">Inicio</a>
-        <a href="#" id="clientes">Clientes</a>
-        <a href="productos.html" id="productos">Productos</a>
+        <a href="#" id="Cliente">Clientes</a>
+        <a href="./pages/productos.html" id="productos">Productos</a>
         <a href="#" id="ventas">Ventas</a>
         <a href="#" id="reportes">Reportes</a>
     `;
 
-    if (rol === "admin") {
-
-    document.getElementById("bienvenida").textContent = "Panel de Administrador";
+    if (rol === "Administrador") {
+        document.getElementById("bienvenida").textContent =
+        "Panel de Administrador";
 
     container.appendChild(card("💰 Ventas"));
     container.appendChild(card("📦 Inventario"));
     container.appendChild(card("👤 Clientes"));
     container.appendChild(card("📊 Reportes"));
-    container.appendChild(card("⚙️ Usuarios")); // opcional
+    container.appendChild(card("⚙️ Usuarios"));
+    container.appendChild(card(" Productos")); // opcional
 }
 
-    if (rol === "cajero") {
-
+    if (rol === "Vendedor") {
+        document.getElementById("bienvenida").textContent =
+        "Panel de Vendedor";
     container.appendChild(card("💰 Nueva Venta"));
     container.appendChild(card("🏷 Aplicar Descuento"));
     container.appendChild(card("🔄 Devolución"));
@@ -88,7 +97,7 @@ else {
     }, 0);
 }
 
-    if (rol === "almacen") {
+    if (rol === "Inventario") {
 
     document.getElementById("bienvenida").textContent = "Panel de Almacén";
 
@@ -99,6 +108,7 @@ else {
 
     // ocultar módulos que no usa
     setTimeout(() => {
+        
         document.getElementById("ventas").style.display = "none";
         document.getElementById("clientes").style.display = "none";
         document.getElementById("reportes").style.display = "none";
@@ -108,10 +118,17 @@ else {
 
 // 🔐 FUNCIONES
 function irLogin() {
-    window.location.href = "Login/login.html";
+    window.location.href = "./pages/login.html";
 }
 
 function logout() {
+
     localStorage.removeItem("rol");
-    location.reload(); // recarga como cliente
+
+    localStorage.removeItem("usuario");
+
+    alert("Sesión cerrada");
+
+    location.reload();
+
 }

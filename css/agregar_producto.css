@@ -1,0 +1,207 @@
+body{
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:#8387c3;
+
+    margin:0;
+
+    padding:40px;
+
+}
+
+/* CONTENEDOR */
+
+.container{
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+/* TARJETA FORMULARIO */
+
+.form-box{
+
+    width:100%;
+
+    max-width:900px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0px 10px 25px #00000020;
+
+}
+
+/* TITULO */
+
+h2{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+    color:#0a1123;
+
+}
+
+/* FORM */
+
+form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+/* FILAS */
+
+.fila{
+
+    display:flex;
+
+    gap:20px;
+
+}
+
+/* CAMPOS */
+
+.campo{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+/* LABELS */
+
+label{
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+    color:#3a3e6c;
+
+}
+
+/* INPUTS */
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #d6d8f5;
+
+    border-radius:10px;
+
+    background:#f5f6ff;
+
+    font-size:15px;
+
+    box-sizing:border-box;
+
+}
+
+/* FOCUS */
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    outline:none;
+
+    border-color:#8387c3;
+
+    background:white;
+
+}
+
+/* TEXTAREA */
+
+textarea{
+
+    resize:none;
+
+    height:120px;
+
+}
+
+/* BOTONES */
+
+.botones{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    margin-top:10px;
+
+}
+
+/* BUTTON */
+
+button{
+
+    padding:14px 25px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#8387c3;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+/* HOVER */
+
+button:hover{
+
+    background:#6c70b5;
+
+}
+
+/* VOLVER */
+
+.btn-volver{
+
+    background:#5b5fa3;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .fila{
+
+        flex-direction:column;
+
+    }
+
+}

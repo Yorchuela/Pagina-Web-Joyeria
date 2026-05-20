@@ -1,46 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Productos</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../css/productos.css">
 </head>
+
 <body>
 
-<h2>Gestión de Productos</h2>
+    <h2>Gestión de Productos</h2>
+    <!--Agregar un producto-->
+    <table border="1">
+        <div class="acciones-superior">
 
-<!-- BUSCADOR -->
-<input type="text" id="buscador" placeholder="Buscar producto..." onkeyup="buscarProductos()">
+            <button class="btn-agregar" onclick="irAgregarProducto()">
 
-<!-- FORMULARIO -->
-<form onsubmit="guardarProducto(event)">
-    <input type="hidden" id="editIndex">
+                ➕ Agregar Producto
 
-    <input type="text" id="nombre" placeholder="Nombre del producto" required>
-    <input type="text" id="categoria" placeholder="Categoría (Anillo, Pulsera...)" required>
-    <input type="number" id="precio" placeholder="Precio" required>
-    <input type="number" id="stock" placeholder="Stock" required>
+            </button>
 
-    <button type="submit">Guardar Producto</button>
-</form>
+        </div>
+    </table>
 
-<hr>
 
-<!-- TABLA -->
-<table border="1">
-    <thead>
-        <tr>
-            <th>Producto</th>
-            <th>Categoría</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody id="tablaProductos"></tbody>
-</table>
+    <!-- BUSCADOR -->
+    <input type="text" id="buscador" placeholder="Buscar producto..." onkeyup="buscarProductos()">
 
-<script src="productos.js"></script>
+    <hr>
+
+    <!-- TABLA -->
+    <table border="1">
+        <thead>
+
+            <tr>
+
+                <th>Imagen</th>
+
+                <th>Producto</th>
+
+                <th>Descripción</th>
+
+                <th>Categoría</th>
+
+                <th>Serie</th>
+
+                <th>Certificado</th>
+
+                <th>Kilataje</th>
+
+                <th>Precio</th>
+
+                <th>Estado</th>
+
+                <th>Fecha</th>
+
+                <th>Acciones</th>
+
+            </tr>
+
+        </thead>
+        <tbody id="tablaProductos"></tbody>
+    </table>
+
+    <script src="../js/productos.js"></script>
 
 </body>
+<script src="../js/protect.js"></script>
+
 </html>
