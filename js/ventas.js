@@ -2,12 +2,17 @@ let carrito = [];
 let total = 0;
 
 // ======================
-// CARGAR PRODUCTOS
+// CARGAR INICIAL
 // ======================
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarProductos();
+    mostrarCarrito();
 });
+
+// ======================
+// CARGAR PRODUCTOS
+// ======================
 
 function cargarProductos() {
 
@@ -19,13 +24,11 @@ function cargarProductos() {
     select.innerHTML =
         '<option value="">Seleccione un producto</option>';
 
-    productos.forEach((producto, index) => {
+    productos.forEach(producto => {
 
         select.innerHTML += `
-            <option value="${index}">
-                ${producto.nombre}
-                - $${producto.precio}
-                (Stock: ${producto.stock})
+            <option value="${producto.id}">
+                ${producto.nombre} - $${producto.precio} (Stock: ${producto.stock})
             </option>
         `;
     });
@@ -37,7 +40,7 @@ function cargarProductos() {
 
 function agregarAlCarrito() {
 
-    const index =
+    const idProducto =
         document.getElementById("producto").value;
 
     const cantidad =
@@ -46,60 +49,55 @@ function agregarAlCarrito() {
     let productos =
         JSON.parse(localStorage.getItem("productos")) || [];
 
-    if(index === ""){
-
+    if (!idProducto) {
         alert("Seleccione un producto");
         return;
     }
 
-    if(!cantidad || cantidad <= 0){
-
+    if (!cantidad || cantidad <= 0) {
         alert("Ingrese una cantidad válida");
         return;
     }
 
-    let producto = productos[index];
+    let producto =
+        productos.find(p => p.id == idProducto);
 
-    if(producto.stock < cantidad){
+    if (!producto) return;
 
+    if (producto.stock < cantidad) {
         alert("Stock insuficiente");
         return;
     }
 
     let itemExistente =
-        carrito.find(item => item.index == index);
+        carrito.find(item => item.id == idProducto);
 
-    if(itemExistente){
+    if (itemExistente) {
 
-        if(
-            itemExistente.cantidad + cantidad >
-            producto.stock
-        ){
+        if (itemExistente.cantidad + cantidad > producto.stock) {
             alert("Stock insuficiente");
             return;
         }
 
         itemExistente.cantidad += cantidad;
         itemExistente.subtotal =
-            itemExistente.precio *
-            itemExistente.cantidad;
-    }
-    else{
+            itemExistente.precio * itemExistente.cantidad;
+
+    } else {
 
         carrito.push({
-
-            index: index,
+            id: producto.id,
             nombre: producto.nombre,
             precio: producto.precio,
             cantidad: cantidad,
             subtotal: producto.precio * cantidad
-
         });
     }
 
     mostrarCarrito();
 
-    document.getElementById("cantidad").value = "";
+    document.getElementById("cantidad").value = 1;
+    document.getElementById("producto").value = "";
 }
 
 // ======================
@@ -108,8 +106,7 @@ function agregarAlCarrito() {
 
 function mostrarCarrito() {
 
-    const tabla =
-        document.getElementById("carritoTabla");
+    const tabla = document.getElementById("tablaCarrito");
 
     tabla.innerHTML = "";
 
@@ -126,11 +123,7 @@ function mostrarCarrito() {
                 <td>${item.cantidad}</td>
                 <td>$${item.subtotal}</td>
                 <td>
-                    <button
-                    type="button"
-                    onclick="eliminarItem(${i})">
-                        X
-                    </button>
+                    <button type="button" onclick="eliminarItem(${i})">X</button>
                 </td>
             </tr>
         `;
@@ -143,52 +136,38 @@ function mostrarCarrito() {
 // ELIMINAR ITEM
 // ======================
 
-function eliminarItem(index){
+function eliminarItem(index) {
 
     carrito.splice(index, 1);
-
     mostrarCarrito();
 }
 
 // ======================
-// TOTAL CON DESCUENTO
+// ACTUALIZAR TOTAL
 // ======================
 
-function actualizarTotal(){
+function actualizarTotal() {
 
     let descuento =
-        parseFloat(
-            document.getElementById("descuento").value
-        ) || 0;
+        parseFloat(document.getElementById("descuento").value) || 0;
 
     let totalFinal =
         total - (total * descuento / 100);
 
-    document.getElementById("total")
-        .textContent =
-        totalFinal.toFixed(2);
+    document.getElementById("total").textContent =
+        "Total: $" + totalFinal.toFixed(2);
+
+    document.getElementById("subtotal").textContent =
+        "Subtotal: $" + total.toFixed(2);
 }
-
-// ======================
-// ESCUCHAR DESCUENTO
-// ======================
-
-document.addEventListener("input", (e) => {
-
-    if(e.target.id === "descuento"){
-
-        actualizarTotal();
-    }
-});
 
 // ======================
 // FINALIZAR VENTA
 // ======================
 
-function finalizarVenta(){
+function finalizarVenta() {
 
-    if(carrito.length === 0){
-
+    if (carrito.length === 0) {
         alert("El carrito está vacío");
         return;
     }
@@ -203,80 +182,54 @@ function finalizarVenta(){
         JSON.parse(localStorage.getItem("movimientos")) || [];
 
     let descuento =
-        parseFloat(
-            document.getElementById("descuento").value
-        ) || 0;
+        parseFloat(document.getElementById("descuento").value) || 0;
 
     let metodoPago =
         document.getElementById("metodoPago").value;
 
     let totalFinal =
-        parseFloat(
-            document.getElementById("total").textContent
-        );
+        parseFloat(document.getElementById("total").textContent.replace("Total: $", ""));
 
     // DESCONTAR STOCK
     carrito.forEach(item => {
 
-        productos[item.index].stock -= item.cantidad;
+        let producto = productos.find(p => p.id == item.id);
+
+        if (producto) {
+            producto.stock -= item.cantidad;
+        }
 
         movimientos.push({
-
             fecha: new Date().toLocaleString(),
-
-            producto:
-                productos[item.index].nombre,
-
+            producto: item.nombre,
             tipo: "salida",
-
             cantidad: item.cantidad,
-
             motivo: "Venta"
-
         });
     });
 
-    localStorage.setItem(
-        "productos",
-        JSON.stringify(productos)
-    );
-
-    localStorage.setItem(
-        "movimientos",
-        JSON.stringify(movimientos)
-    );
+    localStorage.setItem("productos", JSON.stringify(productos));
+    localStorage.setItem("movimientos", JSON.stringify(movimientos));
 
     let venta = {
-
         fecha: new Date().toLocaleString(),
-
         productos: carrito,
-
         descuento: descuento,
-
         metodoPago: metodoPago,
-
         total: totalFinal
-
     };
 
     ventas.push(venta);
 
-    localStorage.setItem(
-        "ventas",
-        JSON.stringify(ventas)
-    );
+    localStorage.setItem("ventas", JSON.stringify(ventas));
 
     alert("Venta registrada correctamente");
 
     carrito = [];
     total = 0;
 
-    document.getElementById("carritoTabla").innerHTML = "";
+    mostrarCarrito();
 
-    document.getElementById("total").textContent = "0";
-
-    document.getElementById("descuento").value = "0";
-
-    cargarProductos();
+    document.getElementById("descuento").value = 0;
+    document.getElementById("producto").value = "";
 }

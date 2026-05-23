@@ -24,7 +24,7 @@
     <label>Cantidad</label>
     <input type="number" id="cantidad" min="1" value="1">
 
-    <button type="button" onclick="agregarCarrito()">
+    <button type="button" onclick="agregarAlCarrito()">
         Agregar al carrito
     </button>
 
@@ -34,7 +34,6 @@
     <h3>Carrito</h3>
 
     <table>
-
         <thead>
             <tr>
                 <th>Producto</th>
@@ -46,25 +45,16 @@
         </thead>
 
         <tbody id="tablaCarrito"></tbody>
-
     </table>
 
     <hr>
 
     <!-- DESCUENTO -->
     <label>Descuento (%)</label>
-    <input
-        type="number"
-        id="descuento"
-        min="0"
-        max="100"
-        value="0"
-        oninput="calcularTotal()"
-    >
+    <input type="number" id="descuento" min="0" max="100" value="0">
 
     <!-- MÉTODO DE PAGO -->
     <label>Método de pago</label>
-
     <select id="metodoPago">
         <option>Efectivo</option>
         <option>Tarjeta</option>
@@ -72,26 +62,19 @@
     </select>
 
     <div class="totales">
-
-        <h3 id="subtotal">
-            Subtotal: $0
-        </h3>
-
-        <h2 id="total">
-            Total: $0
-        </h2>
-
+        <h3 id="subtotal">Subtotal: $0</h3>
+        <h2 id="total">Total: $0</h2>
     </div>
 
-    <button type="button" onclick="registrarVenta()">
+    <button type="button" onclick="finalizarVenta()">
         Finalizar Venta
     </button>
 
 </div>
 
 <script src="../js/ventas.js"></script>
-
 <script src="../js/auth.js"></script>
+
 <script>
 verificarRol(["admin","cajero"]);
 </script>
