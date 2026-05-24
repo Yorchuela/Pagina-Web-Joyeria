@@ -1,31 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Login Joyeria</title>
     <link rel="stylesheet" href="../css/login.css">
 </head>
+
 <body>
-    
+
 <div class="login-box">
+
     <h2>Iniciar Sesión</h2>
 
+    <!-- LOGIN -->
     <form onsubmit="login(event)">
-        
-        <label>Correo Electronico</label>
-        <input type="email" id="correo" placeholder="example@gmail.com" required>
+
+        <label>Correo Electrónico</label>
+        <input 
+            type="email"
+            id="correo"
+            placeholder="example@gmail.com"
+            required
+        >
 
         <label>Contraseña</label>
-        <input type="password" id="password" placeholder="Ingrese su contraseña" required>
+        <input 
+            type="password"
+            id="password"
+            placeholder="Ingrese su contraseña"
+            required
+        >
+
+        <a href="#">
+            ¿Olvidaste tu contraseña?
+        </a>
 
         <p onclick="recuperarPassword()" style="cursor:pointer;color:blue;"> 
             ¿Olvidaste tu contraseña?</p>
 
-        <button type="submit">Entrar</button>
     </form>
 
-    <!-- NUEVO APARTADO -->
+    <!-- CREAR CUENTA -->
     <div class="extra">
+
         <p>¿No tienes cuenta?</p>
         <a href="Altas.html" class="crear-cuenta">Crear cuenta</a>
     </div>

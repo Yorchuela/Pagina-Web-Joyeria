@@ -98,3 +98,39 @@ background-color:#6c70b5;
 .crear-cuenta:hover {
     text-decoration: underline;
 }
+
+.opciones{
+
+    padding: 50px;
+    text-align: center;
+}
+
+.cards-panel{
+
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.card-panel{
+
+    width: 250px;
+    padding: 25px;
+    border-radius: 15px;
+    background: #1b263b;
+    color: white;
+    box-shadow: 0 0 15px rgba(0,0,0,.3);
+    transition: .3s;
+}
+
+.card-panel:hover{
+
+    transform: translateY(-8px);
+}
+
+.card-panel h3{
+
+    margin-bottom: 10px;
+}
