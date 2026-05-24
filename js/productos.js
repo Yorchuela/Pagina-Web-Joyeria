@@ -112,16 +112,22 @@ document.addEventListener(
 
         /* MENSAJE */
 
-        const params =
+        /* MENSAJE PRODUCTO */
 
-        new URLSearchParams(
-            window.location.search
-        );
+        if (
 
-        if(params.get('editado')){
+            localStorage.getItem(
+                'productoActualizado'
+            )
+
+        ) {
 
             alert(
                 'Producto actualizado'
+            );
+
+            localStorage.removeItem(
+                'productoActualizado'
             );
 
         }

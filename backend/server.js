@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 console.log(
-path.join(__dirname,'uploads')
+    path.join(__dirname, 'uploads')
 );
 
 /* MULTER */
@@ -525,7 +525,7 @@ app.use(
 
     express.static(
 
-        path.join(__dirname,'uploads')
+        path.join(__dirname, 'uploads')
 
     )
 
@@ -541,6 +541,7 @@ app.get('/productos', (req, res) => {
             P.id_producto,
             P.nombre_producto,
             P.descripcion,
+            p.id_categoria,
             P.serie,
             P.certificado_autenticidad,
             P.kilataje,
@@ -775,42 +776,42 @@ app.put(
 
     upload.single('imagen'),
 
-    (req,res)=>{
+    (req, res) => {
 
         console.log(req.body);
 
         const id = req.params.id;
 
         const nombre_producto =
-        req.body.nombre_producto;
+            req.body.nombre_producto;
 
         const descripcion =
-        req.body.descripcion;
+            req.body.descripcion;
 
         const id_categoria =
-        req.body.id_categoria;
+            req.body.id_categoria;
 
         const serie =
-        req.body.serie;
+            req.body.serie;
 
         const certificado_autenticidad =
-        req.body.certificado_autenticidad;
+            req.body.certificado_autenticidad;
 
         const kilataje =
-        req.body.kilataje;
+            req.body.kilataje;
 
         const precio =
-        req.body.precio;
+            req.body.precio;
 
         const estado_producto =
-        req.body.estado_producto;
+            req.body.estado_producto;
 
         let ruta_imagen = null;
 
-        if(req.file){
+        if (req.file) {
 
             ruta_imagen =
-            `/uploads/${req.file.filename}`;
+                `/uploads/${req.file.filename}`;
 
         }
 
@@ -845,7 +846,7 @@ app.put(
 
         /* SI HAY IMAGEN */
 
-        if(ruta_imagen){
+        if (ruta_imagen) {
 
             sql += `,
             ruta_imagen=?
@@ -869,15 +870,15 @@ app.put(
 
             valores,
 
-            (err,result)=>{
+            (err, result) => {
 
-                if(err){
+                if (err) {
 
                     console.log(err);
 
                     res.status(500).json({
 
-                        success:false
+                        success: false
 
                     });
 
@@ -885,7 +886,7 @@ app.put(
 
                     res.json({
 
-                        success:true
+                        success: true
 
                     });
 
@@ -894,5 +895,161 @@ app.put(
             }
 
         );
+
+    });
+/* CREAR VENTA */
+
+app.post('/ventas', (req, res) => {
+
+    const {
+
+        id_cliente,
+        carrito,
+        metodo_pago
+
+    } = req.body;
+
+    let subtotal = 0;
+
+    carrito.forEach(p => {
+
+        subtotal += Number(p.precio);
+
+    });
+
+    const descuento = 0;
+
+const total = subtotal;
+
+/* METODO PAGO */
+
+let id_metodo_pago = 1;
+
+if(metodo_pago === 'Tarjeta'){
+
+    id_metodo_pago = 2;
+
+}
+    
+
+    /* INSERTAR VENTA */
+
+    const ventaSQL = `
+
+       INSERT INTO ventas (
+
+            id_cliente,
+            id_metodo_pago,
+            subtotal,
+            descuento,
+            total
+
+        )
+
+        VALUES (?,?,?,?,?)
+
+    `;
+
+    db.query(
+
+        ventaSQL,
+
+        [
+
+            id_cliente,
+            id_metodo_pago,
+            subtotal,
+            descuento,
+            total
+
+
+        ],
+
+        (err, result) => {
+
+            if (err) {
+
+                console.log(err);
+
+                return res.status(500).json({
+
+                    success: false
+
+                });
+
+            }
+
+            const id_venta =
+                result.insertId;
+
+            /* INSERTAR DETALLE */
+
+            carrito.forEach(p => {
+
+                const detalleSQL = `
+
+                    INSERT INTO detalle_ventas (
+
+                        id_venta,
+                        id_producto,
+                        cantidad,
+                        precio_unitario,
+                        descuento,
+                        total
+
+                    )
+
+                    VALUES (?,?,?,?,?,?)
+
+                `;
+
+                db.query(
+
+                    detalleSQL,
+
+                    [
+
+                        id_venta,
+                        p.id_producto,
+                        1,
+                        p.precio,
+                        0,
+                        p.precio
+
+                    ]
+
+                );
+
+                /* CAMBIAR STOCK */
+
+                const stockSQL = `
+
+                    UPDATE productos
+
+                    SET estado_producto='Vendido'
+
+                    WHERE id_producto=?
+
+                `;
+
+                db.query(
+
+                    stockSQL,
+
+                    [p.id_producto]
+
+                );
+
+            });
+
+            res.json({
+
+                success: true
+
+            });
+
+        }
+
+    );
 
 });

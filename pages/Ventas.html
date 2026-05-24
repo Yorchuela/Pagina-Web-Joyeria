@@ -2,62 +2,147 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
-    <title>Ventas</title>
-    <link rel="stylesheet" href="../css/ventas.css">
-    <script src="../js/ventas.js"></script>
+
+    <title>
+
+        Ventas
+
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/ventas.css"
+    >
+
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <h2>Registro de Venta</h2>
+    <h2>
 
-        <!-- PRODUCTO -->
-        <label>Producto</label>
-        <select id="producto"></select>
+        💰 Registro de Venta
 
-        <!-- CANTIDAD -->
-        <label>Piezas</label>
-        <input type="number" id="cantidad" placeholder="Cantidad">
+    </h2>
 
-        <button onclick="agregarAlCarrito()">Agregar</button>
+    <!-- PRODUCTO -->
 
-        <!-- CARRITO -->
-        <h3>Carrito</h3>
+    <label>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="carritoTabla"></tbody>
-        </table>
+        Producto
 
-        <!-- DESCUENTO -->
-        <label>Descuento (%)</label>
-        <input type="number" id="descuento" placeholder="Porcentaje">
+    </label>
 
-        <!-- MÉTODO DE PAGO -->
-        <label>Método de pago</label>
-        <select id="pago">
-            <option>Efectivo</option>
-            <option>Tarjeta</option>
-        </select>
+    <select id="producto">
 
-        <h3>Total: $<span id="total">0</span></h3>
+    </select>
 
-        <button onclick="finalizarVenta()">Registrar Venta</button>
+    <button onclick="agregarAlCarrito()">
 
-    </div>
-</body>
+        ➕  Agregar
+
+    </button>
+
+    <!-- TABLA -->
+
+    <h3>
+
+        Carrito de Venta
+
+    </h3>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Producto
+                </th>
+
+                <th>
+                    Precio
+                </th>
+
+                <th>
+                    Subtotal
+                </th>
+
+                <th>
+                    Acción
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="carritoTabla">
+
+        </tbody>
+
+    </table>
+
+    <!-- PAGO -->
+
+    <label>
+
+        Método de pago
+
+    </label>
+
+    <select id="pago">
+
+        <option value="Efectivo">
+
+            Efectivo
+
+        </option>
+
+        <option value="Tarjeta">
+
+            Tarjeta
+
+        </option>
+
+    </select>
+
+    <!-- TOTAL -->
+
+    <h2>
+
+        Total:
+
+        $
+
+        <span id="total">
+
+            0
+
+        </span>
+
+    </h2>
+
+    <!-- BOTÓN -->
+
+    <button
+        class="btn-finalizar"
+        onclick="finalizarVenta()"
+    >
+
+        Finalizar Venta
+
+    </button>
+
+</div>
+
+<script src="../js/ventas.js"></script>
+
 <script src="../js/protect.js"></script>
+
 <script>
 
 protegerPagina([
@@ -66,5 +151,7 @@ protegerPagina([
 ]);
 
 </script>
+
+</body>
 
 </html>

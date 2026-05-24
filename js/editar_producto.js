@@ -1,10 +1,10 @@
 const params =
 
-new URLSearchParams(
-    window.location.search
-);
+    new URLSearchParams(
+        window.location.search
+    );
 
-if(params.get('editado')){
+if (params.get('editado')) {
 
     alert(
         'Producto actualizado'
@@ -181,8 +181,13 @@ async function guardarProducto(e) {
                 'ENTRO AL REDIRECT'
             );
 
-            window.location.href=
-                './productos.html?editando=1';
+            localStorage.setItem(
+                'productoActualizado',
+                'true'
+            );
+
+            window.location.href =
+                'productos.html';
 
 
         }

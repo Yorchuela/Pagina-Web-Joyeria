@@ -1,0 +1,298 @@
+body{
+
+    margin:0;
+
+    padding:0;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:#8387c3;
+
+}
+
+/* CONTENEDOR */
+
+.container{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:30px 0;
+
+}
+
+/* TITULO */
+
+h1{
+
+    text-align:center;
+
+    color:white;
+
+    margin-bottom:30px;
+
+}
+
+/* BOTON VOLVER */
+
+.btn-volver{
+
+    background:white;
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    margin-bottom:25px;
+
+}
+
+/* PRODUCTO */
+
+.producto{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    margin-bottom:25px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+    box-shadow:0 10px 25px #00000020;
+
+}
+
+/* IMAGEN */
+
+.img-producto{
+
+    width:170px;
+
+    height:170px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    background:#f5f5f5;
+
+}
+
+/* INFO */
+
+.info{
+
+    flex:1;
+
+}
+
+.info h3{
+
+    margin:0 0 10px;
+
+    font-size:24px;
+
+    color:#222;
+
+}
+
+.info p{
+
+    margin:8px 0;
+
+    color:#444;
+
+    font-size:15px;
+
+}
+
+.precio{
+
+    font-size:28px;
+
+    color:#6c70b5;
+
+    font-weight:bold;
+
+    margin-top:15px;
+
+}
+
+/* ACCIONES */
+
+.acciones{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-end;
+
+    gap:15px;
+
+}
+
+/* CANTIDAD */
+
+.cantidad{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    background:#f5f5f5;
+
+    padding:8px 15px;
+
+    border-radius:10px;
+
+}
+
+/* SUBTOTAL */
+
+.subtotal{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    color:#111;
+
+}
+
+/* ELIMINAR */
+
+.btn-eliminar{
+
+    border:none;
+
+    background:#ffe5e5;
+
+    color:#b00020;
+
+    padding:12px 18px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    transition:0.3s;
+
+}
+
+.btn-eliminar:hover{
+
+    background:#ffcccc;
+
+    transform:scale(1.05);
+
+}
+
+/* TOTAL */
+
+.total-box{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:30px;
+
+    box-shadow:0 10px 25px #00000020;
+
+}
+
+.total-box h2{
+
+    margin:0;
+
+    font-size:32px;
+
+    color:#111;
+
+}
+
+
+/* BOTON COMPRAR */
+
+.btn-comprar{
+
+    width:100%;
+
+    margin-top:25px;
+
+    background:#0a1123;
+
+    color:white;
+
+    border:none;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+.btn-comprar:hover{
+
+    background:#151d35;
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .producto{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .acciones{
+
+        align-items:center;
+
+    }
+
+}

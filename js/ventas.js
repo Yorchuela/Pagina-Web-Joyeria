@@ -1,155 +1,348 @@
 let carrito = [];
+
 let total = 0;
 
-// 🔄 Cargar productos al iniciar
-document.addEventListener("DOMContentLoaded", () => {
-    cargarProductos();
-});
+/* ========================= */
+/* CARGAR PRODUCTOS */
+/* ========================= */
 
-// 🔽 CARGAR PRODUCTOS EN SELECT
-function cargarProductos() {
-    const select = document.getElementById("producto");
-    let productos = JSON.parse(localStorage.getItem("productos")) || [];
+document.addEventListener(
 
-    select.innerHTML = '<option value="">Selecciona producto</option>';
+    "DOMContentLoaded",
 
-    productos.forEach((p, index) => {
-        select.innerHTML += `
-            <option value="${index}">
-                ${p.nombre} - $${p.precio} (Stock: ${p.stock})
+    () => {
+
+        cargarProductos();
+
+    }
+
+);
+
+async function cargarProductos() {
+
+    try {
+
+        const response =
+
+            await fetch(
+                'http://localhost:3000/productos'
+            );
+
+        const productos =
+            await response.json();
+
+        const select =
+
+            document.getElementById(
+                "producto"
+            );
+
+        select.innerHTML = `
+
+            <option value="">
+
+                Seleccionar producto
+
             </option>
+
         `;
-    });
-}
 
-// ➕ AGREGAR AL CARRITO
-function agregarAlCarrito() {
-    const index = document.getElementById("producto").value;
-    const cantidad = parseInt(document.getElementById("cantidad").value);
+        productos.forEach(p => {
 
-    let productos = JSON.parse(localStorage.getItem("productos")) || [];
+            /* SOLO DISPONIBLES */
 
-    if (index === "" || !cantidad || cantidad <= 0) {
-        alert("Selecciona producto y cantidad válida");
-        return;
+            if (
+
+                p.estado_producto ===
+                'Disponible'
+
+            ) {
+
+                select.innerHTML += `
+
+                    <option
+                        value="${p.id_producto}"
+                    >
+
+                        ${p.nombre_producto}
+
+                        -
+
+                        $
+
+                        ${Number(p.precio)
+                        .toLocaleString('es-MX')}
+
+                    </option>
+
+                `;
+
+            }
+
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
     }
 
-    let producto = productos[index];
-
-    // 🔴 Validar stock
-    if (producto.stock < cantidad) {
-        alert("Stock insuficiente");
-        return;
-    }
-
-    const subtotal = producto.precio * cantidad;
-
-    carrito.push({
-        index,
-        nombre: producto.nombre,
-        precio: producto.precio,
-        cantidad,
-        subtotal
-    });
-
-    mostrarCarrito();
-    document.getElementById("cantidad").value = "";
 }
 
-// 📋 MOSTRAR CARRITO
+/* ========================= */
+/* AGREGAR AL CARRITO */
+/* ========================= */
+
+async function agregarAlCarrito() {
+
+    const id_producto =
+
+        document.getElementById(
+            "producto"
+        ).value;
+
+    if (id_producto === "") {
+
+        alert(
+            'Selecciona un producto'
+        );
+
+        return;
+
+    }
+
+    /* EVITAR DUPLICADOS */
+
+    const existe = carrito.find(
+
+        p => p.id_producto ==
+            id_producto
+
+    );
+
+    if (existe) {
+
+        alert(
+            'Producto ya agregado'
+        );
+
+        return;
+
+    }
+
+    try {
+
+        const response =
+
+            await fetch(
+                'http://localhost:3000/productos'
+            );
+
+        const productos =
+            await response.json();
+
+        const producto = productos.find(
+
+            p => p.id_producto ==
+                id_producto
+
+        );
+
+        carrito.push({
+
+            id_producto:
+                producto.id_producto,
+
+            nombre_producto:
+                producto.nombre_producto,
+
+            precio:
+                producto.precio
+
+        });
+
+        mostrarCarrito();
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+
+/* ========================= */
+/* MOSTRAR CARRITO */
+/* ========================= */
+
 function mostrarCarrito() {
-    const tabla = document.getElementById("carritoTabla");
+
+    const tabla =
+
+        document.getElementById(
+            "carritoTabla"
+        );
+
     tabla.innerHTML = "";
 
     total = 0;
 
-    carrito.forEach((item, i) => {
-        total += item.subtotal;
+    carrito.forEach((item, index) => {
+
+        total += Number(item.precio);
 
         tabla.innerHTML += `
+
             <tr>
-                <td>${item.nombre}</td>
-                <td>$${item.precio}</td>
-                <td>${item.cantidad}</td>
-                <td>$${item.subtotal}</td>
-                <td><button onclick="eliminarItem(${i})">X</button></td>
+
+                <td>
+
+                    ${item.nombre_producto}
+
+                </td>
+
+                <td>
+
+                    $
+
+                    ${Number(item.precio)
+                .toLocaleString('es-MX')}
+
+                </td>
+
+                <td>
+
+                    $
+
+                    ${Number(item.precio)
+                .toLocaleString('es-MX')}
+
+                </td>
+
+                <td>
+
+                    <button
+                        onclick="eliminarItem(${index})"
+                    >
+
+                        🗑
+
+                    </button>
+
+                </td>
+
             </tr>
+
         `;
+
     });
 
-    actualizarTotal();
+    document.getElementById(
+        "total"
+    ).textContent =
+
+        Number(total)
+            .toLocaleString('es-MX');
+
 }
 
-// ❌ ELIMINAR PRODUCTO DEL CARRITO
+/* ========================= */
+/* ELIMINAR */
+/* ========================= */
+
 function eliminarItem(index) {
-    carrito.splice(index, 1);
-    mostrarCarrito();
-}
 
-// 💸 APLICAR DESCUENTO
-function actualizarTotal() {
-    let descuento = parseFloat(document.getElementById("descuento").value) || 0;
+    const confirmar = confirm(
 
-    let totalFinal = total;
+        '¿Eliminar producto?'
 
-    if (descuento > 0) {
-        totalFinal = total - (total * (descuento / 100));
-    }
+    );
 
-    document.getElementById("total").textContent = totalFinal.toFixed(2);
-}
+    if (!confirmar) {
 
-// 🔄 Detectar cambio en descuento
-document.addEventListener("input", (e) => {
-    if (e.target.id === "descuento") {
-        actualizarTotal();
-    }
-});
-
-// 💰 FINALIZAR VENTA
-function finalizarVenta() {
-    if (carrito.length === 0) {
-        alert("Carrito vacío");
         return;
+
     }
 
-    let productos = JSON.parse(localStorage.getItem("productos")) || [];
-    let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
+    carrito.splice(index, 1);
 
-    let descuento = parseFloat(document.getElementById("descuento").value) || 0;
-    let metodoPago = document.getElementById("pago").value;
+    mostrarCarrito();
 
-    let totalFinal = parseFloat(document.getElementById("total").textContent);
-
-    // 🔻 Actualizar stock
-    carrito.forEach(item => {
-        productos[item.index].stock -= item.cantidad;
-    });
-
-    localStorage.setItem("productos", JSON.stringify(productos));
-
-    // 💾 Guardar venta
-    const nuevaVenta = {
-        fecha: new Date().toLocaleString(),
-        items: carrito,
-        total: totalFinal,
-        descuento,
-        metodoPago
-    };
-
-    ventas.push(nuevaVenta);
-    localStorage.setItem("ventas", JSON.stringify(ventas));
-
-    alert("Venta registrada correctamente");
-
-    // 🧹 Reset
-    carrito = [];
-    total = 0;
-
-    document.getElementById("carritoTabla").innerHTML = "";
-    document.getElementById("total").textContent = "0";
-    document.getElementById("descuento").value = "";
-
-    cargarProductos();
 }
 
+/* ========================= */
+/* FINALIZAR VENTA */
+/* ========================= */
+
+async function finalizarVenta() {
+
+    if (carrito.length === 0) {
+
+        alert(
+            'Carrito vacío'
+        );
+
+        return;
+
+    }
+
+    const metodo_pago =
+
+        document.getElementById(
+            "pago"
+        ).value;
+
+    try {
+
+        const response =
+
+            await fetch(
+
+                'http://localhost:3000/ventas',
+
+                {
+
+                    method: 'POST',
+
+                    headers: {
+                        'Content-Type':
+                            'application/json'
+                    },
+
+                    body: JSON.stringify({
+
+                        id_cliente: 1,
+
+                        carrito,
+                        metodo_pago
+
+                    })
+
+                }
+
+            );
+
+        const data =
+            await response.json();
+
+        if (data.success) {
+
+            alert(
+                'Venta registrada correctamente'
+            );
+
+            carrito = [];
+
+            mostrarCarrito();
+
+            cargarProductos();
+
+        }
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+}
