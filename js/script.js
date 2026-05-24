@@ -1,16 +1,44 @@
 // 🔐 OBTENER ROL (si no hay, es cliente)
-const rol = localStorage.getItem("rol") || "admin";
+const rol = localStorage.getItem("rol") || "Invitado";
+console.log("ROL ACTUAL:", rol);
+const nombreUsuario = localStorage.getItem("usuario") || "";
+const estaEnPages =
 
+window.location.pathname
+.includes('/pages/');
 document.getElementById("rolUsuario").textContent =
-    rol === "cliente" ? "Invitado" : rol.toUpperCase();
 
+    rol === "Invitado"
+
+        ? "Invitado"
+
+        : nombreUsuario + " | " + rol;
 const dashboard = document.getElementById("dashboard");
 const categorias = document.getElementById("categorias");
 const container = document.getElementById("cardsContainer");
 const menu = document.getElementById("menu");
+const tituloHero =
+    document.getElementById(
+        "tituloHero"
+    );
 
+const textoHero =
+    document.getElementById(
+        "textoHero"
+    );
+
+const btnHero =
+    document.getElementById(
+        "btnHero"
+    );
+
+const bienvenida =
+    document.getElementById(
+        "bienvenida"
+    );
 const btnLogin = document.getElementById("btnLogin");
 const btnLogout = document.getElementById("btnLogout");
+
 
 // función cards
 function card(texto) {
@@ -20,98 +48,368 @@ function card(texto) {
     return div;
 }
 
-/// 🔵 CLIENTE / INVITADO
-if (rol === "cliente") {
+/* ========================= */
+/* 🔵 TIENDA (CLIENTE) */
+/* ========================= */
+
+if (
+
+    rol === "Invitado"
+
+    ||
+
+    rol === "Cliente"
+
+) {
 
     menu.innerHTML = `
-        <a href="#">Inicio</a>
-        <a href="#categorias">Categorías</a>
-        <a href="#">Productos</a>
-        <a href="#">Ofertas</a>
-        <a href="#">Carrito 🛒</a>
-    `;
 
-    // botones
-    btnLogin.style.display = "inline-block";
-    btnLogout.style.display = "none";
+    <a href="${
+        estaEnPages
+        ?
+        '../index.html'
+        :
+        'index.html'
+    }">
 
-    // textos
-    document.getElementById("tituloHero").textContent = "Bienvenido a Joyeria Yorch";
-    document.getElementById("textoHero").textContent = "Explora nuestros productos";
-    document.getElementById("btnHero").textContent = "Comprar ahora";
+        Inicio
+
+    </a>
+
+    <a href="${
+        estaEnPages
+        ?
+        './categorias.html'
+        :
+        './pages/categorias.html'
+    }">
+
+        Categorías
+
+    </a>
+
+    <a href="${
+        estaEnPages
+        ?
+        './catalogo.html'
+        :
+        './pages/catalogo.html'
+    }">
+
+        Productos
+
+    </a>
+
+    <a href="#">
+
+        Ofertas
+
+    </a>
+
+    <a href="${
+        estaEnPages
+        ?
+        './carrito.html'
+        :
+        './pages/carrito.html'
+    }">
+
+        Carrito 🛒
+
+    </a>
+
+`;
+
+    btnLogin.style.display =
+        rol === "Invitado"
+
+            ?
+
+            "inline-block"
+
+            :
+
+            "none";
+
+    btnLogout.style.display =
+        rol === "Cliente"
+
+            ?
+
+            "inline-block"
+
+            :
+
+            "none";
+
+    if (dashboard) {
+
+        dashboard.style.display =
+            "none";
+
+    }
+
+    if (categorias) {
+
+        categorias.style.display =
+            "flex";
+
+    }
+    if (tituloHero) {
+
+        tituloHero.textContent =
+
+            "Bienvenido a Joyeria Yorch";
+
+    }
+
+    if (textoHero) {
+
+        textoHero.textContent =
+
+            "Explora nuestros productos";
+
+    }
+
+    if (btnHero) {
+
+        btnHero.textContent =
+
+            "Comprar ahora";
+
+    }
 }
 
-// 🔴 USUARIO LOGUEADO
+/* ========================= */
+/* 🔴 ADMINISTRACIÓN */
+/* ========================= */
+
 else {
 
-    dashboard.style.display = "block";
-    categorias.style.display = "none";
+    if (dashboard) {
 
-    btnLogin.style.display = "none";
-    btnLogout.style.display = "inline-block";
+        dashboard.style.display =
+            "block";
 
-    document.getElementById("bienvenida").textContent = "Panel de " + rol;
+    }
+
+    if (categorias) {
+
+        categorias.style.display =
+            "none";
+
+    }
+
+    btnLogin.style.display =
+        "none";
+
+    btnLogout.style.display =
+        "inline-block";
 
     menu.innerHTML = `
-        <a href="#">Inicio</a>
-        <a href="#" id="clientes">Clientes</a>
-        <a href="productos.html" id="productos">Productos</a>
-        <a href="#" id="ventas">Ventas</a>
-        <a href="#" id="reportes">Reportes</a>
+
+        <a href="index.html">
+
+            Inicio
+
+        </a>
+
+        <a href="#" id="clientes">
+
+            Clientes
+
+        </a>
+
+        <a href="./pages/productos.html" id="productos">
+
+            Productos
+
+        </a>
+
+        <a href="#" id="ventas">
+
+            Ventas
+
+        </a>
+
+        <a href="#" id="reportes">
+
+            Reportes
+
+        </a>
+
     `;
 
-    if (rol === "admin") {
+    /* ========================= */
+    /* ADMINISTRADOR */
+    /* ========================= */
 
-    document.getElementById("bienvenida").textContent = "Panel de Administrador";
+    if (rol === "Administrador") {
 
-    container.appendChild(card("💰 Ventas"));
-    container.appendChild(card("📦 Inventario"));
-    container.appendChild(card("👤 Clientes"));
-    container.appendChild(card("📊 Reportes"));
-    container.appendChild(card("⚙️ Usuarios")); // opcional
+        document.getElementById(
+            "bienvenida"
+        ).textContent =
+
+            "Panel de Administrador";
+
+        container.appendChild(
+            card("💰 Ventas")
+        );
+
+        container.appendChild(
+            card("📦 Inventario")
+        );
+
+        container.appendChild(
+            card("👤 Clientes")
+        );
+
+        container.appendChild(
+            card("📊 Reportes")
+        );
+
+        container.appendChild(
+            card("⚙️ Usuarios")
+        );
+
+        container.appendChild(
+            card("📦 Productos")
+        );
+
+    }
+
+    /* ========================= */
+    /* VENDEDOR */
+    /* ========================= */
+
+    if (rol === "Vendedor") {
+
+        document.getElementById(
+            "bienvenida"
+        ).textContent =
+
+            "Panel de Vendedor";
+
+        container.appendChild(
+            card("💰 Nueva Venta")
+        );
+
+        container.appendChild(
+            card("🏷 Aplicar Descuento")
+        );
+
+        container.appendChild(
+            card("🔄 Devolución")
+        );
+
+        container.appendChild(
+            card("👤 Clientes")
+        );
+
+        container.appendChild(
+            card("🧾 Caja del día")
+        );
+
+        setTimeout(() => {
+
+            document.getElementById(
+                "productos"
+            ).style.display =
+                "none";
+
+            document.getElementById(
+                "reportes"
+            ).style.display =
+                "none";
+
+        }, 0);
+
+    }
+
+    /* ========================= */
+    /* INVENTARIO */
+    /* ========================= */
+
+    if (rol === "Inventario") {
+
+        document.getElementById(
+            "bienvenida"
+        ).textContent =
+
+            "Panel de Inventario";
+
+        container.appendChild(
+            card("📦 Ver Inventario")
+        );
+
+        container.appendChild(
+            card("➕ Entrada Productos")
+        );
+
+        container.appendChild(
+            card("➖ Salida Productos")
+        );
+
+        container.appendChild(
+            card("🚨 Stock Bajo")
+        );
+
+        setTimeout(() => {
+
+            document.getElementById(
+                "ventas"
+            ).style.display =
+                "none";
+
+            document.getElementById(
+                "clientes"
+            ).style.display =
+                "none";
+
+            document.getElementById(
+                "reportes"
+            ).style.display =
+                "none";
+
+        }, 0);
+
+    }
+
 }
 
-    if (rol === "cajero") {
+function irLogin(){
 
-    container.appendChild(card("💰 Nueva Venta"));
-    container.appendChild(card("🏷 Aplicar Descuento"));
-    container.appendChild(card("🔄 Devolución"));
-    container.appendChild(card("👤 Clientes"));
+    if(estaEnPages){
 
-    // opcional
-    container.appendChild(card("🧾 Caja del día"));
+        window.location.href =
+        './login.html';
 
-    // ocultar lo que no corresponde
-    setTimeout(() => {
-        document.getElementById("productos").style.display = "none";
-        document.getElementById("reportes").style.display = "none";
-    }, 0);
+    } else {
+
+        window.location.href =
+        './pages/login.html';
+
+    }
+
 }
-
-    if (rol === "almacen") {
-
-    document.getElementById("bienvenida").textContent = "Panel de Almacén";
-
-    container.appendChild(card("📦 Ver Inventario"));
-    container.appendChild(card("➕ Entrada de productos"));
-    container.appendChild(card("➖ Salida de productos"));
-    container.appendChild(card("🚨 Stock bajo"));
-
-    // ocultar módulos que no usa
-    setTimeout(() => {
-        document.getElementById("ventas").style.display = "none";
-        document.getElementById("clientes").style.display = "none";
-        document.getElementById("reportes").style.display = "none";
-    }, 0);
-}
-}
-
-// 🔐 FUNCIONES
-function irLogin() {
-    window.location.href = ".//pages/login.html";
-}
-
 function logout() {
+
     localStorage.removeItem("rol");
-    location.reload(); // recarga como cliente
+
+    localStorage.removeItem("usuario");
+
+    alert("Sesión cerrada");
+
+    window.location.href =
+
+    estaEnPages
+
+    ?
+
+    "../index.html"
+
+    :
+
+    "index.html";
+
 }

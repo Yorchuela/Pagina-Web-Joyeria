@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Login Joyeria</title>
-
     <link rel="stylesheet" href="../css/login.css">
 </head>
 
@@ -39,9 +38,8 @@
             ¿Olvidaste tu contraseña?
         </a>
 
-        <button type="submit">
-            Entrar
-        </button>
+        <p onclick="recuperarPassword()" style="cursor:pointer;color:blue;"> 
+            ¿Olvidaste tu contraseña?</p>
 
     </form>
 
@@ -49,17 +47,12 @@
     <div class="extra">
 
         <p>¿No tienes cuenta?</p>
-
-        <a href="Altas.html" class="crear-cuenta">
-            Crear cuenta
-        </a>
-
+        <a href="Altas.html" class="crear-cuenta">Crear cuenta</a>
     </div>
 
 </div>
 
-<!-- JS -->
-<script src="../js/login.js"></script>
+<script src="../js/auth.js"></script>
 
 </body>
 </html>
