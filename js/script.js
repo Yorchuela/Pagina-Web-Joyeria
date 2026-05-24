@@ -100,11 +100,7 @@ if (
 
     </a>
 
-    <a href="#">
-
-        Ofertas
-
-    </a>
+    
 
     <a href="${
         estaEnPages
