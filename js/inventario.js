@@ -1,84 +1,48 @@
-document.addEventListener("DOMContentLoaded", () => {
-    cargarProductos();
-    mostrarMovimientos();
-});
+const productos = [
 
-// 🔽 Cargar productos en select
-function cargarProductos() {
-    const select = document.getElementById("producto");
-    let productos = JSON.parse(localStorage.getItem("productos")) || [];
+    {
+        id: 1,
+        nombre: "Anillo Oro",
+        categoria: "Anillos",
+        precio: 2500,
+        stock: 10
+    },
 
-    select.innerHTML = '<option disabled selected>Seleccione producto</option>';
-
-    productos.forEach((p, index) => {
-        select.innerHTML += `<option value="${index}">
-            ${p.nombre} (Stock: ${p.stock})
-        </option>`;
-    });
-}
-
-// ➕ Registrar movimiento
-function registrarMovimiento(e) {
-    e.preventDefault();
-
-    const index = document.getElementById("producto").value;
-    const tipo = document.getElementById("tipo").value;
-    const cantidad = parseInt(document.getElementById("cantidad").value);
-    const motivo = document.getElementById("motivo").value;
-
-    let productos = JSON.parse(localStorage.getItem("productos")) || [];
-    let movimientos = JSON.parse(localStorage.getItem("movimientos")) || [];
-
-    let producto = productos[index];
-
-    // VALIDAR STOCK
-    if (tipo === "salida" && producto.stock < cantidad) {
-        alert("Stock insuficiente");
-        return;
+    {
+        id: 2,
+        nombre: "Collar Plata",
+        categoria: "Collares",
+        precio: 1800,
+        stock: 3
     }
 
-    // ACTUALIZAR STOCK
-    if (tipo === "entrada") {
-        producto.stock += cantidad;
-    } else {
-        producto.stock -= cantidad;
-    }
+];
 
-    productos[index] = producto;
-    localStorage.setItem("productos", JSON.stringify(productos));
+mostrarInventario();
 
-    // GUARDAR MOVIMIENTO
-    movimientos.push({
-        producto: producto.nombre,
-        tipo,
-        cantidad,
-        motivo
-    });
+function mostrarInventario(){
 
-    localStorage.setItem("movimientos", JSON.stringify(movimientos));
+    let tabla = document.getElementById("tablaInventario");
 
-    alert("Movimiento guardado");
-
-    e.target.reset();
-    cargarProductos();
-    mostrarMovimientos();
-}
-
-// 📋 Mostrar historial
-function mostrarMovimientos() {
-    const tabla = document.getElementById("tablaMovimientos");
     tabla.innerHTML = "";
 
-    let movimientos = JSON.parse(localStorage.getItem("movimientos")) || [];
+    productos.forEach(producto => {
 
-    movimientos.forEach(m => {
+        let estado = producto.stock <= 5
+            ? "⚠ Bajo"
+            : "✅ Disponible";
+
         tabla.innerHTML += `
-            <tr>
-                <td>${m.producto}</td>
-                <td>${m.tipo}</td>
-                <td>${m.cantidad}</td>
-                <td>${m.motivo}</td>
-            </tr>
+
+        <tr>
+            <td>${producto.id}</td>
+            <td>${producto.nombre}</td>
+            <td>${producto.categoria}</td>
+            <td>$${producto.precio}</td>
+            <td>${producto.stock}</td>
+            <td>${estado}</td>
+        </tr>
+
         `;
     });
 }
