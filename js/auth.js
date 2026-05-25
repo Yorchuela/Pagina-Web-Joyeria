@@ -1,5 +1,7 @@
 async function login(event) {
 
+    alert("1");
+
     event.preventDefault();
 
     const correo =
@@ -8,16 +10,18 @@ async function login(event) {
     const password =
         document.getElementById('password').value.trim();
 
-    /* VALIDAR */
+    alert("2");
 
     if (!correo || !password) {
 
         alert("Complete todos los campos");
-
         return;
+
     }
 
     try {
+
+        alert("3");
 
         const response =
             await fetch('http://localhost:3000/login', {
@@ -35,9 +39,17 @@ async function login(event) {
 
             });
 
+        alert("4");
+
         const data = await response.json();
 
+        alert("5");
+
+        console.log(data);
+
         if (data.success) {
+
+            alert("6");
 
             localStorage.setItem(
                 "rol",
@@ -65,154 +77,16 @@ async function login(event) {
 
     } catch (error) {
 
-        console.log(error);
+        console.error(error);
 
         alert('Error servidor');
 
     }
 
 }
-/* RECUPERAR PASSWORD */
 
-async function recuperarPassword() {
-
-    const correo =
-        prompt("Ingrese su correo");
-
-    if (!correo) {
-
-        return;
-
-    }
-
-    try {
-
-        /* ENVIAR CÓDIGO */
-
-        const response =
-            await fetch(
-                'http://localhost:3000/recover-password',
-                {
-
-                    method: 'POST',
-
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-
-                    body: JSON.stringify({
-                        correo
-                    })
-
-                });
-
-        const data = await response.json();
-
-        alert(data.message);
-
-        /* SI NO EXISTE CORREO */
-
-        if (!data.success) {
-
-            return;
-
-        }
-
-        /* PEDIR CÓDIGO */
-
-        const codigo =
-            prompt("Ingrese el código enviado");
-
-        /* VALIDAR CÓDIGO */
-
-        let codigoCorrecto = false;
-
-        while (!codigoCorrecto) {
-
-            const codigo =
-                prompt("Ingrese el código enviado");
-
-            /* SI CANCELA */
-
-            if (codigo === null) {
-                alert("Recuperación cancelada");
-                return;
-
-            }
-
-            const validar =
-                await fetch(
-                    'http://localhost:3000/validar-codigo',
-                    {
-
-                        method: 'POST',
-
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-
-                        body: JSON.stringify({
-                            codigo
-                        })
-
-                    });
-
-            const dataValidar =
-                await validar.json();
-
-            /* CÓDIGO CORRECTO */
-
-            if (dataValidar.success) {
-
-                codigoCorrecto = true;
-
-            } else {
-
-                alert(dataValidar.message);
-
-            }
-
-        }
-
-        /* NUEVA PASSWORD */
-
-        const nuevaPassword =
-            prompt("Ingrese nueva contraseña");
-
-        /* CAMBIAR PASSWORD */
-
-        const responseReset =
-            await fetch(
-                'http://localhost:3000/reset-password',
-                {
-
-                    method: 'POST',
-
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-
-                    body: JSON.stringify({
-
-                        correo,
-                        nuevaPassword
-
-                    })
-
-                });
-
-        const dataReset =
-            await responseReset.json();
-
-        alert(dataReset.message);
-
-    } catch (error) {
-
-        console.log(error);
-
-        alert('Error servidor');
-
-    }
+app.post('/login', (req, res) => {
+    console.log("🔥 LOGIN LLEGÓ");
 
 }
 function verificarRol(rolesPermitidos) {
