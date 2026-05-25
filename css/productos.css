@@ -1,238 +1,226 @@
-body{
+/* ==========================
+   CONTENEDOR PRINCIPAL
+========================== */
 
-    font-family: Arial, Helvetica, sans-serif;
-
-    background-color:#8387c3;
-
-    margin:0;
-
-    padding:30px;
-
-    color:#0a1123;
-
+.productos-container{
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 20px;
 }
 
-/* TITULO */
+/* ==========================
+   TITULO
+========================== */
 
-h2{
-
-    text-align:center;
-
-    margin-bottom:25px;
-
+.productos-container h2{
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--chinese-black);
+    font-size: 2rem;
 }
 
-/* BUSCADOR */
+/* ==========================
+   BUSCADOR
+========================== */
 
-#buscador{
-
-    width:250px;
-
-    padding:10px;
-
-    border:1px solid #d6d8f5;
-
-    border-radius:8px;
-
-    background:#f5f6ff;
-
-    margin-bottom:20px;
-
+.productos-container #buscador{
+    width: 320px;
+    padding: 12px 15px;
+    border: 1px solid var(--cool-grey);
+    border-radius: 10px;
+    background: white;
+    margin-bottom: 25px;
+    transition: .3s ease;
 }
 
-/* FORMULARIO */
-
-form{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:25px;
-
+.productos-container #buscador:focus{
+    outline: none;
+    border-color: var(--ube);
+    box-shadow: 0 0 0 4px rgba(159,122,234,.15);
 }
 
-/* INPUTS */
+/* ==========================
+   FORMULARIOS
+========================== */
 
-input,
-select{
-
-    padding:10px;
-
-    border:1px solid #d6d8f5;
-
-    border-radius:8px;
-
-    background:#f5f6ff;
-
+.productos-container form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.08);
 }
 
-/* FOCUS */
+/* ==========================
+   INPUTS
+========================== */
 
-input:focus,
-select:focus{
-
-    outline:none;
-
-    border-color:#8387c3;
-
-    background:white;
-
+.productos-container input,
+.productos-container select,
+.productos-container textarea{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--cool-grey);
+    border-radius: 10px;
+    background: white;
+    font-size: .95rem;
+    transition: .3s ease;
 }
 
-/* BOTONES */
-
-button{
-
-    padding:10px 15px;
-
-    background:#8387c3;
-
-    border:none;
-
-    border-radius:8px;
-
-    color:white;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    transition:0.3s;
-
+.productos-container input:focus,
+.productos-container select:focus,
+.productos-container textarea:focus{
+    outline: none;
+    border-color: var(--ube);
+    box-shadow: 0 0 0 4px rgba(159,122,234,.15);
 }
 
-button:hover{
-
-    background:#6c70b5;
-
-}
-
-/* TABLA */
-
-table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-    background:white;
-
-    border-radius:12px;
-
-    overflow:hidden;
-
-    box-shadow:0px 10px 25px #00000020;
-
-}
-
-/* CABECERA */
-
-th{
-
-    background:#8387c3;
-
-    color:black;
-
-    padding:15px;
-
-}
-
-/* CELDAS */
-
-td{
-
-    padding:15px;
-
-    text-align:center;
-
-    border-bottom:1px solid #00000020;
-
-    vertical-align:middle;
-
-}
-
-/* HOVER FILAS */
-
-tr:hover{
-
-    background:#00000020;
-
-}
-/* CONTENEDOR SUPERIOR */
+/* ==========================
+   BOTON AGREGAR
+========================== */
 
 .acciones-superior{
-
-    display:flex;
-
-    justify-content:flex-end;
-
-    margin-bottom:15px;
-
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 25px;
 }
 
-/* BOTON AGREGAR */
-
 .btn-agregar{
-
-    background:#6c70b5;
-
-    padding:12px 20px;
-
-    font-size:15px;
-
+    padding: 12px 24px;
+    background: var(--ube);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s ease;
 }
 
 .btn-agregar:hover{
-
-    background:#5b5fa3;
-
+    background: var(--american-blue);
+    transform: translateY(-2px);
 }
-/* ACCIONES */
+
+/* ==========================
+   TABLA
+========================== */
+
+.productos-container table{
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+/* ==========================
+   CABECERA
+========================== */
+
+.productos-container th{
+    background: var(--american-blue);
+    color: white;
+    padding: 16px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* ==========================
+   CELDAS
+========================== */
+
+.productos-container td{
+    padding: 16px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+/* ==========================
+   HOVER FILAS
+========================== */
+
+.productos-container tbody tr{
+    transition: .2s ease;
+}
+
+.productos-container tbody tr:hover{
+    background: #f1f5f9;
+}
+
+/* ==========================
+   BOTONES DE ACCIONES
+========================== */
 
 .acciones{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
-
-    align-items:center;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
-
-/* BOTONES ACCIONES */
 
 .acciones button{
-
-    width:120px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:8px;
-
-    white-space:nowrap;
-
+    width: 130px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: var(--ube);
+    color: white;
+    cursor: pointer;
+    transition: .3s ease;
 }
-/* IMAGEN PRODUCTOS */
 
-td img{
+.acciones button:hover{
+    background: var(--american-blue);
+}
 
-    width:120px;
+/* ==========================
+   IMAGENES
+========================== */
 
-    height:120px;
+.productos-container td img{
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    margin: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,.12);
+}
 
-    object-fit:cover;
+/* ==========================
+   RESPONSIVE
+========================== */
 
-    border-radius:10px;
+@media (max-width: 768px){
 
-    display:block;
+    .productos-container{
+        padding: 15px;
+    }
 
-    margin:auto;
+    .productos-container h2{
+        font-size: 1.7rem;
+    }
 
+    .productos-container #buscador{
+        width: 100%;
+    }
+
+    .acciones-superior{
+        justify-content: center;
+    }
+
+    .productos-container table{
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .productos-container td img{
+        width: 90px;
+        height: 90px;
+    }
 }

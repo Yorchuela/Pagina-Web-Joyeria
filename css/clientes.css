@@ -1,15 +1,242 @@
-table {
-    width: 100%;
-    margin-top: 15px;
-    border-collapse: collapse;
+/* ===== VARIABLES ===== */
+
+:root{
+    --chinese-black: #0a1123;
+    --american-blue: #1c3f95;
+    --ube: #9f7aea;
+    --cool-grey: #cbd5e1;
+    --cadet-grey: #e2e8f0;
+    --white: #ffffff;
 }
 
-th, td {
-    padding: 10px;
+/* ===== RESET ===== */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background: #f8fafc;
+    color: #333;
+    padding: 30px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+/* ===== TITULO ===== */
+
+h2{
     text-align: center;
+    color: var(--chinese-black);
+    margin-bottom: 30px;
+    font-size: 2rem;
 }
 
-input {
-    margin: 5px;
-    padding: 8px;
+/* ===== BUSCADOR ===== */
+
+#buscador{
+    width: 320px;
+    padding: 12px 15px;
+
+    border: 1px solid var(--cool-grey);
+    border-radius: 10px;
+
+    margin-bottom: 25px;
+
+    font-size: .95rem;
+    transition: .3s ease;
+}
+
+#buscador:focus{
+    outline: none;
+    border-color: var(--ube);
+
+    box-shadow: 0 0 0 4px rgba(159,122,234,.15);
+}
+
+/* ===== FORMULARIO ===== */
+
+form{
+    background: white;
+
+    padding: 25px;
+    margin-bottom: 30px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 15px;
+}
+
+/* ===== INPUTS ===== */
+
+input{
+    padding: 12px;
+
+    border: 1px solid var(--cool-grey);
+    border-radius: 10px;
+
+    font-size: .95rem;
+
+    transition: .3s ease;
+}
+
+input:focus{
+    outline: none;
+    border-color: var(--ube);
+
+    box-shadow: 0 0 0 4px rgba(159,122,234,.15);
+}
+
+/* ===== BOTON GUARDAR ===== */
+
+form button{
+    grid-column: 1 / -1;
+
+    padding: 12px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: var(--ube);
+    color: white;
+
+    font-weight: 600;
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    transition: .3s ease;
+}
+
+form button:hover{
+    background: var(--american-blue);
+    transform: translateY(-2px);
+}
+
+/* ===== SEPARADOR ===== */
+
+hr{
+    border: none;
+    height: 1px;
+    background: var(--cool-grey);
+    margin-bottom: 25px;
+}
+
+/* ===== TABLA ===== */
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+
+    background: white;
+
+    border-radius: 15px;
+    overflow: hidden;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+/* ===== CABECERA ===== */
+
+thead{
+    background: var(--american-blue);
+    color: white;
+}
+
+th{
+    padding: 16px;
+    font-weight: 600;
+}
+
+/* ===== CELDAS ===== */
+
+td{
+    padding: 16px;
+    text-align: center;
+
+    border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+/* ===== FILAS ===== */
+
+tbody tr{
+    transition: .2s ease;
+}
+
+tbody tr:hover{
+    background: #f1f5f9;
+}
+
+/* ===== BOTONES DE ACCION ===== */
+
+td button{
+    padding: 8px 14px;
+
+    border: none;
+    border-radius: 8px;
+
+    color: white;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s ease;
+
+    margin: 0 3px;
+}
+
+/* EDITAR */
+
+.btn-editar{
+    background: var(--ube);
+}
+
+.btn-editar:hover{
+    background: var(--american-blue);
+}
+
+/* ELIMINAR */
+
+.btn-eliminar{
+    background: #ef4444;
+}
+
+.btn-eliminar:hover{
+    background: #dc2626;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width:768px){
+
+    body{
+        padding: 15px;
+    }
+
+    h2{
+        font-size: 1.7rem;
+    }
+
+    #buscador{
+        width: 100%;
+    }
+
+    table{
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    form{
+        grid-template-columns: 1fr;
+    }
 }

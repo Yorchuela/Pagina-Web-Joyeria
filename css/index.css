@@ -1,129 +1,240 @@
-* {
+/* ===== VARIABLES ===== */
+:root{
+    --chinese-black: #0a1123;
+    --american-blue: #1c3f95;
+    --ube: #9f7aea;
+    --cool-grey: #cbd5e1;
+    --cadet-grey: #e2e8f0;
+    --white: #ffffff;
+}
+
+/* ===== RESET ===== */
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
 }
 
-/* NAVBAR */
-header {
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background: #f8fafc;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ===== HEADER ===== */
+header{
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    align-items: center;
+    padding: 18px 50px;
     background: var(--chinese-black);
     color: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-nav a {
-    margin: 0 15px;
+.logo{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+nav{
+    display: flex;
+    gap: 20px;
+}
+
+nav a{
     text-decoration: none;
     color: var(--cool-grey);
-    transition: 0.3s;
+    font-weight: 500;
+    transition: .3s ease;
 }
 
-nav a:hover {
+nav a:hover{
     color: var(--ube);
 }
 
-/* HERO */
-.hero {
-    height: 80vh;
-    background: linear-gradient(rgba(10,17,35,0.7), rgba(10,17,35,0.7)),
-                url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338');
+/* ===== HERO ===== */
+.hero{
+    min-height: 85vh;
+    background:
+        linear-gradient(
+            rgba(10,17,35,.75),
+            rgba(10,17,35,.75)
+        ),
+        url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338');
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
     display: flex;
     align-items: center;
-    padding-left: 50px;
+    padding: 0 60px;
     color: white;
 }
 
-.hero h1 {
-    font-size: 50px;
+.hero-content{
+    max-width: 650px;
 }
 
-.hero button {
-    margin-top: 15px;
-    padding: 10px 20px;
+.hero h1{
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 15px;
+}
+
+.hero p{
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.hero button{
+    padding: 12px 28px;
     border: none;
+    border-radius: 8px;
     background: var(--ube);
     color: white;
     cursor: pointer;
-    transition: 0.3s;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: .3s;
 }
 
-.hero button:hover {
+.hero button:hover{
     background: var(--american-blue);
+    transform: translateY(-2px);
 }
 
-/* CATEGORÍAS */
-.categorias {
-    display: flex;
-    justify-content: space-around;
-    padding: 40px;
+/* ===== CATEGORÍAS ===== */
+.categorias{
+    padding: 70px 40px;
     background: var(--cadet-grey);
-}
-
-.card {
-    background: white;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: scale(1.05);
-}
-
-/* SERVICIOS */
-.servicios {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-    background: var(--american-blue);
-    color: white;
-}
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 15px;
-    background: var(--chinese-black);
-    color: var(--cool-grey);
-}
-
-.opciones{
-
-    padding: 50px;
-    text-align: center;
-}
-
-.cards-panel{
 
     display: flex;
     justify-content: center;
     gap: 25px;
     flex-wrap: wrap;
-    margin-top: 30px;
+}
+
+.card{
+    width: 260px;
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 15px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,.08);
+    transition: .3s ease;
+}
+
+.card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+}
+
+.card h3{
+    margin-bottom: 10px;
+}
+
+/* ===== OPCIONES ===== */
+.opciones{
+    padding: 70px 20px;
+    text-align: center;
+}
+
+.opciones h2{
+    margin-bottom: 15px;
+    color: var(--chinese-black);
+}
+
+.cards-panel{
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 35px;
 }
 
 .card-panel{
-
-    width: 250px;
+    width: 280px;
     padding: 25px;
     border-radius: 15px;
     background: #1b263b;
     color: white;
-    box-shadow: 0 0 15px rgba(0,0,0,.3);
-    transition: .3s;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,.25);
+    transition: .3s ease;
 }
 
 .card-panel:hover{
-
     transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,.35);
 }
 
 .card-panel h3{
+    margin-bottom: 12px;
+    color: var(--ube);
+}
 
-    margin-bottom: 10px;
+/* ===== SERVICIOS ===== */
+.servicios{
+    padding: 60px 20px;
+    background: var(--american-blue);
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.servicio{
+    max-width: 300px;
+    text-align: center;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    text-align: center;
+    padding: 20px;
+    background: var(--chinese-black);
+    color: var(--cool-grey);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px){
+
+    header{
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    nav{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero{
+        text-align: center;
+        justify-content: center;
+        padding: 30px;
+    }
+
+    .hero h1{
+        font-size: 2.5rem;
+    }
+
+    .categorias,
+    .servicios{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card,
+    .card-panel{
+        width: 90%;
+        max-width: 350px;
+    }
 }
