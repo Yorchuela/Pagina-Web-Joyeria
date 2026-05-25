@@ -10,7 +10,6 @@
 
 <ul>
     <li><a href="../index.html">Inicio</a></li>
-    <li><a href="inventario.html">Inventario</a></li>
     <li><a href="productos.html">Productos</a></li>
     <li><a href="movimientos.html">Movimientos</a></li>
 </ul>
@@ -22,18 +21,18 @@
     <div class="cards">
 
         <div class="card">
-            <h3>Productos Bajos</h3>
-            <p>12</p>
+            <h3>Productos Disponibles</h3>
+            <p id="productosDisponibles">0</p>
         </div>
 
         <div class="card">
             <h3>Entradas Hoy</h3>
-            <p>25</p>
+            <p id="entradasHoy">0</p>
         </div>
 
         <div class="card">
             <h3>Salidas Hoy</h3>
-            <p>8</p>
+            <p id="salidasHoy">0</p>
         </div>
 
     </div>
@@ -61,8 +60,8 @@
 <script src="../js/auth.js"></script>
 
 <script>
-verificarRol(["admin", "almacen"]);
+verificarRol(["Administrador", "Inventario"]);
 </script>
-
+<script src="../js/dashboard_almacen.js"></script>
 </body>
 </html>

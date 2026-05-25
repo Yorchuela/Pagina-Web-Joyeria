@@ -60,6 +60,118 @@ const transporter = nodemailer.createTransport({
 
 });
 
+/* REGISTRAR MOVIMIENTO INVENTARIO */
+
+app.post('/movimientos', (req, res) => {
+
+    const {
+
+        id_producto,
+        tipo_movimiento,
+        motivo,
+        cantidad,
+        id_usuario
+
+    } = req.body;
+
+    const sql = `
+
+        INSERT INTO movimientos_inventario (
+
+            id_producto,
+            id_usuario,
+            tipo_movimiento,
+            motivo,
+            cantidad
+
+        )
+
+        VALUES (?,?,?,?,?)
+
+    `;
+
+    db.query(
+
+        sql,
+
+        [
+
+            id_producto,
+            id_usuario,
+            tipo_movimiento,
+            motivo,
+            cantidad
+
+        ],
+
+        (err, result) => {
+
+            if(err){
+
+                console.log(err);
+
+                return res.status(500).json({
+                    success:false
+                });
+
+            }
+
+            res.json({
+                success:true
+            });
+
+        }
+
+    );
+
+});
+/* OBTENER MOVIMIENTOS */
+
+app.get('/movimientos', (req, res) => {
+
+    const sql = `
+
+        SELECT
+
+            M.id_movimiento,
+            M.tipo_movimiento,
+            M.cantidad,
+            M.motivo,
+            M.fecha_movimiento,
+
+            P.nombre_producto,
+
+            U.nombre
+
+        FROM movimientos_inventario M
+
+        INNER JOIN productos P
+        ON M.id_producto = P.id_producto
+
+        INNER JOIN usuarios U
+        ON M.id_usuario = U.id_usuario
+
+        ORDER BY M.id_movimiento DESC
+
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if(err){
+
+            console.log(err);
+
+            return res.status(500).json({
+                success:false
+            });
+
+        }
+
+        res.json(result);
+
+    });
+
+});
 /* SERVIDOR */
 
 app.listen(3000, () => {
@@ -602,11 +714,11 @@ app.get('/clientes', (req, res) => {
                 error: err.sqlMessage
             });
 
-    } else {
+        } else {
 
-        res.json(result);
+            res.json(result);
 
-    }
+        }
 
     });
 
@@ -738,18 +850,18 @@ app.delete('/clientes/:id', (req, res) => {
 
     db.query(sql, [id], (err, result) => {
 
-        if(err){
+        if (err) {
 
             console.log(err);
 
             return res.status(500).json({
-                success:false
+                success: false
             });
 
         }
 
         res.json({
-            success:true
+            success: true
         });
 
     });
@@ -793,18 +905,18 @@ app.put('/clientes/:id', (req, res) => {
         ],
         (err, result) => {
 
-            if(err){
+            if (err) {
 
                 console.log(err);
 
                 return res.status(500).json({
-                    success:false
+                    success: false
                 });
 
             }
 
             res.json({
-                success:true
+                success: true
             });
 
         }
@@ -1049,24 +1161,14 @@ app.put(
 app.post('/ventas', (req, res) => {
 
     const {
-        id_cliente, 
+        id_cliente,
         id_usuario,
         carrito,
-        metodo_pago
-
+        metodo_pago,
+        subtotal,
+        descuento,
+        total
     } = req.body;
-
-    let subtotal = 0;
-
-    carrito.forEach(p => {
-
-        subtotal += Number(p.precio);
-
-    });
-
-    const descuento = 0;
-
-    const total = subtotal;
 
     /* METODO PAGO */
 
@@ -1088,13 +1190,15 @@ app.post('/ventas', (req, res) => {
             id_cliente, 
             id_usuario,
             id_metodo_pago,
+            tipo_venta,
+            estado_venta,
             subtotal,
             descuento,
             total
 
         )
 
-        VALUES (?,?,?,?,?,?)
+        VALUES (?,?,?,?,?,?,?,?)
 
     `;
 
@@ -1103,9 +1207,11 @@ app.post('/ventas', (req, res) => {
         ventaSQL,
 
         [
-
+            id_cliente,
             id_usuario,
             id_metodo_pago,
+            'Mostrador',
+            'Completada',
             subtotal,
             descuento,
             total
@@ -1201,3 +1307,495 @@ app.post('/ventas', (req, res) => {
     );
 
 });
+/* OBTENER VENTAS */
+
+app.get('/ventas', (req, res) => {
+
+    const sql = `
+
+        SELECT
+            V.id_venta,
+            V.total,
+            V.fecha_venta,
+            U.nombre
+
+        FROM ventas V
+
+        INNER JOIN usuarios U
+        ON V.id_usuario = U.id_usuario
+
+        ORDER BY V.id_venta DESC
+
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if(err){
+
+            console.log(err);
+
+            return res.status(500).json({
+                success:false
+            });
+
+        }
+
+        res.json(result);
+
+    });
+
+});
+/* PRODUCTOS POR VENTA */
+
+app.get('/ventas/:id/productos', (req, res) => {
+
+    const id_venta = req.params.id;
+
+    const sql = `
+
+        SELECT
+
+            D.id_producto,
+            P.nombre_producto,
+            D.precio_unitario
+
+        FROM detalle_ventas D
+
+        INNER JOIN productos P
+        ON D.id_producto = P.id_producto
+
+        WHERE D.id_venta = ?
+
+    `;
+
+    db.query(sql, [id_venta], (err, result) => {
+
+        if(err){
+
+            console.log(err);
+
+            return res.status(500).json({
+                success:false
+            });
+
+        }
+
+        res.json(result);
+
+    });
+
+});
+/* REALIZAR DEVOLUCION */
+
+app.post('/devoluciones', (req, res) => {
+
+    const {
+
+        id_venta,
+        id_producto,
+        id_usuario,
+        motivo
+
+    } = req.body;
+
+    const sql = `
+
+        INSERT INTO devoluciones (
+
+            id_venta,
+            id_producto,
+            id_usuario,
+            motivo
+
+        )
+
+        VALUES (?,?,?,?)
+
+    `;
+
+    db.query(
+
+        sql,
+
+        [
+            id_venta,
+            id_producto,
+            id_usuario,
+            motivo
+        ],
+
+        (err, result) => {
+
+            if(err){
+
+                console.log(err);
+
+                return res.status(500).json({
+                    success:false
+                });
+
+            }
+
+            /* REGRESAR PRODUCTO */
+
+            const updateSQL = `
+
+                UPDATE productos
+
+                SET estado_producto='Disponible'
+
+                WHERE id_producto=?
+
+            `;
+
+            db.query(updateSQL, [id_producto]);
+
+            res.json({
+                success:true
+            });
+
+        }
+
+    );
+
+});
+/* HISTORIAL DEVOLUCIONES */
+
+app.get('/devoluciones', (req, res) => {
+
+    const sql = `
+
+        SELECT
+
+            D.id_devolucion,
+            D.fecha_devolucion,
+            D.motivo,
+
+            V.id_venta,
+
+            P.nombre_producto,
+
+            U.nombre
+
+        FROM devoluciones D
+
+        INNER JOIN ventas V
+        ON D.id_venta = V.id_venta
+
+        INNER JOIN productos P
+        ON D.id_producto = P.id_producto
+
+        INNER JOIN usuarios U
+        ON D.id_usuario = U.id_usuario
+
+        ORDER BY D.id_devolucion DESC
+
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if(err){
+
+            console.log(err);
+
+            return res.status(500).json({
+                success:false
+            });
+
+        }
+
+        res.json(result);
+
+    });
+
+});
+
+console.log("RUTA CAJA DIA CARGADA");
+
+/* CAJA DEL DIA */
+
+app.get('/caja-dia/:id_usuario', (req, res) => {
+
+    const id_usuario =
+        req.params.id_usuario;
+
+    const sql = `
+
+        SELECT
+
+            V.id_venta,
+            V.total,
+            V.fecha_venta,
+            M.nombre_metodo
+
+        FROM ventas V
+
+        INNER JOIN metodo_pago M
+        ON V.id_metodo_pago = M.id_metodo_pago
+
+        WHERE
+            V.id_usuario = ?
+        
+
+    `;
+
+    db.query(sql, [id_usuario], (err, result) => {
+
+        if(err){
+
+            console.log(err);
+
+            return res.status(500).json({
+                success:false
+            });
+
+        }
+
+        let efectivo = 0;
+        let tarjeta = 0;
+
+        result.forEach(v => {
+
+    if(
+        v.nombre_metodo.toLowerCase() ===
+        "efectivo"
+    ){
+
+        efectivo += Number(v.total);
+
+    } else {
+
+        tarjeta += Number(v.total);
+
+    }
+
+});
+
+        const total =
+            efectivo + tarjeta;
+
+        /* DEVOLUCIONES */
+
+        const devSQL = `
+
+            SELECT COUNT(*) AS total
+
+            FROM devoluciones
+
+            WHERE id_usuario=?
+
+            AND DATE(fecha_devolucion)=CURDATE()
+
+        `;
+
+        db.query(devSQL, [id_usuario], (err2, devResult) => {
+
+            if(err2){
+
+                console.log(err2);
+
+                return res.status(500).json({
+                    success:false
+                });
+
+            }
+
+            res.json({
+
+                efectivo,
+                tarjeta,
+                total,
+
+                cantidadVentas:
+                    result.length,
+
+                devoluciones:
+                    devResult[0].total,
+
+                historial:
+                    result
+
+            });
+
+        });
+
+    });
+
+});
+
+/* DASHBOARD CAJERO */
+
+app.get('/dashboard-cajero/:id_usuario', (req, res) => {
+
+    const id_usuario =
+        req.params.id_usuario;
+
+    /* VENTAS HOY */
+
+    const ventasSQL = `
+
+        SELECT
+
+            COUNT(*) AS tickets,
+            SUM(total) AS totalVentas
+
+        FROM ventas
+
+        WHERE
+            id_usuario = ?
+
+    `;
+
+    db.query(ventasSQL, [id_usuario], (err, ventasResult) => {
+
+        if(err){
+
+            console.log(err);
+
+            return res.status(500).json({
+                success:false
+            });
+
+        }
+
+        /* DEVOLUCIONES */
+
+        const devSQL = `
+
+            SELECT COUNT(*) AS devoluciones
+
+            FROM devoluciones
+
+            WHERE
+                id_usuario = ?
+
+        `;
+
+        db.query(devSQL, [id_usuario], (err2, devResult) => {
+
+            if(err2){
+
+                console.log(err2);
+
+                return res.status(500).json({
+                    success:false
+                });
+
+            }
+
+            res.json({
+
+                ventasHoy:
+                    ventasResult[0].totalVentas || 0,
+
+                tickets:
+                    ventasResult[0].tickets || 0,
+
+                devoluciones:
+                    devResult[0].devoluciones || 0
+
+            });
+
+        });
+
+    });
+
+});
+
+/* DASHBOARD ALMACEN */
+
+app.get('/dashboard-almacen', (req, res) => {
+
+    /* PRODUCTOS DISPONIBLES */
+
+    const disponiblesSQL = `
+
+        SELECT COUNT(*) AS disponibles
+
+        FROM productos
+
+        WHERE estado_producto='Disponible'
+
+    `;
+
+    db.query(disponiblesSQL, (err, disponiblesResult) => {
+
+        if(err){
+
+            console.log(err);
+
+            return res.status(500).json({
+                success:false
+            });
+
+        }
+
+        /* ENTRADAS HOY */
+
+        const entradasSQL = `
+
+            SELECT COUNT(*) AS entradas
+
+            FROM productos
+
+            WHERE DATE(fecha_registro)=CURDATE()
+
+        `;
+
+        db.query(entradasSQL, (err2, entradasResult) => {
+
+            if(err2){
+
+                console.log(err2);
+
+                return res.status(500).json({
+                    success:false
+                });
+
+            }
+
+            /* SALIDAS HOY */
+
+            const salidasSQL = `
+
+                SELECT COUNT(*) AS salidas
+
+                FROM ventas
+
+                WHERE DATE(fecha_venta)=CURDATE()
+
+            `;
+
+            db.query(salidasSQL, (err3, salidasResult) => {
+
+                if(err3){
+
+                    console.log(err3);
+
+                    return res.status(500).json({
+                        success:false
+                    });
+
+                }
+
+                res.json({
+
+                    disponibles:
+                        disponiblesResult[0].disponibles,
+
+                    entradas:
+                        entradasResult[0].entradas,
+
+                    salidas:
+                        salidasResult[0].salidas
+
+                });
+
+            });
+
+        });
+
+    });
+
+});
+

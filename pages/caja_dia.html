@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Caja del Día
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/caja_dia.css"
+    >
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>
+
+        💰 Caja del Día
+
+    </h2>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>
+                Ventas Efectivo
+            </h3>
+
+            <p id="efectivo">
+                $0
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>
+                Ventas Tarjeta
+            </h3>
+
+            <p id="tarjeta">
+                $0
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>
+                Total Vendido
+            </h3>
+
+            <p id="total">
+                $0
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>
+                Ventas Realizadas
+            </h3>
+
+            <p id="ventas">
+                0
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>
+                Devoluciones
+            </h3>
+
+            <p id="devoluciones">
+                0
+            </p>
+
+        </div>
+
+    </div>
+
+    <h3>
+
+        Historial del Día
+
+    </h3>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Venta
+                </th>
+
+                <th>
+                    Método
+                </th>
+
+                <th>
+                    Total
+                </th>
+
+                <th>
+                    Fecha
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="tablaCaja">
+
+        </tbody>
+
+    </table>
+
+    <button onclick="window.location.href='dashboard_cajero.html'">
+
+        ⬅ Regresar
+
+    </button>
+
+</div>
+
+<script src="../js/caja_dia.js"></script>
+
+<script src="../js/protect.js"></script>
+
+<script>
+
+protegerPagina([
+    "Administrador",
+    "Vendedor"
+]);
+
+</script>
+
+</body>
+</html>

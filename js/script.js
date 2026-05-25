@@ -276,7 +276,7 @@ else {
 
     if (rol === "Vendedor") {
 
-        /* 🔥 AGREGAR OPCIÓN PANEL CAJERO */
+        /* AGREGAR OPCIÓN PANEL CAJERO */
 
         menu.innerHTML += `
 
@@ -304,29 +304,16 @@ else {
     /* ========================= */
 
     if (rol === "Inventario") {
+        menu.innerHTML += `
 
-        document.getElementById(
-            "bienvenida"
-        ).textContent =
+        <a href="./pages/dashboard_almacen.html">
 
-            "Panel de Inventario";
+            Panel de almacen
 
-        container.appendChild(
-            card("📦 Ver Inventario")
-        );
+        </a>
 
-        container.appendChild(
-            card("➕ Entrada Productos")
-        );
-
-        container.appendChild(
-            card("➖ Salida Productos")
-        );
-
-        container.appendChild(
-            card("🚨 Stock Bajo")
-        );
-
+    `;
+        
         setTimeout(() => {
 
             document.getElementById(

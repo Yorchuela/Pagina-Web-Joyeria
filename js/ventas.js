@@ -1,6 +1,6 @@
 let carrito = [];
 let clientes = [];
-let total = 0;
+let subtotal = 0;
 
 /* ========================= */
 /* CARGAR PRODUCTOS */
@@ -90,9 +90,9 @@ async function cargarProductos() {
 
 }
 
-/* ========================= */
+
 /* AGREGAR AL CARRITO */
-/* ========================= */
+
 
 async function agregarAlCarrito() {
 
@@ -172,9 +172,9 @@ async function agregarAlCarrito() {
 
 }
 
-/* ========================= */
+
 /* MOSTRAR CARRITO */
-/* ========================= */
+
 
 function mostrarCarrito() {
 
@@ -186,11 +186,11 @@ function mostrarCarrito() {
 
     tabla.innerHTML = "";
 
-    total = 0;
+    let subtotal = 0;
 
     carrito.forEach((item, index) => {
 
-        total += Number(item.precio);
+        subtotal += Number(item.precio);
 
         tabla.innerHTML += `
 
@@ -238,6 +238,23 @@ function mostrarCarrito() {
 
     });
 
+    const descuentoPorcentaje =
+
+        Number(
+            document.getElementById(
+                "descuento"
+            ).value
+        ) || 0;
+
+    const descuento =
+
+        subtotal *
+        (descuentoPorcentaje / 100);
+
+    const total =
+
+        subtotal - descuento;
+
     document.getElementById(
         "total"
     ).textContent =
@@ -247,9 +264,9 @@ function mostrarCarrito() {
 
 }
 
-/* ========================= */
+
 /* ELIMINAR */
-/* ========================= */
+
 
 function eliminarItem(index) {
 
@@ -271,9 +288,9 @@ function eliminarItem(index) {
 
 }
 
-/* ========================= */
+
 /* FINALIZAR VENTA */
-/* ========================= */
+
 
 async function finalizarVenta() {
 
@@ -294,6 +311,32 @@ async function finalizarVenta() {
         ).value;
 
     try {
+        const subtotal = carrito.reduce(
+
+            (acc, item) =>
+
+                acc + Number(item.precio),
+
+            0
+
+        );
+
+        const descuentoPorcentaje =
+
+            Number(
+                document.getElementById(
+                    "descuento"
+                ).value
+            ) || 0;
+
+        const descuento =
+
+            subtotal *
+            (descuentoPorcentaje / 100);
+
+        const total =
+
+            subtotal - descuento;
 
         const response =
 
@@ -325,7 +368,10 @@ async function finalizarVenta() {
                             ),
 
                         carrito,
-                        metodo_pago
+                        metodo_pago,
+                        subtotal,
+                        descuento,
+                        total
 
                     })
 
