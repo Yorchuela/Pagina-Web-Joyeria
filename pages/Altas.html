@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <link rel="stylesheet" href="../css/altas.css">
     <title>Registrar Cliente</title>
 
     <!-- CSS -->
@@ -13,94 +13,34 @@
 
 <body>
 
-    <!-- FORMULARIO -->
-    <form onsubmit="registrarCliente(event)">
+<form onsubmit="registrar(event)">
 
-        <h2>Crear cuenta</h2>
+    <h2>Crear cuenta</h2>
 
-        <!-- CORREO -->
-        <label>Correo Electrónico</label>
-        <input 
-            type="email"
-            id="correo"
-            placeholder="example@gmail.com"
-            required
-        >
+    <label>Correo Electronico</label>
+    <input type="email" id="correo" required>
 
-        <!-- NOMBRE -->
-        <label>Nombre</label>
-        <input 
-            type="text"
-            id="nombre"
-            placeholder="Ingrese su nombre"
-            required
-        >
+    <label>Nombre</label>
+    <input type="text" id="nombre" required>
 
-        <!-- APELLIDO PATERNO -->
-        <label>Apellido Paterno</label>
-        <input 
-            type="text"
-            id="apellidoP"
-            placeholder="Apellido paterno"
-            required
-        >
+    <label>Apellido Paterno</label>
+    <input type="text" id="ap" required>
 
-        <!-- APELLIDO MATERNO -->
-        <label>Apellido Materno</label>
-        <input 
-            type="text"
-            id="apellidoM"
-            placeholder="Apellido materno"
-            required
-        >
+    <label>Apellido Materno</label>
+    <input type="text" id="am" required>
 
-        <!-- TELÉFONO -->
-        <label>Teléfono</label>
-        <input 
-            type="tel"
-            id="telefono"
-            placeholder="6641234567"
-            required
-        >
+    <label>Teléfono</label>
+    <input type="tel" id="telefono" maxlength="10" required>
 
-        <!-- PASSWORD -->
-        <label>Contraseña</label>
-        <input 
-            type="password"
-            id="password"
-            placeholder="Ingrese contraseña"
-            required
-        >
+    <label>Contraseña</label>
+    <input type="password" id="password"  required>
 
-        <!-- CONFIRM PASSWORD -->
-        <label>Confirmar contraseña</label>
-        <input 
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirme contraseña"
-            required
-        >
+    <label>Confirme su contraseña</label>
+    <input type="password" id="confirmPassword" required>
 
-        <!-- BOTÓN -->
-        <button type="submit">
-            Guardar Cliente
-        </button>
+    <button type="submit">Guardar </button>
 
-        <!-- LOGIN -->
-        <div class="extra">
-
-            <p>¿Ya tienes cuenta?</p>
-
-            <a href="login.html">
-                Iniciar sesión
-            </a>
-
-        </div>
-
-    </form>
-
-    <!-- JS -->
-    <script src="../js/auth.js"></script>
-
+</form>
+<script src="../js/altas.js"></script>
 </body>
 </html>
