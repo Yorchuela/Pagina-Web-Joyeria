@@ -1,84 +1,217 @@
-document.addEventListener("DOMContentLoaded", () => {
-    cargarProductos();
-    mostrarMovimientos();
-});
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-// 🔽 Cargar productos en select
-function cargarProductos() {
-    const select = document.getElementById("producto");
-    let productos = JSON.parse(localStorage.getItem("productos")) || [];
+        cargarProductos();
+        mostrarMovimientos();
 
-    select.innerHTML = '<option disabled selected>Seleccione producto</option>';
 
-    productos.forEach((p, index) => {
-        select.innerHTML += `<option value="${index}">
-            ${p.nombre} (Stock: ${p.stock})
-        </option>`;
-    });
+    }
+);
+
+/* CARGAR PRODUCTOS */
+
+async function cargarProductos() {
+
+    try {
+
+        const response =
+
+            await fetch(
+                'http://localhost:3000/productos'
+            );
+
+        const productos =
+            await response.json();
+
+        const select =
+            document.getElementById(
+                "producto"
+            );
+
+        select.innerHTML = `
+
+            <option disabled selected>
+
+                Seleccione producto
+
+            </option>
+
+        `;
+
+        productos.forEach(p => {
+
+            select.innerHTML += `
+
+                <option value="${p.id_producto}">
+
+                    ${p.nombre_producto}
+
+                </option>
+
+            `;
+
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
 }
 
-// ➕ Registrar movimiento
-function registrarMovimiento(e) {
+async function registrarMovimiento(e) {
+
     e.preventDefault();
 
-    const index = document.getElementById("producto").value;
-    const tipo = document.getElementById("tipo").value;
-    const cantidad = parseInt(document.getElementById("cantidad").value);
-    const motivo = document.getElementById("motivo").value;
+    const id_producto =
 
-    let productos = JSON.parse(localStorage.getItem("productos")) || [];
-    let movimientos = JSON.parse(localStorage.getItem("movimientos")) || [];
+        document.getElementById(
+            "producto"
+        ).value;
 
-    let producto = productos[index];
+    const tipo_movimiento =
 
-    // VALIDAR STOCK
-    if (tipo === "salida" && producto.stock < cantidad) {
-        alert("Stock insuficiente");
-        return;
+        document.getElementById(
+            "tipo"
+        ).value;
+
+    const cantidad =
+
+        document.getElementById(
+            "cantidad"
+        ).value;
+
+    const motivo =
+
+        document.getElementById(
+            "motivo"
+        ).value;
+
+    const id_usuario =
+
+        localStorage.getItem(
+            "id_usuario"
+        );
+
+    try {
+
+        const response =
+
+            await fetch(
+
+                'http://localhost:3000/movimientos',
+
+                {
+
+                    method: 'POST',
+
+                    headers: {
+                        'Content-Type':
+                            'application/json'
+                    },
+
+                    body: JSON.stringify({
+
+                        id_producto,
+                        tipo_movimiento,
+                        motivo,
+                        cantidad,
+                        id_usuario
+
+                    })
+
+                }
+
+            );
+
+        const data =
+            await response.json();
+
+        if (data.success) {
+
+            alert(
+                'Movimiento registrado'
+            );
+            mostrarMovimientos();
+
+            document.querySelector(
+                "form"
+            ).reset();
+
+        }
+
+    } catch (error) {
+
+        console.log(error);
+
     }
 
-    // ACTUALIZAR STOCK
-    if (tipo === "entrada") {
-        producto.stock += cantidad;
-    } else {
-        producto.stock -= cantidad;
-    }
-
-    productos[index] = producto;
-    localStorage.setItem("productos", JSON.stringify(productos));
-
-    // GUARDAR MOVIMIENTO
-    movimientos.push({
-        producto: producto.nombre,
-        tipo,
-        cantidad,
-        motivo
-    });
-
-    localStorage.setItem("movimientos", JSON.stringify(movimientos));
-
-    alert("Movimiento guardado");
-
-    e.target.reset();
-    cargarProductos();
-    mostrarMovimientos();
 }
+/* MOSTRAR HISTORIAL */
 
-// 📋 Mostrar historial
-function mostrarMovimientos() {
-    const tabla = document.getElementById("tablaMovimientos");
-    tabla.innerHTML = "";
+async function mostrarMovimientos() {
 
-    let movimientos = JSON.parse(localStorage.getItem("movimientos")) || [];
+    try {
 
-    movimientos.forEach(m => {
-        tabla.innerHTML += `
-            <tr>
-                <td>${m.producto}</td>
-                <td>${m.tipo}</td>
-                <td>${m.cantidad}</td>
-                <td>${m.motivo}</td>
-            </tr>
-        `;
-    });
+        const response =
+
+            await fetch(
+                'http://localhost:3000/movimientos'
+            );
+
+        const movimientos =
+            await response.json();
+
+        const tabla =
+
+            document.getElementById(
+                "tablaMovimientos"
+            );
+
+        tabla.innerHTML = "";
+
+        movimientos.forEach(m => {
+
+            tabla.innerHTML += `
+
+                <tr>
+
+                    <td>
+
+                        ${m.nombre_producto}
+
+                    </td>
+
+                    <td>
+
+                        ${m.tipo_movimiento}
+
+                    </td>
+
+                    <td>
+
+                        ${m.cantidad}
+
+                    </td>
+
+                    <td>
+
+                        ${m.motivo}
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
 }

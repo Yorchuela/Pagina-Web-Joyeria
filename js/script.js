@@ -1,6 +1,12 @@
 // 🔐 OBTENER ROL (si no hay, es Invitado)
 const rol = localStorage.getItem("rol") || "Invitado";
 console.log("ROL ACTUAL:", rol);
+const nombreUsuario = localStorage.getItem("usuario") || "";
+const estaEnPages =
+
+    window.location.pathname
+        .includes('/pages/');
+document.getElementById("rolUsuario").textContent =
 
 const nombreUsuario = localStorage.getItem("usuario") || "";
 const estaEnPages = window.location.pathname.includes("/pages/");
@@ -43,15 +49,51 @@ function card(texto) {
 
 if (rol === "Invitado" || rol === "Cliente") {
 
-    if (menu) {
-        menu.innerHTML = `
-            <a href="${estaEnPages ? "../index.html" : "index.html"}">
-                Inicio
-            </a>
+) {
 
-            <a href="${estaEnPages ? "./categorias.html" : "./pages/categorias.html"}">
-                Categorías
-            </a>
+    menu.innerHTML = `
+
+    <a href="${estaEnPages
+            ?
+            '../index.html'
+            :
+            'index.html'
+        }">
+
+        Inicio
+
+    </a>
+
+    <a href="${estaEnPages
+            ?
+            './categorias.html'
+            :
+            './pages/categorias.html'
+        }">
+
+        Categorías
+
+    </a>
+
+    <a href="${estaEnPages
+            ?
+            './catalogo.html'
+            :
+            './pages/catalogo.html'
+        }">
+
+        Productos
+
+    </a>
+
+    
+
+    <a href="${estaEnPages
+            ?
+            './carrito.html'
+            :
+            './pages/carrito.html'
+        }">
 
             <a href="${estaEnPages ? "./catalogo.html" : "./pages/catalogo.html"}">
                 Productos
@@ -116,9 +158,33 @@ else {
         categorias.style.display = "none";
     }
 
-    if (btnLogin) {
-        btnLogin.style.display = "none";
-    }
+    btnLogin.style.display =
+        "none";
+
+    btnLogout.style.display =
+        "inline-block";
+
+    menu.innerHTML = `
+
+        <a href="index.html">
+
+            Inicio
+
+        </a>
+
+        <a href="./pages/clientes.html" id="clientes">
+
+            Clientes
+
+        </a>
+
+        <a href="./pages/productos.html" id="productos">
+
+            Productos
+
+        </a>
+
+        <a href="./pages/reporte_ventas.html" id="ventas">
 
     if (btnLogout) {
         btnLogout.style.display = "inline-block";
@@ -130,9 +196,7 @@ else {
                 Inicio
             </a>
 
-            <a href="#" id="clientes">
-                Clientes
-            </a>
+        <a href="./pages/Reportes.html" id="reportes">
 
             <a href="${estaEnPages ? "./productos.html" : "./pages/productos.html"}" id="productos">
                 Productos
@@ -174,27 +238,27 @@ else {
 
     if (rol === "Vendedor") {
 
-        if (bienvenida) {
-            bienvenida.textContent = "Panel de Vendedor";
-        }
+        /* AGREGAR OPCIÓN PANEL CAJERO */
 
-        if (container) {
-            container.appendChild(card("💰 Nueva Venta"));
-            container.appendChild(card("🏷 Aplicar Descuento"));
-            container.appendChild(card("🔄 Devolución"));
-            container.appendChild(card("👤 Clientes"));
-            container.appendChild(card("🧾 Caja del día"));
-        }
+        menu.innerHTML += `
 
-        setTimeout(() => {
+        <a href="./pages/dashboard_cajero.html">
 
-            const productos = document.getElementById("productos");
-            const reportes = document.getElementById("reportes");
+            Panel Cajero
 
-            if (productos) productos.style.display = "none";
-            if (reportes) reportes.style.display = "none";
+        </a>
 
-        }, 0);
+    `;
+
+        /*  OCULTAR REPORTES */
+
+
+        document.getElementById(
+            "reportes"
+        ).style.display =
+            "none";
+
+
     }
 
     /* ========================= */
@@ -202,18 +266,16 @@ else {
     /* ========================= */
 
     if (rol === "Inventario") {
+        menu.innerHTML += `
 
-        if (bienvenida) {
-            bienvenida.textContent = "Panel de Inventario";
-        }
+        <a href="./pages/dashboard_almacen.html">
 
-        if (container) {
-            container.appendChild(card("📦 Ver Inventario"));
-            container.appendChild(card("➕ Entrada Productos"));
-            container.appendChild(card("➖ Salida Productos"));
-            container.appendChild(card("🚨 Stock Bajo"));
-        }
+            Panel de almacen
 
+        </a>
+
+    `;
+        
         setTimeout(() => {
 
             const ventas = document.getElementById("ventas");
@@ -228,16 +290,20 @@ else {
     }
 }
 
-/* ========================= */
-/* LOGIN */
-/* ========================= */
-
 function irLogin() {
+
+    if (estaEnPages) {
+
+        window.location.href =
+            './login.html';
 
     if (estaEnPages) {
         window.location.href = "./login.html";
     } else {
-        window.location.href = "./pages/login.html";
+
+        window.location.href =
+            './pages/login.html';
+
     }
 }
 
@@ -253,7 +319,15 @@ function logout() {
     alert("Sesión cerrada");
 
     window.location.href =
+
         estaEnPages
-            ? "../index.html"
-            : "index.html";
+
+            ?
+
+            "../index.html"
+
+            :
+
+            "index.html";
+
 }

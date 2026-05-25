@@ -23,46 +23,97 @@
 
         <div class="card">
             <h3>Ventas Hoy</h3>
-            <p>$12,500</p>
+            <p id="ventasHoy">$0</p>
         </div>
 
         <div class="card">
             <h3>Devoluciones</h3>
-            <p>3</p>
+            <p id="devoluciones">0</p>
         </div>
 
         <div class="card">
             <h3>Total Tickets</h3>
-            <p>28</p>
+            <p id="tickets">0</p>
         </div>
 
     </div>
 
     <h3>⚡ Accesos rápidos</h3>
 
-    <div class="cards">
+<div class="cards accesos">
 
-        <div class="card">
-            <a href="ventas.html">Nueva Venta</a>
-        </div>
+    <div class="card acceso-card">
 
-        <div class="card">
-            <a href="clientes.html">Buscar Cliente</a>
-        </div>
+        <a href="ventas.html">
 
-        <div class="card">
-            <a href="devoluciones.html">Registrar Devolución</a>
-        </div>
+            <span class="icono">💰</span>
+
+            <h4>Nueva Venta</h4>
+
+        </a>
 
     </div>
+
+
+
+    <div class="card acceso-card">
+
+        <a href="devoluciones.html">
+
+            <span class="icono">🔄</span>
+
+            <h4>Devolución</h4>
+
+        </a>
+
+    </div>
+
+    <div class="card acceso-card">
+
+        <a href="clientes.html">
+
+            <span class="icono">👤</span>
+
+            <h4>Clientes</h4>
+
+        </a>
+
+    </div>
+
+    <div class="card acceso-card">
+
+        <a href="caja_dia.html">
+
+            <span class="icono">🧾</span>
+
+            <h4>Caja del Día</h4>
+
+        </a>
+
+    </div>
+
+    <div class="card acceso-card">
+
+        <a href="productos.html">
+
+            <span class="icono">📦</span>
+
+            <h4>Agregar Producto</h4>
+
+        </a>
+
+    </div>
+
+</div>
 
 </div>
 
 <script src="../js/auth.js"></script>
 
 <script>
-verificarRol(["admin", "cajero"]);
+verificarRol(["Administrador", "Vendedor"]);
 </script>
 
+<script src="../js/dashboard_cajero.js"></script>
 </body>
 </html>

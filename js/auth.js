@@ -60,6 +60,10 @@ async function login(event) {
                 "usuario",
                 data.usuario.nombre
             );
+            localStorage.setItem(
+                "id_usuario",
+                data.usuario.id_usuario
+            );
 
             alert('Login correcto');
 
@@ -84,8 +88,17 @@ async function login(event) {
 app.post('/login', (req, res) => {
     console.log("🔥 LOGIN LLEGÓ");
 
-    res.json({
-        success: true,
-        usuario: { nombre: "test", nombre_rol: "admin" }
-    });
-});
+}
+function verificarRol(rolesPermitidos) {
+
+    const rol = localStorage.getItem("rol");
+
+    if (!rolesPermitidos.includes(rol)) {
+
+        alert("Acceso denegado");
+
+        window.location.href = "../pages/login.html";
+
+    }
+
+}

@@ -204,35 +204,6 @@ button{
 }
 
 button:hover{
-    background:var(--american-blue);
-    transform:translateY(-2px);
+    background-color:#5566c8;
 }
 
-/* ===== RESPONSIVE ===== */
-
-@media (max-width:768px){
-
-    ul{
-        flex-wrap:wrap;
-        justify-content:center;
-        padding:15px;
-    }
-
-    .container{
-        padding:15px;
-    }
-
-    h2{
-        font-size:1.7rem;
-    }
-
-    .card p{
-        font-size:1.7rem;
-    }
-
-    table{
-        display:block;
-        overflow-x:auto;
-        white-space:nowrap;
-    }
-}

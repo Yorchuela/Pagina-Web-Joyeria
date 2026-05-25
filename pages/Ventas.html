@@ -11,146 +11,166 @@
 
     </title>
 
-    <link
-        rel="stylesheet"
-        href="../css/ventas.css"
-    >
+    <link rel="stylesheet" href="../css/ventas.css">
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <h2>
+        <h2>
 
-        💰 Registro de Venta
+            💰 Registro de Venta
 
-    </h2>
+        </h2>
 
-    <!-- PRODUCTO -->
+        <!-- PRODUCTO -->
 
-    <label>
+        <label>
 
-        Producto
+            Producto
 
-    </label>
+        </label>
 
-    <select id="producto">
+        <select id="producto">
 
-    </select>
+        </select>
 
-    <button onclick="agregarAlCarrito()">
+        <button onclick="agregarAlCarrito()">
 
-        ➕  Agregar
+            ➕ Agregar
 
-    </button>
+        </button>
+        <!-- CLIENTE -->
 
-    <!-- TABLA -->
+        <label>
 
-    <h3>
+            Cliente
 
-        Carrito de Venta
+        </label>
 
-    </h3>
+        <select id="cliente">
 
-    <table>
+            <option value="">
 
-        <thead>
+                Venta rápida
 
-            <tr>
+            </option>
 
-                <th>
-                    Producto
-                </th>
+        </select>
 
-                <th>
-                    Precio
-                </th>
+        <!-- TABLA -->
 
-                <th>
-                    Subtotal
-                </th>
+        <h3>
 
-                <th>
-                    Acción
-                </th>
+            Carrito de Venta
 
-            </tr>
+        </h3>
 
-        </thead>
+        <table>
 
-        <tbody id="carritoTabla">
+            <thead>
 
-        </tbody>
+                <tr>
 
-    </table>
+                    <th>
+                        Producto
+                    </th>
 
-    <!-- PAGO -->
+                    <th>
+                        Precio
+                    </th>
 
-    <label>
+                    <th>
+                        Subtotal
+                    </th>
 
-        Método de pago
+                    <th>
+                        Acción
+                    </th>
 
-    </label>
+                </tr>
 
-    <select id="pago">
+            </thead>
 
-        <option value="Efectivo">
+            <tbody id="carritoTabla">
 
-            Efectivo
+            </tbody>
 
-        </option>
+        </table>
 
-        <option value="Tarjeta">
+        <!-- PAGO -->
 
-            Tarjeta
+        <label>
 
-        </option>
+            Método de pago
 
-    </select>
+        </label>
 
-    <!-- TOTAL -->
+        <select id="pago">
 
-    <h2>
+            <option value="Efectivo">
 
-        Total:
+                Efectivo
 
-        $
+            </option>
 
-        <span id="total">
+            <option value="Tarjeta">
 
-            0
+                Tarjeta
 
-        </span>
+            </option>
 
-    </h2>
+        </select>
+        <!-- DESCUENTO -->
 
-    <!-- BOTÓN -->
+        <label>
 
-    <button
-        class="btn-finalizar"
-        onclick="finalizarVenta()"
-    >
+            Descuento %
 
-        Finalizar Venta
+        </label>
 
-    </button>
+        <input type="number" id="descuento" placeholder="0" min="0" max="100" value="0" oninput="mostrarCarrito()">
 
-</div>
+        <!-- TOTAL -->
 
-<script src="../js/ventas.js"></script>
+        <h2>
 
-<script src="../js/protect.js"></script>
+            Total:
 
-<script>
+            $
 
-protegerPagina([
-    "Administrador",
-    "Vendedor"
-]);
+            <span id="total">
 
-</script>
+                0
+
+            </span>
+
+        </h2>
+
+        <!-- BOTÓN -->
+
+        <button class="btn-finalizar" onclick="finalizarVenta()">
+
+            Finalizar Venta
+
+        </button>
+
+    </div>
+
+    <script src="../js/ventas.js"></script>
+
+    <script src="../js/protect.js"></script>
+
+    <script>
+
+        protegerPagina([
+            "Administrador",
+            "Vendedor"
+        ]);
+
+    </script>
 
 </body>
 
