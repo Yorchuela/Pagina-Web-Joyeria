@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Cajero</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+
+<ul>
+    <li><a href="dashboard_cajero.html">Inicio</a></li>
+    <li><a href="ventas.html">Ventas</a></li>
+    <li><a href="clientes.html">Clientes</a></li>
+    <li><a href="devoluciones.html">Devoluciones</a></li>
+</ul>
+
+<div class="container">
+
+    <h2>💰 Panel de Cajero</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Ventas Hoy</h3>
+            <p id="ventasHoy">$0</p>
+        </div>
+
+        <div class="card">
+            <h3>Devoluciones</h3>
+            <p id="devoluciones">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Tickets</h3>
+            <p id="tickets">0</p>
+        </div>
+
+    </div>
+
+    <h3>⚡ Accesos rápidos</h3>
+
+<div class="cards accesos">
+
+    <div class="card acceso-card">
+
+        <a href="ventas.html">
+
+            <span class="icono">💰</span>
+
+            <h4>Nueva Venta</h4>
+
+        </a>
+
+    </div>
+
+
+
+    <div class="card acceso-card">
+
+        <a href="devoluciones.html">
+
+            <span class="icono">🔄</span>
+
+            <h4>Devolución</h4>
+
+        </a>
+
+    </div>
+
+    <div class="card acceso-card">
+
+        <a href="clientes.html">
+
+            <span class="icono">👤</span>
+
+            <h4>Clientes</h4>
+
+        </a>
+
+    </div>
+
+    <div class="card acceso-card">
+
+        <a href="caja_dia.html">
+
+            <span class="icono">🧾</span>
+
+            <h4>Caja del Día</h4>
+
+        </a>
+
+    </div>
+
+    <div class="card acceso-card">
+
+        <a href="productos.html">
+
+            <span class="icono">📦</span>
+
+            <h4>Agregar Producto</h4>
+
+        </a>
+
+    </div>
+
+</div>
+
+</div>
+
+<script src="../js/auth.js"></script>
+
+<script>
+verificarRol(["Administrador", "Vendedor"]);
+</script>
+
+<script src="../js/dashboard_cajero.js"></script>
+</body>
+</html>

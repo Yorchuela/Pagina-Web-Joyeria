@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Almacén</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+
+<ul>
+    <li><a href="../index.html">Inicio</a></li>
+    <li><a href="productos.html">Productos</a></li>
+    <li><a href="movimientos.html">Movimientos</a></li>
+</ul>
+
+<div class="container">
+
+    <h2>📦 Panel de Almacén</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Productos Disponibles</h3>
+            <p id="productosDisponibles">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Entradas Hoy</h3>
+            <p id="entradasHoy">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Salidas Hoy</h3>
+            <p id="salidasHoy">0</p>
+        </div>
+
+    </div>
+
+    <h3>⚡ Accesos rápidos</h3>
+
+    <div class="cards">
+
+        <div class="card">
+            <a href="movimientos.html">Registrar Entrada</a>
+        </div>
+
+        <div class="card">
+            <a href="movimientos.html">Registrar Salida</a>
+        </div>
+
+        <div class="card">
+            <a href="productos.html">Ver Productos</a>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="../js/auth.js"></script>
+
+<script>
+verificarRol(["Administrador", "Inventario"]);
+</script>
+<script src="../js/dashboard_almacen.js"></script>
+</body>
+</html>

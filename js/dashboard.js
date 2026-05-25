@@ -11,54 +11,53 @@ const colores = {
     morado: "#8387c3"
 };
 
-function cargarDashboard(){
+async function cargarDashboard(){
 
-    let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
-    let productos = JSON.parse(localStorage.getItem("productos")) || [];
-    let devoluciones = JSON.parse(localStorage.getItem("devoluciones")) || [];
+    try{
 
-    let hoy = new Date().toLocaleDateString();
+        const id_usuario =
 
-    let ventasHoy = 0;
-    let devolucionesHoy = 0;
-    let totalCaja = 0;
-    let stockBajo = 0;
+            localStorage.getItem(
+                "id_usuario"
+            );
 
-    ventas.forEach(v => {
-        totalCaja += v.total;
-        if(v.fecha === hoy){
-            ventasHoy += v.total;
-        }
-    });
+        const response =
 
-    devoluciones.forEach(d => {
-        if(d.fecha === hoy){
-            devolucionesHoy++;
-        }
-    });
+            await fetch(
 
-    let tabla = document.getElementById("tablaStock");
-    tabla.innerHTML = "";
+                `http://localhost:3000/dashboard-cajero/${id_usuario}`
 
-    productos.forEach(p => {
-        if(p.stock <= 10){
-            stockBajo++;
+            );
 
-            tabla.innerHTML += `
-                <tr>
-                    <td>${p.nombre}</td>
-                    <td>${p.stock}</td>
-                </tr>
-            `;
-        }
-    });
+        const data =
+            await response.json();
 
-    document.getElementById("ventasHoy").textContent = "$" + ventasHoy;
-    document.getElementById("stockBajo").textContent = stockBajo;
-    document.getElementById("devolucionesHoy").textContent = devolucionesHoy;
-    document.getElementById("totalCaja").textContent = "$" + totalCaja;
+        document.getElementById(
+            "ventasHoy"
+        ).textContent =
+
+            `$${Number(data.ventasHoy)
+                .toLocaleString('es-MX')}`;
+
+        document.getElementById(
+            "devoluciones"
+        ).textContent =
+
+            data.devoluciones;
+
+        document.getElementById(
+            "tickets"
+        ).textContent =
+
+            data.tickets;
+
+    } catch(error){
+
+        console.log(error);
+
+    }
+
 }
-
 function cargarGraficas(){
 
     let ventas = JSON.parse(localStorage.getItem("ventas")) || [];

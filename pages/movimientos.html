@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/movimiento_inventario.css">
-    <script src="../js/inventario.js"></script>
     <title>Movimientos de Inventario</title>
 </head>
 
@@ -29,8 +28,7 @@
 
         <!-- CANTIDAD -->
         <label>Cantidad</label>
-        <input type="number" id="cantidad" placeholder="Cantidad de productos" required>
-
+        <input type="number" id="cantidad" value="1" min="1" readonly>
         <!-- MOTIVO -->
         <label>Motivo</label>
         <select id="motivo" required>
@@ -61,17 +59,14 @@
         <tbody id="tablaMovimientos"></tbody>
     </table>
 
-    <script src="../js/inventario.js"></script>
-
+    
 </body>
-<script src="../js/protect.js"></script>
 
+<script src="../js/movimientos.js"></script>
+
+<script src="../js/auth.js"></script>
 <script>
-
-protegerPagina([
-    "Administrador",
-    "Inventario"
-]);
-
+    verificarRol(["Administrador", "Inventario"]);
 </script>
+
 </html>

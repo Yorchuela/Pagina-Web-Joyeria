@@ -1,48 +1,132 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Clientes</title>
     <link rel="stylesheet" href="../css/clientes.css">
 </head>
+
 <body>
 
-<h2>Gestión de Clientes</h2>
+    <div class="container">
+        <a href="../index.html" class="btn-regresar">
 
-<!-- BUSCADOR -->
-<input type="text" id="buscador" placeholder="Buscar cliente..." onkeyup="buscarClientes()">
+            ← Regresar
 
-<!-- FORMULARIO -->
-<form onsubmit="guardarCliente(event)">
-    <input type="hidden" id="editIndex">
+        </a>
 
-    <input type="text" id="ap" placeholder="Apellido Paterno" required>
-    <input type="text" id="am" placeholder="Apellido Materno">
-    <input type="text" id="nombre" placeholder="Nombre" required>
-    
+        <h2>Gestión de Clientes</h2>
 
-    <input type="email" id="correo" placeholder="Correo" required>
-    <input type="tel" id="telefono" placeholder="Teléfono">
+        <div class="top-bar">
 
-    <button type="submit">Guardar Cliente</button>
-</form>
+            <div class="busqueda">
 
-<hr>
+                <label>
+                    Buscar por:
+                </label>
 
-<!-- TABLA -->
-<table border="1">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Teléfono</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody id="tablaClientes"></tbody>
-</table>
+                <select id="tipoBusqueda">
 
-<script src="../js/clientes.js"></script>
+                    <option value="nombre">
+                        Nombre
+                    </option>
 
+                    <option value="correo">
+                        Correo
+                    </option>
+
+                    <option value="telefono">
+                        Teléfono
+                    </option>
+
+                </select>
+
+                <input type="text" id="buscador" placeholder="Ingrese búsqueda...">
+
+                <button onclick="buscarClientes()">
+                    Buscar
+                </button>
+
+            </div>
+
+            <a href="Altas.html" class="btn-alta">
+
+                <button>
+                    Dar de alta cliente
+                </button>
+
+            </a>
+
+        </div>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Fecha Registro</th>
+                    <th>Acciones</th>
+
+
+                </tr>
+
+            </thead>
+
+            <tbody id="tablaClientes"></tbody>
+
+        </table>
+
+    </div>
+    <!-- MODAL EDITAR -->
+
+    <div id="modalEditar" class="modal">
+
+        <div class="modal-content">
+
+            <h3>Editar Cliente</h3>
+
+            <input type="hidden" id="editId">
+
+            <input type="text" id="editNombre" placeholder="Nombre">
+
+            <input type="text" id="editApellidoP" placeholder="Apellido Paterno">
+
+            <input type="text" id="editApellidoM" placeholder="Apellido Materno">
+
+            <input type="email" id="editCorreo" placeholder="Correo">
+
+            <input type="text" id="editTelefono" placeholder="Teléfono">
+
+            <div class="modal-buttons">
+
+                <button onclick="guardarEdicion()">
+                    Guardar
+                </button>
+
+                <button class="btn-cancelar" onclick="cerrarModal()">
+                    Cancelar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="../js/clientes.js"></script>
+
+    <script src="../js/auth.js"></script>
+
+    <script>
+        verificarRol(["Administrador", "Vendedor"]);
+    </script>
 </body>
+
 </html>
