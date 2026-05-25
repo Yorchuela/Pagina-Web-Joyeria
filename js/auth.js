@@ -48,6 +48,10 @@ async function login(event) {
                 "usuario",
                 data.usuario.nombre
             );
+            localStorage.setItem(
+                "id_usuario",
+                data.usuario.id_usuario
+            );
 
             alert('Login correcto');
 
@@ -207,6 +211,19 @@ async function recuperarPassword() {
         console.log(error);
 
         alert('Error servidor');
+
+    }
+
+}
+function verificarRol(rolesPermitidos) {
+
+    const rol = localStorage.getItem("rol");
+
+    if (!rolesPermitidos.includes(rol)) {
+
+        alert("Acceso denegado");
+
+        window.location.href = "../pages/login.html";
 
     }
 

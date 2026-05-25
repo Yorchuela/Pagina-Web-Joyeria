@@ -236,3 +236,32 @@ td img{
     margin:auto;
 
 }
+/* BOTON REGRESAR */
+
+.btn-regresar{
+
+    margin:20px;
+
+    padding:10px 20px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#8387c3;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-regresar:hover{
+
+    background:#6c70b5;
+
+}

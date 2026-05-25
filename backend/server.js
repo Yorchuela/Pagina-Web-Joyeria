@@ -585,7 +585,8 @@ app.get('/clientes', (req, res) => {
 
     const sql = `
     
-        SELECT * FROM Clientes
+        SELECT * FROM usuarios
+        WHERE id_rol = 4
     
     `;
 
@@ -593,24 +594,79 @@ app.get('/clientes', (req, res) => {
 
         if (err) {
 
+            console.log("ERROR SQL CLIENTES:");
             console.log(err);
 
-            res.status(500).json({
-                success: false
+            return res.status(500).json({
+                success: false,
+                error: err.sqlMessage
             });
 
-        } else {
+    } else {
 
-            res.json(result);
+        res.json(result);
 
-        }
+    }
 
     });
+
+});
+/* BUSCAR CLIENTE */
+app.get('/clientes/buscar', (req, res) => {
+
+    const { tipo, texto } = req.query;
+
+    const columnasPermitidas = [
+        "nombre",
+        "correo",
+        "telefono"
+    ];
+
+    if (!columnasPermitidas.includes(tipo)) {
+
+        return res.status(400).json({
+            success: false
+        });
+
+    }
+
+    const sql = `
+    
+        SELECT *
+        FROM usuarios
+        WHERE id_rol = 4
+        AND ${tipo} LIKE ?
+    
+    `;
+
+    db.query(
+        sql,
+        [`%${texto}%`],
+        (err, result) => {
+
+            if (err) {
+
+                console.log(err);
+
+                res.status(500).json({
+                    success: false
+                });
+
+            } else {
+
+                res.json(result);
+
+            }
+
+        }
+    );
 
 });
 /* AGREGAR CLIENTE */
 
 app.post('/clientes', (req, res) => {
+    const passwordTemporal =
+        bcrypt.hashSync("123456", 10);
 
     const {
         apellido_paterno,
@@ -622,15 +678,17 @@ app.post('/clientes', (req, res) => {
 
     const sql = `
     
-        INSERT INTO Clientes
+        INSERT INTO usuarios
         (
             apellido_paterno,
             apellido_materno,
             nombre,
             correo,
-            telefono
+            telefono,
+            password, 
+            id_rol
         )
-        VALUES(?,?,?,?,?)
+        VALUES(?,?,?,?,?,?,?)
     
     `;
 
@@ -640,7 +698,9 @@ app.post('/clientes', (req, res) => {
             apellido_materno,
             nombre,
             correo,
-            telefono
+            telefono,
+            passwordTemporal,
+            4
         ],
         (err, result) => {
 
@@ -664,7 +724,94 @@ app.post('/clientes', (req, res) => {
         });
 
 });
-/* ELIMINAR PRODUCTO */
+/* ELIMINAR CLIENTE */
+app.delete('/clientes/:id', (req, res) => {
+
+    const id = req.params.id;
+
+    const sql = `
+    
+        DELETE FROM usuarios
+        WHERE id_usuario = ?
+    
+    `;
+
+    db.query(sql, [id], (err, result) => {
+
+        if(err){
+
+            console.log(err);
+
+            return res.status(500).json({
+                success:false
+            });
+
+        }
+
+        res.json({
+            success:true
+        });
+
+    });
+
+});
+/*  CLIENTE */
+app.put('/clientes/:id', (req, res) => {
+
+    const id = req.params.id;
+
+    const {
+        nombre,
+        apellido_paterno,
+        apellido_materno,
+        correo,
+        telefono
+    } = req.body;
+
+    const sql = `
+    
+        UPDATE usuarios
+        SET
+            nombre=?,
+            apellido_paterno=?,
+            apellido_materno=?,
+            correo=?,
+            telefono=?
+        WHERE id_usuario=?
+    
+    `;
+
+    db.query(
+        sql,
+        [
+            nombre,
+            apellido_paterno,
+            apellido_materno,
+            correo,
+            telefono,
+            id
+        ],
+        (err, result) => {
+
+            if(err){
+
+                console.log(err);
+
+                return res.status(500).json({
+                    success:false
+                });
+
+            }
+
+            res.json({
+                success:true
+            });
+
+        }
+    );
+
+});
+/* EDITAR CLEINTE  */
 
 app.delete('/productos/:id', (req, res) => {
 
@@ -902,8 +1049,8 @@ app.put(
 app.post('/ventas', (req, res) => {
 
     const {
-
-        id_cliente,
+        id_cliente, 
+        id_usuario,
         carrito,
         metodo_pago
 
@@ -919,18 +1066,18 @@ app.post('/ventas', (req, res) => {
 
     const descuento = 0;
 
-const total = subtotal;
+    const total = subtotal;
 
-/* METODO PAGO */
+    /* METODO PAGO */
 
-let id_metodo_pago = 1;
+    let id_metodo_pago = 1;
 
-if(metodo_pago === 'Tarjeta'){
+    if (metodo_pago === 'Tarjeta') {
 
-    id_metodo_pago = 2;
+        id_metodo_pago = 2;
 
-}
-    
+    }
+
 
     /* INSERTAR VENTA */
 
@@ -938,7 +1085,8 @@ if(metodo_pago === 'Tarjeta'){
 
        INSERT INTO ventas (
 
-            id_cliente,
+            id_cliente, 
+            id_usuario,
             id_metodo_pago,
             subtotal,
             descuento,
@@ -946,7 +1094,7 @@ if(metodo_pago === 'Tarjeta'){
 
         )
 
-        VALUES (?,?,?,?,?)
+        VALUES (?,?,?,?,?,?)
 
     `;
 
@@ -956,7 +1104,7 @@ if(metodo_pago === 'Tarjeta'){
 
         [
 
-            id_cliente,
+            id_usuario,
             id_metodo_pago,
             subtotal,
             descuento,

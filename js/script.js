@@ -4,8 +4,8 @@ console.log("ROL ACTUAL:", rol);
 const nombreUsuario = localStorage.getItem("usuario") || "";
 const estaEnPages =
 
-window.location.pathname
-.includes('/pages/');
+    window.location.pathname
+        .includes('/pages/');
 document.getElementById("rolUsuario").textContent =
 
     rol === "Invitado"
@@ -64,37 +64,34 @@ if (
 
     menu.innerHTML = `
 
-    <a href="${
-        estaEnPages
-        ?
-        '../index.html'
-        :
-        'index.html'
-    }">
+    <a href="${estaEnPages
+            ?
+            '../index.html'
+            :
+            'index.html'
+        }">
 
         Inicio
 
     </a>
 
-    <a href="${
-        estaEnPages
-        ?
-        './categorias.html'
-        :
-        './pages/categorias.html'
-    }">
+    <a href="${estaEnPages
+            ?
+            './categorias.html'
+            :
+            './pages/categorias.html'
+        }">
 
         Categorías
 
     </a>
 
-    <a href="${
-        estaEnPages
-        ?
-        './catalogo.html'
-        :
-        './pages/catalogo.html'
-    }">
+    <a href="${estaEnPages
+            ?
+            './catalogo.html'
+            :
+            './pages/catalogo.html'
+        }">
 
         Productos
 
@@ -102,13 +99,12 @@ if (
 
     
 
-    <a href="${
-        estaEnPages
-        ?
-        './carrito.html'
-        :
-        './pages/carrito.html'
-    }">
+    <a href="${estaEnPages
+            ?
+            './carrito.html'
+            :
+            './pages/carrito.html'
+        }">
 
         Carrito 🛒
 
@@ -210,7 +206,7 @@ else {
 
         </a>
 
-        <a href="#" id="clientes">
+        <a href="./pages/clientes.html" id="clientes">
 
             Clientes
 
@@ -222,13 +218,13 @@ else {
 
         </a>
 
-        <a href="#" id="ventas">
+        <a href="./pages/reporte_ventas.html" id="ventas">
 
             Ventas
 
         </a>
 
-        <a href="#" id="reportes">
+        <a href="./pages/Reportes.html" id="reportes">
 
             Reportes
 
@@ -280,45 +276,26 @@ else {
 
     if (rol === "Vendedor") {
 
+        /* 🔥 AGREGAR OPCIÓN PANEL CAJERO */
+
+        menu.innerHTML += `
+
+        <a href="./pages/dashboard_cajero.html">
+
+            Panel Cajero
+
+        </a>
+
+    `;
+
+        /*  OCULTAR REPORTES */
+
+
         document.getElementById(
-            "bienvenida"
-        ).textContent =
+            "reportes"
+        ).style.display =
+            "none";
 
-            "Panel de Vendedor";
-
-        container.appendChild(
-            card("💰 Nueva Venta")
-        );
-
-        container.appendChild(
-            card("🏷 Aplicar Descuento")
-        );
-
-        container.appendChild(
-            card("🔄 Devolución")
-        );
-
-        container.appendChild(
-            card("👤 Clientes")
-        );
-
-        container.appendChild(
-            card("🧾 Caja del día")
-        );
-
-        setTimeout(() => {
-
-            document.getElementById(
-                "productos"
-            ).style.display =
-                "none";
-
-            document.getElementById(
-                "reportes"
-            ).style.display =
-                "none";
-
-        }, 0);
 
     }
 
@@ -373,17 +350,17 @@ else {
 
 }
 
-function irLogin(){
+function irLogin() {
 
-    if(estaEnPages){
+    if (estaEnPages) {
 
         window.location.href =
-        './login.html';
+            './login.html';
 
     } else {
 
         window.location.href =
-        './pages/login.html';
+            './pages/login.html';
 
     }
 
@@ -398,14 +375,14 @@ function logout() {
 
     window.location.href =
 
-    estaEnPages
+        estaEnPages
 
-    ?
+            ?
 
-    "../index.html"
+            "../index.html"
 
-    :
+            :
 
-    "index.html";
+            "index.html";
 
 }

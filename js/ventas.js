@@ -1,5 +1,5 @@
 let carrito = [];
-
+let clientes = [];
 let total = 0;
 
 /* ========================= */
@@ -13,6 +13,7 @@ document.addEventListener(
     () => {
 
         cargarProductos();
+        cargarClientes();
 
     }
 
@@ -311,7 +312,17 @@ async function finalizarVenta() {
 
                     body: JSON.stringify({
 
-                        id_cliente: 1,
+                        id_cliente:
+
+                            document.getElementById(
+                                "cliente"
+                            ).value || null,
+
+                        id_usuario:
+
+                            localStorage.getItem(
+                                "id_usuario"
+                            ),
 
                         carrito,
                         metodo_pago
@@ -338,6 +349,43 @@ async function finalizarVenta() {
             cargarProductos();
 
         }
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+async function cargarClientes() {
+
+    try {
+
+        const response =
+            await fetch(
+                'http://localhost:3000/clientes'
+            );
+
+        clientes =
+            await response.json();
+
+        const select =
+            document.getElementById("cliente");
+
+        clientes.forEach(c => {
+
+            select.innerHTML += `
+            
+                <option value="${c.id_usuario}">
+
+                    ${c.nombre}
+                    ${c.apellido_paterno || ''}
+
+                </option>
+            
+            `;
+
+        });
 
     } catch (error) {
 
