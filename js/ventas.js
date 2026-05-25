@@ -1,6 +1,6 @@
 let carrito = [];
-
-let total = 0;
+let clientes = [];
+let subtotal = 0;
 
 /* ========================= */
 /* CARGAR PRODUCTOS */
@@ -13,6 +13,7 @@ document.addEventListener(
     () => {
 
         cargarProductos();
+        cargarClientes();
 
     }
 
@@ -89,9 +90,9 @@ async function cargarProductos() {
 
 }
 
-/* ========================= */
+
 /* AGREGAR AL CARRITO */
-/* ========================= */
+
 
 async function agregarAlCarrito() {
 
@@ -171,9 +172,9 @@ async function agregarAlCarrito() {
 
 }
 
-/* ========================= */
+
 /* MOSTRAR CARRITO */
-/* ========================= */
+
 
 function mostrarCarrito() {
 
@@ -185,11 +186,11 @@ function mostrarCarrito() {
 
     tabla.innerHTML = "";
 
-    total = 0;
+    let subtotal = 0;
 
     carrito.forEach((item, index) => {
 
-        total += Number(item.precio);
+        subtotal += Number(item.precio);
 
         tabla.innerHTML += `
 
@@ -237,6 +238,23 @@ function mostrarCarrito() {
 
     });
 
+    const descuentoPorcentaje =
+
+        Number(
+            document.getElementById(
+                "descuento"
+            ).value
+        ) || 0;
+
+    const descuento =
+
+        subtotal *
+        (descuentoPorcentaje / 100);
+
+    const total =
+
+        subtotal - descuento;
+
     document.getElementById(
         "total"
     ).textContent =
@@ -246,9 +264,9 @@ function mostrarCarrito() {
 
 }
 
-/* ========================= */
+
 /* ELIMINAR */
-/* ========================= */
+
 
 function eliminarItem(index) {
 
@@ -270,9 +288,9 @@ function eliminarItem(index) {
 
 }
 
-/* ========================= */
+
 /* FINALIZAR VENTA */
-/* ========================= */
+
 
 async function finalizarVenta() {
 
@@ -293,6 +311,32 @@ async function finalizarVenta() {
         ).value;
 
     try {
+        const subtotal = carrito.reduce(
+
+            (acc, item) =>
+
+                acc + Number(item.precio),
+
+            0
+
+        );
+
+        const descuentoPorcentaje =
+
+            Number(
+                document.getElementById(
+                    "descuento"
+                ).value
+            ) || 0;
+
+        const descuento =
+
+            subtotal *
+            (descuentoPorcentaje / 100);
+
+        const total =
+
+            subtotal - descuento;
 
         const response =
 
@@ -311,10 +355,23 @@ async function finalizarVenta() {
 
                     body: JSON.stringify({
 
-                        id_cliente: 1,
+                        id_cliente:
+
+                            document.getElementById(
+                                "cliente"
+                            ).value || null,
+
+                        id_usuario:
+
+                            localStorage.getItem(
+                                "id_usuario"
+                            ),
 
                         carrito,
-                        metodo_pago
+                        metodo_pago,
+                        subtotal,
+                        descuento,
+                        total
 
                     })
 
@@ -338,6 +395,43 @@ async function finalizarVenta() {
             cargarProductos();
 
         }
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+async function cargarClientes() {
+
+    try {
+
+        const response =
+            await fetch(
+                'http://localhost:3000/clientes'
+            );
+
+        clientes =
+            await response.json();
+
+        const select =
+            document.getElementById("cliente");
+
+        clientes.forEach(c => {
+
+            select.innerHTML += `
+            
+                <option value="${c.id_usuario}">
+
+                    ${c.nombre}
+                    ${c.apellido_paterno || ''}
+
+                </option>
+            
+            `;
+
+        });
 
     } catch (error) {
 

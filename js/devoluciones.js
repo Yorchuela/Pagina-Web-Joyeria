@@ -1,132 +1,230 @@
-// 🔥 INICIAR
 document.addEventListener("DOMContentLoaded", () => {
+
     cargarVentas();
+
     mostrarDevoluciones();
+
 });
 
-// 🔹 Cargar ventas en select
-function cargarVentas(){
-    let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
-    let select = document.getElementById("ventaSelect");
+/* CARGAR VENTAS */
 
-    select.innerHTML = "<option value=''>Selecciona una venta</option>";
+async function cargarVentas(){
 
-    ventas.forEach(v => {
-        let option = document.createElement("option");
-        option.value = v.id;
-        option.textContent = "Venta #" + v.id + " - $" + v.total;
-        select.appendChild(option);
-    });
+    try{
+
+        const response =
+            await fetch('http://localhost:3000/ventas');
+
+        const ventas =
+            await response.json();
+
+        const select =
+            document.getElementById("ventaSelect");
+
+        select.innerHTML =
+            `<option value="">Selecciona venta</option>`;
+
+        ventas.forEach(v => {
+
+            select.innerHTML += `
+
+                <option value="${v.id_venta}">
+
+                    Venta #${v.id_venta}
+                    - $${v.total}
+
+                </option>
+
+            `;
+
+        });
+
+    } catch(error){
+
+        console.log(error);
+
+    }
+
 }
 
-// 🔹 Cargar productos según venta
-document.getElementById("ventaSelect").addEventListener("change", function(){
+/* CAMBIO VENTA */
 
-    let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
-    let idVenta = this.value;
+document.getElementById("ventaSelect")
+.addEventListener("change", cargarProductosVenta);
 
-    let venta = ventas.find(v => v.id == idVenta);
+/* PRODUCTOS VENTA */
 
-    let selectProducto = document.getElementById("productoDevolucion");
-    selectProducto.innerHTML = "";
+async function cargarProductosVenta(){
 
-    if(!venta) return;
+    const id_venta =
+        document.getElementById("ventaSelect").value;
 
-    venta.productos.forEach(p => {
-        let option = document.createElement("option");
-        option.value = p.id;
-        option.textContent = p.nombre + " (Compró: " + p.cantidad + ")";
-        selectProducto.appendChild(option);
-    });
-});
+    if(!id_venta) return;
 
-// 🔥 REALIZAR DEVOLUCIÓN
-function realizarDevolucion(){
+    try{
 
-    let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
-    let productos = JSON.parse(localStorage.getItem("productos")) || [];
-    let devoluciones = JSON.parse(localStorage.getItem("devoluciones")) || [];
+        const response =
+            await fetch(
 
-    let idVenta = document.getElementById("ventaSelect").value;
-    let idProducto = document.getElementById("productoDevolucion").value;
-    let cantidad = parseInt(document.getElementById("cantidadDev").value);
+                `http://localhost:3000/ventas/${id_venta}/productos`
 
-    if(!idVenta || !idProducto){
+            );
+
+        const productos =
+            await response.json();
+
+        const select =
+            document.getElementById("productoDevolucion");
+
+        select.innerHTML = "";
+
+        productos.forEach(p => {
+
+            select.innerHTML += `
+
+                <option value="${p.id_producto}">
+
+                    ${p.nombre_producto}
+
+                </option>
+
+            `;
+
+        });
+
+    } catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+/* REALIZAR DEVOLUCION */
+
+async function realizarDevolucion(){
+
+    const id_venta =
+        document.getElementById("ventaSelect").value;
+
+    const id_producto =
+        document.getElementById("productoDevolucion").value;
+
+    const motivo =
+        document.getElementById("motivo").value;
+
+    if(!id_venta || !id_producto){
+
         alert("Selecciona venta y producto");
+
         return;
+
     }
 
-    if(!cantidad || cantidad <= 0){
-        alert("Cantidad inválida");
-        return;
+    try{
+
+        const response =
+            await fetch(
+
+                'http://localhost:3000/devoluciones',
+
+                {
+
+                    method:'POST',
+
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+
+                    body: JSON.stringify({
+
+                        id_venta,
+                        id_producto,
+                        id_usuario:
+                            localStorage.getItem("id_usuario"),
+
+                        motivo
+
+                    })
+
+                }
+
+            );
+
+        const data =
+            await response.json();
+
+        if(data.success){
+
+            alert("Devolución realizada");
+
+            mostrarDevoluciones();
+
+        }
+
+    } catch(error){
+
+        console.log(error);
+
     }
 
-    let venta = ventas.find(v => v.id == idVenta);
-    let productoVenta = venta.productos.find(p => p.id == idProducto);
-    let productoStock = productos.find(p => p.id == idProducto);
-
-    if(cantidad > productoVenta.cantidad){
-        alert("No puedes devolver más de lo comprado");
-        return;
-    }
-
-    // 🔥 REGRESAR STOCK
-    productoStock.stock += cantidad;
-
-    // 🔥 DESCONTAR DE LA VENTA
-    productoVenta.cantidad -= cantidad;
-
-    // eliminar producto si queda en 0
-    if(productoVenta.cantidad === 0){
-        venta.productos = venta.productos.filter(p => p.id != idProducto);
-    }
-
-    // 🔥 RECALCULAR TOTAL
-    venta.total = venta.productos.reduce((acc, p) => {
-        return acc + (p.precio * p.cantidad);
-    }, 0);
-
-    // 🔥 REGISTRAR DEVOLUCIÓN
-    let nuevaDev = {
-        id: Date.now(),
-        idVenta,
-        producto: productoVenta.nombre,
-        cantidad,
-        fecha: new Date().toLocaleDateString()
-    };
-
-    devoluciones.push(nuevaDev);
-
-    // 🔥 GUARDAR TODO
-    localStorage.setItem("ventas", JSON.stringify(ventas));
-    localStorage.setItem("productos", JSON.stringify(productos));
-    localStorage.setItem("devoluciones", JSON.stringify(devoluciones));
-
-    alert("Devolución realizada correctamente");
-
-    // 🔄 ACTUALIZAR
-    cargarVentas();
-    mostrarDevoluciones();
-
-    document.getElementById("cantidadDev").value = "";
 }
 
-// 🔥 MOSTRAR HISTORIAL
-function mostrarDevoluciones(){
-    let devoluciones = JSON.parse(localStorage.getItem("devoluciones")) || [];
-    let tabla = document.getElementById("tablaDevoluciones");
+/* MOSTRAR DEVOLUCIONES */
 
-    tabla.innerHTML = "";
+async function mostrarDevoluciones(){
 
-    devoluciones.forEach(d => {
-        let fila = `
-            <tr>
-                <td>${d.idVenta}</td>
-                <td>${d.producto}</td>
-                <td>${d.cantidad}</td>
-                <td>${d.fecha}</td>
-            </tr>
-        `;
-        tabla.innerHTML += fila;
-    });
+    try{
+
+        const response =
+            await fetch(
+                'http://localhost:3000/devoluciones'
+            );
+
+        const devoluciones =
+            await response.json();
+
+        const tabla =
+            document.getElementById("tablaDevoluciones");
+
+        tabla.innerHTML = "";
+
+        devoluciones.forEach(d => {
+
+            tabla.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        ${d.id_venta}
+                    </td>
+
+                    <td>
+                        ${d.nombre_producto}
+                    </td>
+
+                    <td>
+                        ${d.nombre}
+                    </td>
+
+                    <td>
+                        ${d.motivo}
+                    </td>
+
+                    <td>
+                        ${d.fecha_devolucion}
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+    } catch(error){
+
+        console.log(error);
+
+    }
+
 }

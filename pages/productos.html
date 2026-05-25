@@ -14,9 +14,33 @@
 
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <div class="logo">Joyeria Web</div>
+    <h2>Gestión de Productos</h2>
+    <button class="btn-regresar" onclick="
+    window.location.href=
+    '../index.html'
+    ">
+
+        ⬅ Regresar
+
+    </button>
+    <!--Agregar un producto-->
+    <table border="1">
+        <div class="acciones-superior">
+
+            <button class="btn-agregar" onclick="irAgregarProducto()">
+
+                ➕ Agregar Producto
+
+            </button>
+
+        </div>
+    </table>
+
+
+    <!-- BUSCADOR -->
+    <input type="text" id="buscador" placeholder="Buscar producto..." onkeyup="buscarProductos()">
+
+    <hr>
 
         <nav id="menu"></nav>
 
