@@ -118,3 +118,15 @@ tr:hover{
     color:#c1121f;
     font-weight:bold;
 }
+
+.btn-regresar{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    width: auto;
+    height: auto;
+    padding: 10px 15px;
+
+    font-size: 14px;
+}

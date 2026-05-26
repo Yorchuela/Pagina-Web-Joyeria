@@ -1,267 +1,234 @@
 body{
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    background-color:#8387c3;
-
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f5f6ff;
     margin:0;
-
     padding:30px;
-
     color:#0a1123;
-
 }
 
-/* TITULO */
+/* =========================
+   TITULO
+========================= */
 
 h2{
-
     text-align:center;
-
     margin-bottom:25px;
-
+    color:#8387c3;
 }
 
-/* BUSCADOR */
+/* =========================
+   BUSCADOR
+========================= */
 
 #buscador{
-
-    width:250px;
-
-    padding:10px;
+    width:260px;
+    padding:10px 12px;
 
     border:1px solid #d6d8f5;
+    border-radius:10px;
 
-    border-radius:8px;
-
-    background:#f5f6ff;
+    background:#ffffff;
 
     margin-bottom:20px;
 
+    transition:.3s;
 }
 
-/* FORMULARIO */
+#buscador:focus{
+    outline:none;
+    border-color:#8387c3;
+    box-shadow:0 0 0 3px rgba(131,135,195,.2);
+}
+
+/* =========================
+   FORMULARIO MODERNO
+========================= */
 
 form{
-
     display:flex;
-
     flex-direction:column;
+    gap:16px;
 
-    gap:25px;
+    background:white;
+    padding:25px;
 
+    border-radius:16px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    margin-bottom:30px;
 }
 
 /* INPUTS */
 
 input,
 select{
-
-    padding:10px;
+    padding:10px 12px;
 
     border:1px solid #d6d8f5;
+    border-radius:10px;
 
-    border-radius:8px;
+    background:#f9f9ff;
 
-    background:#f5f6ff;
-
+    transition:.3s;
 }
-
-/* FOCUS */
 
 input:focus,
 select:focus{
-
     outline:none;
-
     border-color:#8387c3;
-
     background:white;
 
+    box-shadow:0 0 0 3px rgba(131,135,195,.15);
 }
 
-/* BOTONES */
+/* =========================
+   BOTONES
+========================= */
 
 button{
-
     padding:10px 15px;
 
     background:#8387c3;
-
     border:none;
-
-    border-radius:8px;
+    border-radius:10px;
 
     color:white;
-
     font-weight:bold;
 
     cursor:pointer;
-
-    transition:0.3s;
-
+    transition:.3s;
 }
 
 button:hover{
-
     background:#6c70b5;
-
+    transform:translateY(-2px);
 }
 
-/* TABLA */
+/* BOTÓN AGREGAR */
+
+.btn-agregar{
+    background:#6c70b5;
+    padding:12px 20px;
+    font-size:15px;
+}
+
+.btn-agregar:hover{
+    background:#5b5fa3;
+}
+
+/* =========================
+   CONTENEDOR ACCIONES
+========================= */
+
+.acciones-superior{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:15px;
+}
+
+/* =========================
+   TABLA MODERNA
+========================= */
 
 table{
-
     width:100%;
-
     border-collapse:collapse;
 
     background:white;
 
-    border-radius:12px;
-
+    border-radius:16px;
     overflow:hidden;
 
-    box-shadow:0px 10px 25px #00000020;
-
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
-/* CABECERA */
+/* HEADER */
 
 th{
-
     background:#8387c3;
-
-    color:black;
+    color:white;
 
     padding:15px;
-
+    text-align:center;
+    font-weight:bold;
 }
 
 /* CELDAS */
 
 td{
-
     padding:15px;
-
     text-align:center;
 
-    border-bottom:1px solid #00000020;
+    border-bottom:1px solid #f0f0ff;
 
     vertical-align:middle;
-
 }
 
 /* HOVER FILAS */
 
 tr:hover{
-
-    background:#00000020;
-
-}
-/* CONTENEDOR SUPERIOR */
-
-.acciones-superior{
-
-    display:flex;
-
-    justify-content:flex-end;
-
-    margin-bottom:15px;
-
+    background:#f3f4ff;
 }
 
-/* BOTON AGREGAR */
-
-.btn-agregar{
-
-    background:#6c70b5;
-
-    padding:12px 20px;
-
-    font-size:15px;
-
-}
-
-.btn-agregar:hover{
-
-    background:#5b5fa3;
-
-}
-/* ACCIONES */
-
-.acciones{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
-
-    align-items:center;
-
-}
-
-/* BOTONES ACCIONES */
-
-.acciones button{
-
-    width:120px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:8px;
-
-    white-space:nowrap;
-
-}
-/* IMAGEN PRODUCTOS */
+/* =========================
+   IMAGEN PRODUCTO
+========================= */
 
 td img{
-
-    width:120px;
-
-    height:120px;
+    width:85px;
+    height:85px;
 
     object-fit:cover;
 
     border-radius:10px;
 
     display:block;
-
     margin:auto;
-
 }
-/* BOTON REGRESAR */
+
+/* =========================
+   ACCIONES
+========================= */
+
+.acciones{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    align-items:center;
+}
+
+.acciones button{
+    width:120px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    gap:8px;
+}
+
+/* =========================
+   BOTÓN REGRESAR
+========================= */
 
 .btn-regresar{
-
-    margin:20px;
-
+    margin:20px 0;
     padding:10px 20px;
 
     border:none;
-
     border-radius:10px;
 
     background:#8387c3;
-
     color:white;
 
     font-weight:bold;
 
     cursor:pointer;
-
     transition:.3s;
-
 }
 
 .btn-regresar:hover{
-
     background:#6c70b5;
-
+    transform:translateY(-2px);
 }

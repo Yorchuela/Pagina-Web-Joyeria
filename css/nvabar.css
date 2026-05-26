@@ -1,0 +1,18 @@
+ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    background:#4b4f8f;
+    display:flex;
+}
+
+ul li a{
+    display:block;
+    color:white;
+    padding:15px 20px;
+    text-decoration:none;
+}
+
+ul li a:hover{
+    background:#363a73;
+}

@@ -136,3 +136,29 @@ button:hover{
     background-color:#5566c8;
 }
 
+.btn-volver{
+    display: inline-block;
+
+    margin: 20px 0 0 60px; /* arriba derecha abajo izquierda */
+
+    padding: 12px 20px;
+
+    background-color: #5a5fd8;
+    color: white;
+
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+
+    border-radius: 8px;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+
+    transition: all 0.3s ease;
+}
+
+.btn-volver:hover{
+    background-color: #4549b8;
+    transform: translateY(-2px);
+}
+
