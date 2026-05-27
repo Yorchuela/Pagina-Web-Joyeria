@@ -237,6 +237,15 @@ else {
     /* ========================= */
 
     if (rol === "Administrador") {
+        menu.innerHTML += `
+
+        <a href="./pages/dashboard.html">
+
+            Panel Administrador
+
+        </a>
+
+    `;
 
         document.getElementById(
             "bienvenida"
