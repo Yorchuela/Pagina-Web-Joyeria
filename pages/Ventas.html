@@ -5,22 +5,32 @@
 
     <meta charset="UTF-8">
 
-    <title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-        Ventas
+    <title>Ventas</title>
 
-    </title>
-
-    <link rel="stylesheet" href="../css/ventas.css">
+    <link rel="stylesheet"
+          href="../css/ventas.css">
 
 </head>
 
 <body>
 
-    
+    <!-- BOTON REGRESAR -->
 
+    <a href="../index.html"
+       class="btn-volver">
+
+        ← Regresar
+
+    </a>
+
+    <!-- CONTENEDOR -->
 
     <div class="container">
+
+        <!-- TITULO -->
 
         <h2>
 
@@ -45,6 +55,7 @@
             ➕ Agregar
 
         </button>
+
         <!-- CLIENTE -->
 
         <label>
@@ -77,21 +88,13 @@
 
                 <tr>
 
-                    <th>
-                        Producto
-                    </th>
+                    <th>Producto</th>
 
-                    <th>
-                        Precio
-                    </th>
+                    <th>Precio</th>
 
-                    <th>
-                        Subtotal
-                    </th>
+                    <th>Subtotal</th>
 
-                    <th>
-                        Acción
-                    </th>
+                    <th>Acción</th>
 
                 </tr>
 
@@ -103,7 +106,7 @@
 
         </table>
 
-        <!-- PAGO -->
+        <!-- METODO PAGO -->
 
         <label>
 
@@ -126,6 +129,7 @@
             </option>
 
         </select>
+
         <!-- DESCUENTO -->
 
         <label>
@@ -134,33 +138,47 @@
 
         </label>
 
-        <input type="number" id="descuento" placeholder="0" min="0" max="100" value="0" oninput="mostrarCarrito()">
+        <input
+            type="number"
+            id="descuento"
+            placeholder="0"
+            min="0"
+            max="100"
+            value="0"
+            oninput="mostrarCarrito()"
+        >
 
         <!-- TOTAL -->
 
-        <h2>
+        <div class="total-container">
 
-            Total:
+            <h2>
 
-            $
+                Total:
+                $
 
-            <span id="total">
+                <span id="total">
 
-                0
+                    0
 
-            </span>
+                </span>
 
-        </h2>
+            </h2>
 
-        <!-- BOTÓN -->
+        </div>
 
-        <button class="btn-finalizar" onclick="finalizarVenta()">
+        <!-- BOTON FINALIZAR -->
+
+        <button class="btn-finalizar"
+                onclick="finalizarVenta()">
 
             Finalizar Venta
 
         </button>
 
     </div>
+
+    <!-- SCRIPTS -->
 
     <script src="../js/ventas.js"></script>
 
@@ -176,9 +194,5 @@
     </script>
 
 </body>
-
-<button class="btn-regresar" onclick="history.back()">
-    ← Regresar
-</button>
 
 </html>

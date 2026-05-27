@@ -1,168 +1,352 @@
-/* ===== ESTILOS GENERALES ===== */
+/* =========================
+   VARIABLES
+========================= */
+
+:root{
+    --negro:#081225;
+    --azul:#0f172a;
+
+    --dorado:#d4af37;
+    --dorado-hover:#b89228;
+
+    --morado:#6366f1;
+    --morado-hover:#4f46e5;
+
+    --blanco:#ffffff;
+    --gris:#64748b;
+    --fondo:#f8fafc;
+
+    --sombra:
+        0 12px 30px rgba(0,0,0,.12);
+}
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
 
 body{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #8387c3;
-    margin: 0;
-    min-height: 100vh;
+    background:
+        linear-gradient(
+            rgba(248,250,252,.95),
+            rgba(248,250,252,.95)
+        ),
+        url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338');
+
+    background-size:cover;
+    background-position:center;
+
+    min-height:100vh;
+
+    color:#333;
 }
 
-/* ===== CONTENEDOR PRINCIPAL ===== */
-
-.container{
-    width: 90%;
-    max-width: 1000px;
-    margin: 40px auto;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
-}
-
-/* ===== TITULOS ===== */
-
-h2{
-    text-align: center;
-    color: #333;
-    margin-top: 0;
-    margin-bottom: 25px;
-}
-
-/* ===== MENÚ ===== */
-
-ul{
-    list-style: none;
-    padding: 0;
-    margin: 30px 0 30px 0;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-li{
-    display: inline-block;
-}
-
-li a{
-    text-decoration: none;
-    background-color: #ffffff;
-    color: #5566c8;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: bold;
-    border: 1px solid #d0d4ff;
-    transition: 0.3s;
-}
-
-li a:hover{
-    background-color: #5566c8;
-    color: #ffffff;
-}
-
-/* ===== FORMULARIOS ===== */
-
-label{
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    color: #333;
-    font-size: 14px;
-}
-
-input{
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #d0d4ff;
-    border-radius: 6px;
-    background-color: #f5f6ff;
-    box-sizing: border-box;
-}
-
-button{
-    margin-top: 15px;
-    width: 100%;
-    padding: 12px;
-
-    background-color: #8387c3;
-    color: white;
-
-    border: none;
-    border-radius: 6px;
-
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-button:hover{
-    background-color: #5566c8;
-}
-
-/* ===== TABLAS ===== */
-
-table{
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    background-color: #ffffff;
-}
-
-th{
-    background-color: #5566c8;
-    color: #ffffff;
-    padding: 12px;
-    font-size: 14px;
-    text-align: center;
-}
-
-td{
-    padding: 12px;
-    border-bottom: 1px solid #eeeeee;
-    text-align: center;
-}
-
-tr:hover{
-    background-color: #f5f6ff;
-}
-
-/* ===== TOTALES ===== */
-
-h3{
-    margin-top: 20px;
-    text-align: center;
-    color: #5566c8;
-}
-
-/* ===== RESPONSIVE ===== */
-
-@media (max-width: 768px){
-
-    .container{
-        width: 95%;
-        padding: 20px;
-    }
-
-    ul{
-        flex-direction: column;
-        align-items: center;
-    }
-
-    li a{
-        display: block;
-        width: 220px;
-        text-align: center;
-    }
-}
+/* =========================
+   BOTON VOLVER
+========================= */
 
 .btn-volver{
     display:inline-block;
-    margin-top: 40px;   /* baja el botón */
-    margin-left: 100px; /* lo mueve a la derecha */
 
-    padding:10px 18px;
-    background-color:#4b4f8f;
+    margin-top:30px;
+    margin-left:30px;
+
+    padding:14px 24px;
+
+    background:var(--negro);
     color:white;
+
     text-decoration:none;
-    border-radius:8px;
+
+    border-radius:14px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+    box-shadow:var(--sombra);
+}
+
+.btn-volver:hover{
+    background:var(--dorado);
+
+    color:black;
+
+    transform:translateY(-3px);
+}
+
+/* =========================
+   MENU REPORTES
+========================= */
+
+ul{
+    list-style:none;
+
+    display:flex;
+    justify-content:center;
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    padding-top:40px;
+
+    margin-bottom:35px;
+}
+
+li a{
+    text-decoration:none;
+
+    background:white;
+    color:var(--morado);
+
+    padding:14px 26px;
+
+    border-radius:14px;
+
+    font-weight:bold;
+    font-size:16px;
+
+    border:1px solid #e5e7eb;
+
+    transition:.3s;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.05);
+}
+
+li a:hover{
+    background:var(--morado);
+
+    color:white;
+
+    transform:translateY(-3px);
+}
+
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+
+.container{
+    width:90%;
+    max-width:1200px;
+
+    margin:20px auto 60px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:24px;
+
+    box-shadow:var(--sombra);
+}
+
+/* =========================
+   TITULOS
+========================= */
+
+h2{
+    text-align:center;
+
+    font-size:48px;
+
+    color:var(--negro);
+
+    margin-bottom:35px;
+}
+
+h3{
+    margin-top:30px;
+
+    text-align:center;
+
+    font-size:36px;
+
+    color:var(--morado);
+}
+
+/* =========================
+   FORMULARIOS
+========================= */
+
+label{
+    display:block;
+
+    margin-bottom:10px;
+
+    color:#334155;
+
+    font-weight:600;
+
+    font-size:15px;
+}
+
+input{
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #dbe4ff;
+
+    border-radius:12px;
+
+    background:#f8fafc;
+
+    font-size:15px;
+
+    transition:.3s;
+}
+
+input:focus{
+    outline:none;
+
+    border-color:var(--morado);
+
+    box-shadow:
+        0 0 0 4px rgba(99,102,241,.15);
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+button{
+    width:100%;
+
+    margin-top:18px;
+
+    padding:15px;
+
+    border:none;
+    border-radius:14px;
+
+    background:var(--morado);
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+button:hover{
+    background:var(--morado-hover);
+
+    transform:translateY(-2px);
+}
+
+/* =========================
+   TABLA
+========================= */
+
+table{
+    width:100%;
+
+    margin-top:30px;
+
+    border-collapse:collapse;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.05);
+}
+
+/* HEADER TABLA */
+
+th{
+    background:var(--morado);
+
+    color:white;
+
+    padding:18px;
+
+    font-size:15px;
+
+    text-align:center;
+}
+
+/* CELDAS */
+
+td{
+    padding:18px;
+
+    text-align:center;
+
+    border-bottom:1px solid #eef2ff;
+
+    font-size:15px;
+}
+
+/* HOVER FILAS */
+
+tr:hover{
+    background:#f8faff;
+}
+
+/* =========================
+   TOTAL
+========================= */
+
+.total-general{
+    margin-top:30px;
+
+    text-align:center;
+
+    font-size:34px;
+
+    font-weight:bold;
+
+    color:var(--morado);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .container{
+        width:95%;
+
+        padding:25px;
+    }
+
+    h2{
+        font-size:34px;
+    }
+
+    h3{
+        font-size:28px;
+    }
+
+    ul{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    li a{
+        width:240px;
+
+        text-align:center;
+    }
+
+    table{
+        display:block;
+        overflow-x:auto;
+    }
+
+    .btn-volver{
+        margin-left:20px;
+    }
 }

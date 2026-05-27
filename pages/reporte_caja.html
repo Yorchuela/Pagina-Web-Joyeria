@@ -1,49 +1,170 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Reporte de Caja</title>
+
+    <title>
+
+        Reporte de Caja
+
+    </title>
+
     <link rel="stylesheet" href="../css/reportes.css">
+
 </head>
+
 <body>
 
-     <!-- BOTÓN VOLVER -->
-    <a href="../index.html" class="btn-volver">← Volver al Inicio</a>
+    <!-- BOTÓN REGRESAR -->
+
+   <a href="javascript:history.back()" class="btn-volver">
+    ← Regresar
+</a>
+
     <!-- MENÚ -->
+
     <ul>
-        <li><a href="reporte_caja.html">Reporte de Caja</a></li>
-        <li><a href="reporte_ventas.html">Reporte de Ventas</a></li>
-        <li><a href="reporte_inventario.html">Reporte de Inventario</a></li>
+
+        <li>
+
+            <a href="reporte_caja.html">
+
+                Reporte de Caja
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="reporte_ventas.html">
+
+                Reporte de Ventas
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="reporte_inventario.html">
+
+                Reporte de Inventario
+
+            </a>
+
+        </li>
+
     </ul>
 
     <div class="container">
-        <h2>Reporte de Caja</h2>
+
+        <h2>
+
+            Reporte de Caja
+
+        </h2>
 
         <!-- FILTRO -->
-        <label>Filtrar por fecha</label>
+
+        <label>
+
+            Filtrar por fecha
+
+        </label>
+
         <input type="date" id="filtroFecha">
 
-        <button onclick="filtrarCaja()">Filtrar</button>
+        <button onclick="filtrarCaja()">
+
+            Filtrar
+
+        </button>
 
         <!-- TABLA -->
+
         <table>
+
             <thead>
+
                 <tr>
-                    <th>Fecha</th>
-                    <th>Ingresos</th>
-                    <th>Egresos (Devoluciones)</th>
-                    <th>Ganancia</th>
+
+                    <th>
+
+                        Fecha
+
+                    </th>
+
+                    <th>
+
+                        Ingresos
+
+                    </th>
+
+                    <th>
+
+                        Egresos (Devoluciones)
+
+                    </th>
+
+                    <th>
+
+                        Ganancia
+
+                    </th>
+
                 </tr>
+
             </thead>
+
             <tbody id="tablaCaja"></tbody>
+
         </table>
 
-        <h3>Ingresos Totales: $<span id="ingresos">0</span></h3>
-        <h3>Egresos Totales: $<span id="egresos">0</span></h3>
-        <h3>Ganancia Neta: $<span id="ganancia">0</span></h3>
+        <h3>
+
+            Ingresos Totales: $
+
+            <span id="ingresos">
+
+                0
+
+            </span>
+
+        </h3>
+
+        <h3>
+
+            Egresos Totales: $
+
+            <span id="egresos">
+
+                0
+
+            </span>
+
+        </h3>
+
+        <h3>
+
+            Ganancia Neta: $
+
+            <span id="ganancia">
+
+                0
+
+            </span>
+
+        </h3>
+
     </div>
 
     <script src="reporte_caja.js"></script>
+
+    <script src="../js/protect.js"></script>
+
 </body>
-<script src="../js/protect.js"></script>
+
 </html>
