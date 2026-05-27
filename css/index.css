@@ -109,37 +109,13 @@ nav a:hover{
     gap:15px;
 }
 
-#btnLogin,
-#btnLogout{
-    padding:13px 24px;
-
-    border:none;
-    border-radius:12px;
-
-    background:var(--dorado);
-    color:black;
-
-    font-weight:bold;
-    font-size:15px;
-
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-#btnLogin:hover,
-#btnLogout:hover{
-    background:var(--dorado-hover);
-
-    transform:translateY(-3px);
-}
 
 /* =========================
    HERO
 ========================= */
 
 .hero{
-    height:40vh;
+    height:60vh;
 
     background:
         linear-gradient(
@@ -171,6 +147,7 @@ nav a:hover{
 
     line-height:1.1;
 
+    margin-top: -80px;
     margin-bottom:20px;
 }
 
@@ -212,7 +189,7 @@ nav a:hover{
 ========================= */
 
 .opciones{
-    padding:10px 40px;
+    padding:-30px 40px;
 
     text-align:center;
 
@@ -330,7 +307,7 @@ nav a:hover{
 
     gap:35px;
 
-    padding:90px 40px;
+    padding: 0 40px 40px 40px;
 
     background:white;
 }
@@ -573,4 +550,37 @@ footer{
 
         margin:auto;
     }
+}
+
+#btnLogin,
+#btnLogout{
+
+    padding:14px 28px;
+
+    border:none;
+    border-radius:14px;
+
+    background:#d4af37;
+    color:black;
+
+    font-weight:bold;
+    font-size:15px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:
+        0 8px 20px rgba(212,175,55,.25);
+}
+
+#btnLogin:hover,
+#btnLogout:hover{
+
+    background:#b89228;
+
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 12px 25px rgba(212,175,55,.35);
 }
