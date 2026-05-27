@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+
+        Gestión Usuarios
+
+    </title>
+
+    <link rel="stylesheet" href="../css/usuarios.css">
+
+</head>
+
+<body>
+
+    <h2>
+
+        Gestión de Usuarios
+
+    </h2>
+
+    <!-- BOTÓN REGRESAR -->
+
+    <button class="btn-regresar" onclick="
+        window.location.href=
+        '../index.html'
+        ">
+
+        ⬅ Regresar
+
+    </button>
+
+    <!-- ACCIONES -->
+
+    <div class="acciones-superior">
+
+        <button class="btn-agregar" onclick="abrirModalCrear()">
+
+            ➕ Agregar Usuario
+
+        </button>
+
+    </div>
+
+    <!-- BUSCADOR -->
+
+    <input type="text" id="buscador" placeholder="Buscar usuario..." onkeyup="buscarUsuarios()">
+
+    <hr>
+
+    <!-- TABLA -->
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Nombre</th>
+
+                <th>Apellido P</th>
+
+                <th>Apellido M</th>
+                
+                <th>Correo</th>
+
+                <th>Teléfono</th>
+
+                <th>Rol</th>
+
+                <th>Estado</th>
+
+                <th>Fecha</th>
+
+                <th>Acciones</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="tablaUsuarios">
+
+        </tbody>
+
+    </table>
+
+    <!-- MODAL -->
+
+    <div class="modal" id="modalUsuario">
+
+        <div class="modal-contenido">
+
+            <h3 id="tituloModal">
+
+                Nuevo Usuario
+
+            </h3>
+
+            <form id="formUsuario">
+
+                <input type="hidden" id="id_usuario">
+
+                <input type="text" id="nombre" placeholder="Nombre" required>
+
+                <input type="text" id="apellido_paterno" placeholder="Apellido paterno" required>
+
+                <input type="text" id="apellido_materno" placeholder="Apellido materno">
+
+                <input type="email" id="correo" placeholder="Correo" required>
+
+                <input type="text" id="telefono" placeholder="Teléfono">
+                <!-- PASSWORD -->
+
+                <div class="password-box">
+
+                    <input type="password" id="password" placeholder="Contraseña">
+
+                    <span class="toggle-password" onclick="togglePassword('password', this)">
+
+                        👁
+
+                    </span>
+
+                </div>
+
+                <!-- CONFIRMAR PASSWORD -->
+
+                <div class="password-box">
+
+                    <input type="password" id="confirmar_password" placeholder="Confirmar contraseña">
+
+                    <span class="toggle-password" onclick="togglePassword('confirmar_password', this)">
+
+                        👁
+
+                    </span>
+
+                </div>
+
+
+
+                <select id="id_rol">
+
+                    <option value="1">
+
+                        Administrador
+
+                    </option>
+
+                    <option value="2">
+
+                        Vendedor
+
+                    </option>
+
+                    <option value="3">
+
+                        Inventario
+
+                    </option>
+
+                    <option value="4">
+
+                        Cliente
+
+                    </option>
+
+                </select>
+
+                <div class="modal-botones">
+
+                    <button type="submit">
+
+                        Guardar
+
+                    </button>
+
+                    <button type="button" onclick="cerrarModal()">
+
+                        Cancelar
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script src="../js/protect.js"></script>
+
+    <script>
+
+        protegerPagina(["Administrador"]);
+
+    </script>
+
+    <script src="../js/usuarios.js"></script>
+
+</body>
+
+</html>
