@@ -181,3 +181,40 @@ footer{
         grid-template-columns:1fr;
     }
 }
+
+/* =========================
+   BOTON LOGIN / LOGOUT
+========================= */
+
+#btnLogin,
+#btnLogout{
+
+    padding:14px 28px;
+
+    border:none;
+    border-radius:14px;
+
+    background:#d4af37;
+    color:black;
+
+    font-weight:bold;
+    font-size:15px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:
+        0 8px 20px rgba(212,175,55,.25);
+}
+
+#btnLogin:hover,
+#btnLogout:hover{
+
+    background:#b89228;
+
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 12px 25px rgba(212,175,55,.35);
+}
