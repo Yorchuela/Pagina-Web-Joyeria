@@ -61,3 +61,39 @@ transition:0.3s;
 button:hover{
 background-color:#6c70b5;
 }
+
+/* =========================
+   BOTON REGRESAR
+========================= */
+
+.contenedor-regresar{
+    position:absolute;
+    top:30px;
+    left:30px;
+}
+
+.btn-regresar{
+    padding:12px 22px;
+
+    border:none;
+    border-radius:12px;
+
+    background:#0f172a;
+    color:white;
+
+    font-weight:bold;
+    font-size:15px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+.btn-regresar:hover{
+    background:#d4af37;
+    color:black;
+
+    transform:translateY(-3px);
+}

@@ -1,70 +1,161 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Joyeria Yorch</title>
-    <link rel="stylesheet" href="css/index.css">
+
+    <link rel="stylesheet"
+          href="css/index.css">
 </head>
+
 <body>
 
-<header>
-    <div class="logo">Joyeria Web</div>
+<!-- =========================
+     HEADER
+========================= -->
 
+<header>
+
+    <!-- LOGO -->
+    <div class="logo">
+        Joyeria Web
+    </div>
+
+    <!-- MENU -->
     <nav id="menu"></nav>
 
-    <div class="user" id="rolUsuario"></div>
+    <!-- USUARIO -->
+    <div class="user"
+         id="rolUsuario"></div>
 
     <!-- BOTONES -->
-    <button id="btnLogin" onclick="irLogin()">Iniciar sesión</button>
-    <button id="btnLogout" onclick="logout()" style="display:none;">Cerrar sesión</button>
+    <div class="acciones-header">
+
+        <button id="btnLogin"
+                onclick="irLogin()">
+
+            Iniciar sesión
+
+        </button>
+
+        <button id="btnLogout"
+                onclick="logout()"
+                style="display:none;">
+
+            Cerrar sesión
+
+        </button>
+
+    </div>
+
 </header>
 
-<!-- HERO -->
+<!-- =========================
+     HERO
+========================= -->
+
 <section class="hero">
+
     <div class="hero-text">
-        <h1 id="tituloHero">Elegancia y Estilo</h1>
-        <p id="textoHero">Descubre nuestras piezas exclusivas</p>
-        <button id="btnHero">Ver colección</button>
+
+        <h1 id="tituloHero">
+            Elegancia y Estilo
+        </h1>
+
+        <p id="textoHero">
+            Descubre nuestras piezas exclusivas
+        </p>
+
+        <button id="btnHero"
+        onclick="window.location.href='./pages/catalogo.html'">
+
+        Ver colección
+
+</button>
+
     </div>
+
 </section>
 
-<!-- OPCIONES SEGÚN ROL -->
+<!-- =========================
+     OPCIONES
+========================= -->
+
 <section class="opciones">
 
     <h2 id="tituloPanel"></h2>
 
-    <div class="cards-panel" id="panelOpciones"></div>
+    <div class="cards-panel"
+         id="panelOpciones"></div>
 
 </section>
 
-<!-- CATEGORÍAS -->
-<section class="categorias" id="categorias">
+<!-- =========================
+     CATEGORIAS
+========================= -->
+
+<section class="categorias"
+         id="categorias">
+
     <div class="card">
-        <img src="https://via.placeholder.com/200">
+
+        <img src="https://via.placeholder.com/300x250">
+
         <h3>Anillos</h3>
+
     </div>
+
     <div class="card">
-        <img src="https://via.placeholder.com/200">
+
+        <img src="https://via.placeholder.com/300x250">
+
         <h3>Pulseras</h3>
+
     </div>
+
     <div class="card">
-        <img src="https://via.placeholder.com/200">
+
+        <img src="https://via.placeholder.com/300x250">
+
         <h3>Collares</h3>
+
     </div>
+
 </section>
 
-<!-- DASHBOARD -->
-<section class="dashboard" id="dashboard" style="display:none;">
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<section class="dashboard"
+         id="dashboard"
+         style="display:none;">
+
     <h2 id="bienvenida"></h2>
-    <div class="cards" id="cardsContainer"></div>
+
+    <div class="cards"
+         id="cardsContainer"></div>
+
 </section>
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
-    <p>© 2026 Joyeria Yorch</p>
+
+    <p>
+        © 2026 Joyeria Yorch
+    </p>
+
 </footer>
 
 <script src="./js/script.js"></script>
+
 </body>
 </html>
-
- <h1>fffff</h1>

@@ -1,121 +1,168 @@
+/* ===== ESTILOS GENERALES ===== */
+
 body{
     font-family: Arial, Helvetica, sans-serif;
-    background-color:#8387c3;
-    margin:0;
-    align-items:flex-start;
-    min-height:100vh;
+    background-color: #8387c3;
+    margin: 0;
+    min-height: 100vh;
 }
 
-/* 🔥 CONTENEDOR */
+/* ===== CONTENEDOR PRINCIPAL ===== */
+
 .container{
-    width:100%;
-    max-width:900px;
-    margin-top:40px auto;
-    background-color:#ffffff;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0px 10px 25px #00000033;
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
 }
 
-/* TITULOS */
+/* ===== TITULOS ===== */
+
 h2{
-    text-align:center;
-    color:#333;
-    margin-bottom:20px;
+    text-align: center;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 25px;
 }
 
-/* 🔥 MENÚ PRO */
+/* ===== MENÚ ===== */
+
 ul{
-    list-style:none;
-    padding:0;
-    margin-bottom:20px;
-    display:flex;
-    justify-content:center;
-    gap:15px;
+    list-style: none;
+    padding: 0;
+    margin: 30px 0 30px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 li{
-    display:inline;
+    display: inline-block;
 }
 
 li a{
-    text-decoration:none;
-    background-color:#ffffff;
-    color:#5566c8;
-    padding:10px 18px;
-    border-radius:8px;
-    font-weight:bold;
-    border:1px solid #d0d4ff;
-    transition:0.3s;
+    text-decoration: none;
+    background-color: #ffffff;
+    color: #5566c8;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    border: 1px solid #d0d4ff;
+    transition: 0.3s;
 }
 
 li a:hover{
-    background-color:#5566c8;
-    color:#ffffff;
+    background-color: #5566c8;
+    color: #ffffff;
 }
 
-/* 🔥 FILTROS */
+/* ===== FORMULARIOS ===== */
+
 label{
-    display:block;
-    margin-top:15px;
-    margin-bottom:5px;
-    color:#333;
-    font-size:14px;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 14px;
 }
 
 input{
-    width:100%;
-    padding:10px;
-    border:1px solid #d0d4ff;
-    border-radius:6px;
-    background-color:#f5f6ff;
-    box-sizing:border-box;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d0d4ff;
+    border-radius: 6px;
+    background-color: #f5f6ff;
+    box-sizing: border-box;
 }
 
 button{
-    margin-top:15px;
-    padding:10px;
-    width:100%;
-    background-color:#8387c3;
-    color:white;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-    font-weight:bold;
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+
+    background-color: #8387c3;
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
 button:hover{
-    background-color:#5566c8;
+    background-color: #5566c8;
 }
 
-/* 🔥 TABLA MEJORADA */
+/* ===== TABLAS ===== */
+
 table{
-    width:100%; /* 🔥 ya no 50% */
-    margin-top:20px;
-    border-collapse:collapse;
-    background-color:#ffffff;
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: #ffffff;
 }
 
 th{
-    background-color:#5566c8;
-    color:#ffffff;
-    padding:12px;
-    font-size:14px;
+    background-color: #5566c8;
+    color: #ffffff;
+    padding: 12px;
+    font-size: 14px;
+    text-align: center;
 }
 
 td{
-    padding:12px;
-    border-bottom:1px solid #eee;
-    text-align:center;
+    padding: 12px;
+    border-bottom: 1px solid #eeeeee;
+    text-align: center;
 }
 
 tr:hover{
-    background-color:#f5f6ff;
+    background-color: #f5f6ff;
 }
 
-/* 🔥 TOTALES */
+/* ===== TOTALES ===== */
+
 h3{
-    margin-top:20px;
-    text-align:right;
-    color:#5566c8;
+    margin-top: 20px;
+    text-align: center;
+    color: #5566c8;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px){
+
+    .container{
+        width: 95%;
+        padding: 20px;
+    }
+
+    ul{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    li a{
+        display: block;
+        width: 220px;
+        text-align: center;
+    }
+}
+
+.btn-volver{
+    display:inline-block;
+    margin-top: 40px;   /* baja el botón */
+    margin-left: 100px; /* lo mueve a la derecha */
+
+    padding:10px 18px;
+    background-color:#4b4f8f;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
 }
