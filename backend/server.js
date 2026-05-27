@@ -115,7 +115,6 @@ app.post('/movimientos', (req, res) => {
                 });
 
             }
-
             res.json({
                 success: true
             });
@@ -129,33 +128,64 @@ app.post('/movimientos', (req, res) => {
 
 app.get('/movimientos', (req, res) => {
 
-    const sql = `
+    const {
 
-        SELECT
+        fechaInicio,
+        fechaFin
 
-            M.id_movimiento,
-            M.tipo_movimiento,
-            M.cantidad,
-            M.motivo,
-            M.fecha_movimiento,
+    } = req.query;
 
-            P.nombre_producto,
+    let sql = `
 
-            U.nombre
+    SELECT
 
-        FROM movimientos_inventario M
+        M.id_movimiento,
+        P.id_producto,
+        M.tipo_movimiento,
+        M.cantidad,
+        M.motivo,
+        M.fecha_movimiento,
 
-        INNER JOIN productos P
-        ON M.id_producto = P.id_producto
+        P.nombre_producto,
 
-        INNER JOIN usuarios U
-        ON M.id_usuario = U.id_usuario
+        U.nombre
 
-        ORDER BY M.id_movimiento DESC
+    FROM movimientos_inventario M
+
+    INNER JOIN productos P
+    ON M.id_producto = P.id_producto
+
+    INNER JOIN usuarios U
+    ON M.id_usuario = U.id_usuario
+
+`;
+
+    let valores = [];
+
+    if (fechaInicio && fechaFin) {
+
+        sql += `
+
+        WHERE DATE(M.fecha_movimiento)
+
+        BETWEEN ? AND ?
 
     `;
 
-    db.query(sql, (err, result) => {
+        valores.push(
+            fechaInicio,
+            fechaFin
+        );
+
+    }
+
+    sql += `
+
+    ORDER BY M.id_movimiento DESC
+
+`;
+
+    db.query(sql, valores, (err, result) => {
 
         if (err) {
 
@@ -2015,9 +2045,11 @@ app.get('/dashboard-almacen', (req, res) => {
 
             SELECT COUNT(*) AS entradas
 
-            FROM productos
+            FROM movimientos_inventario
 
-            WHERE DATE(fecha_registro)=CURDATE()
+            WHERE tipo_movimiento = 'Entrada'
+
+            AND DATE(fecha_movimiento)=CURDATE()
 
         `;
 
@@ -2039,9 +2071,11 @@ app.get('/dashboard-almacen', (req, res) => {
 
                 SELECT COUNT(*) AS salidas
 
-                FROM ventas
+                FROM movimientos_inventario
 
-                WHERE DATE(fecha_venta)=CURDATE()
+                WHERE tipo_movimiento = 'Salida'
+
+                AND DATE(fecha_movimiento)=CURDATE()
 
             `;
 
