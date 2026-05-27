@@ -813,170 +813,103 @@ app.post('/usuarios', (req, res) => {
             }
 
         );
-        });
-
     });
 
-    /* ACTUALIZAR USUARIO */
+});
 
+/* ACTUALIZAR USUARIO */
+app.put('/usuarios/:id', (req, res) => {
+    const id = req.params.id;
+    const {
+        nombre,
+        apellido_paterno,
+        apellido_materno,
+        correo,
+        telefono,
+        id_rol,
+        password
+    } = req.body;
+    /* VALIDAR CORREO DUPLICADO */
+    const sqlCorreo = `
+            SELECT *
+            FROM Usuarios
+            WHERE correo = ?
+            AND id_usuario != ?
 
-    app.put('/usuarios/:id', (req, res) => {
-
-        const id = req.params.id;
-
-        const {
-
-            nombre,
-            apellido_paterno,
-            apellido_materno,
-            correo,
-            telefono,
-            id_rol,
-            password
-
-        } = req.body;
-
-        /* VALIDAR CORREO DUPLICADO */
-
-        const sqlCorreo = `
-    
-        SELECT *
-        FROM Usuarios
-        WHERE correo = ?
-        AND id_usuario != ?
-    
-    `;
-
-        db.query(
-
-            sqlCorreo,
-
-            [correo, id],
-
-            (err, resultCorreo) => {
-
-                if (err) {
-
-                    console.log(err);
-
-                    return res.status(500).json({
-
-                        success: false
-
-                    });
-
-                }
-
-                if (resultCorreo.length > 0) {
-
-                    return res.json({
-
-                        success: false,
-                        message: 'Correo ya registrado'
-
-                    });
-
-                }
-
-                /* SQL BASE */
-
-                let sql = `
-            
-                UPDATE Usuarios
-                SET
-
-                    nombre = ?,
-                    apellido_paterno = ?,
-                    apellido_materno = ?,
-                    correo = ?,
-                    telefono = ?,
-                    id_rol = ?
-            
-            `;
-
-                let valores = [
-
-                    nombre,
-                    apellido_paterno,
-                    apellido_materno,
-                    correo,
-                    telefono,
-                    id_rol
-
-                ];
-
-                /* SI QUIERE CAMBIAR PASSWORD */
-
-                if (password) {
-
-                    const passwordHash =
-
-                        bcrypt.hashSync(password, 10);
-
-                    sql += `,
-
-                    password = ?
-
-                `;
-
-                    valores.push(passwordHash);
-
-                }
-
-                sql += `
-            
-                WHERE id_usuario = ?
-            
-            `;
-
-                valores.push(id);
-
-                db.query(
-
-                    sql,
-
-                    valores,
-
-                    (err, result) => {
-
-                        if (err) {
-
-                            console.log(err);
-
-                            res.status(500).json({
-
-                                success: false
-
-                            });
-
-                        }
-
-                        else {
-
-                            res.json({
-
-                                success: true
-
-                            });
-
-                        }
-
-                    }
-
-                );
-
+        `;
+    db.query(
+        sqlCorreo,
+        [correo, id],
+        (err, resultCorreo) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({
+                    success: false
+                });
             }
+            if (resultCorreo.length > 0) {
+                return res.json({
+                    success: false,
+                    message: 'Correo ya registrado'
+                });
+            }
+            /* SQL BASE */
+            let sql = `
+                    UPDATE Usuarios
+                    SET
+                        nombre = ?,
+                        apellido_paterno = ?,
+                        apellido_materno = ?,
+                        correo = ?,
+                        telefono = ?,
+                        id_rol = ?
+                `;
+            let valores = [
+                nombre,
+                apellido_paterno,
+                apellido_materno,
+                correo,
+                telefono,
+                id_rol
+            ];
+            /* SI QUIERE CAMBIAR PASSWORD */
+            if (password && password.trim() !== '') {
+                const passwordHash =
+                    bcrypt.hashSync(password, 10);
+                sql += `, password = ?
+                    `;
+                valores.push(passwordHash);
+            }
+            sql += ` 
+                    WHERE id_usuario = ?
+                `;
+            valores.push(id);
+            db.query(
+                sql,
+                valores,
+                (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).json({
+                            success: false
+                        });
+                    }
+                    else {
+                        res.json({
+                            success: true
+                        });
+                    }
+                }
+            );
+        }
+    );
+});
+/* DESACTIVAR USUARIO */
+app.put('/usuarios/desactivar/:id', (req, res) => {
 
-        );
+    const id = req.params.id;
 
-    });
-    /* DESACTIVAR USUARIO */
-
-    app.put('/usuarios/desactivar/:id', (req, res) => {
-
-        const id = req.params.id;
-
-        const sql = `
+    const sql = `
     
         UPDATE Usuarios
         SET activo = 0
@@ -984,38 +917,38 @@ app.post('/usuarios', (req, res) => {
     
     `;
 
-        db.query(sql, [id], (err, result) => {
+    db.query(sql, [id], (err, result) => {
 
-            if (err) {
+        if (err) {
 
-                console.log(err);
+            console.log(err);
 
-                res.status(500).json({
+            res.status(500).json({
 
-                    success: false
+                success: false
 
-                });
+            });
 
-            } else {
+        } else {
 
-                res.json({
+            res.json({
 
-                    success: true
+                success: true
 
-                });
+            });
 
-            }
-
-        });
+        }
 
     });
-    /* ACTIVAR USUARIO */
 
-    app.put('/usuarios/activar/:id', (req, res) => {
+});
+/* ACTIVAR USUARIO */
 
-        const id = req.params.id;
+app.put('/usuarios/activar/:id', (req, res) => {
 
-        const sql = `
+    const id = req.params.id;
+
+    const sql = `
     
         UPDATE Usuarios
         SET activo = 1
@@ -1023,36 +956,36 @@ app.post('/usuarios', (req, res) => {
     
     `;
 
-        db.query(sql, [id], (err, result) => {
+    db.query(sql, [id], (err, result) => {
 
-            if (err) {
+        if (err) {
 
-                console.log(err);
+            console.log(err);
 
-                res.status(500).json({
+            res.status(500).json({
 
-                    success: false
+                success: false
 
-                });
+            });
 
-            } else {
+        } else {
 
-                res.json({
+            res.json({
 
-                    success: true
+                success: true
 
-                });
+            });
 
-            }
-
-        });
+        }
 
     });
-    /* OBTENER PRODUCTOS */
 
-    app.get('/productos', (req, res) => {
+});
+/* OBTENER PRODUCTOS */
 
-        const sql = `
+app.get('/productos', (req, res) => {
+
+    const sql = `
     
         SELECT
 
@@ -1077,7 +1010,90 @@ app.post('/usuarios', (req, res) => {
     
     `;
 
-        db.query(sql, (err, result) => {
+    db.query(sql, (err, result) => {
+
+        if (err) {
+
+            console.log(err);
+
+            res.status(500).json({
+                success: false
+            });
+
+        } else {
+
+            res.json(result);
+
+        }
+
+    });
+
+});
+
+/* MOSTRAR CLIENTES */
+
+app.get('/clientes', (req, res) => {
+
+    const sql = `
+    
+        SELECT * FROM usuarios
+        WHERE id_rol = 4
+    
+    `;
+
+    db.query(sql, (err, result) => {
+
+        if (err) {
+
+            console.log("ERROR SQL CLIENTES:");
+            console.log(err);
+
+            return res.status(500).json({
+                success: false,
+                error: err.sqlMessage
+            });
+
+        } else {
+
+            res.json(result);
+
+        }
+
+    });
+
+});
+/* BUSCAR CLIENTE */
+app.get('/clientes/buscar', (req, res) => {
+
+    const { tipo, texto } = req.query;
+
+    const columnasPermitidas = [
+        "nombre",
+        "correo",
+        "telefono"
+    ];
+
+    if (!columnasPermitidas.includes(tipo)) {
+
+        return res.status(400).json({
+            success: false
+        });
+
+    }
+
+    const sql = `
+    
+        SELECT *
+        FROM usuarios
+        WHERE id_rol = 4
+        AND ${tipo} LIKE ?
+    
+    `;
+
+    db.query(
+        sql,
+        [`%${texto}%`],
+        (err, result) => {
 
             if (err) {
 
@@ -1093,108 +1109,25 @@ app.post('/usuarios', (req, res) => {
 
             }
 
-        });
-
-    });
-
-    /* MOSTRAR CLIENTES */
-
-    app.get('/clientes', (req, res) => {
-
-        const sql = `
-    
-        SELECT * FROM usuarios
-        WHERE id_rol = 4
-    
-    `;
-
-        db.query(sql, (err, result) => {
-
-            if (err) {
-
-                console.log("ERROR SQL CLIENTES:");
-                console.log(err);
-
-                return res.status(500).json({
-                    success: false,
-                    error: err.sqlMessage
-                });
-
-            } else {
-
-                res.json(result);
-
-            }
-
-        });
-
-    });
-    /* BUSCAR CLIENTE */
-    app.get('/clientes/buscar', (req, res) => {
-
-        const { tipo, texto } = req.query;
-
-        const columnasPermitidas = [
-            "nombre",
-            "correo",
-            "telefono"
-        ];
-
-        if (!columnasPermitidas.includes(tipo)) {
-
-            return res.status(400).json({
-                success: false
-            });
-
         }
+    );
 
-        const sql = `
-    
-        SELECT *
-        FROM usuarios
-        WHERE id_rol = 4
-        AND ${tipo} LIKE ?
-    
-    `;
+});
+/* AGREGAR CLIENTE */
 
-        db.query(
-            sql,
-            [`%${texto}%`],
-            (err, result) => {
+app.post('/clientes', (req, res) => {
+    const passwordTemporal =
+        bcrypt.hashSync("123456", 10);
 
-                if (err) {
+    const {
+        apellido_paterno,
+        apellido_materno,
+        nombre,
+        correo,
+        telefono
+    } = req.body;
 
-                    console.log(err);
-
-                    res.status(500).json({
-                        success: false
-                    });
-
-                } else {
-
-                    res.json(result);
-
-                }
-
-            }
-        );
-
-    });
-    /* AGREGAR CLIENTE */
-
-    app.post('/clientes', (req, res) => {
-        const passwordTemporal =
-            bcrypt.hashSync("123456", 10);
-
-        const {
-            apellido_paterno,
-            apellido_materno,
-            nombre,
-            correo,
-            telefono
-        } = req.body;
-
-        const sql = `
+    const sql = `
     
         INSERT INTO usuarios
         (
@@ -1210,51 +1143,106 @@ app.post('/usuarios', (req, res) => {
     
     `;
 
-        db.query(sql,
-            [
-                apellido_paterno,
-                apellido_materno,
-                nombre,
-                correo,
-                telefono,
-                passwordTemporal,
-                4
-            ],
-            (err, result) => {
+    db.query(sql,
+        [
+            apellido_paterno,
+            apellido_materno,
+            nombre,
+            correo,
+            telefono,
+            passwordTemporal,
+            4
+        ],
+        (err, result) => {
 
-                if (err) {
+            if (err) {
 
-                    console.log(err);
+                console.log(err);
 
-                    res.status(500).json({
-                        success: false
-                    });
+                res.status(500).json({
+                    success: false
+                });
 
-                } else {
+            } else {
 
-                    res.json({
-                        success: true,
-                        message: 'Cliente agregado'
-                    });
+                res.json({
+                    success: true,
+                    message: 'Cliente agregado'
+                });
 
-                }
+            }
 
-            });
+        });
 
-    });
-    /* ELIMINAR CLIENTE */
-    app.delete('/clientes/:id', (req, res) => {
+});
+/* ELIMINAR CLIENTE */
+app.delete('/clientes/:id', (req, res) => {
 
-        const id = req.params.id;
+    const id = req.params.id;
 
-        const sql = `
+    const sql = `
     
         DELETE FROM usuarios
         WHERE id_usuario = ?
     
     `;
 
-        db.query(sql, [id], (err, result) => {
+    db.query(sql, [id], (err, result) => {
+
+        if (err) {
+
+            console.log(err);
+
+            return res.status(500).json({
+                success: false
+            });
+
+        }
+
+        res.json({
+            success: true
+        });
+
+    });
+
+});
+/*  CLIENTE */
+app.put('/clientes/:id', (req, res) => {
+
+    const id = req.params.id;
+
+    const {
+        nombre,
+        apellido_paterno,
+        apellido_materno,
+        correo,
+        telefono
+    } = req.body;
+
+    const sql = `
+    
+        UPDATE usuarios
+        SET
+            nombre=?,
+            apellido_paterno=?,
+            apellido_materno=?,
+            correo=?,
+            telefono=?
+        WHERE id_usuario=?
+    
+    `;
+
+    db.query(
+        sql,
+        [
+            nombre,
+            apellido_paterno,
+            apellido_materno,
+            correo,
+            telefono,
+            id
+        ],
+        (err, result) => {
 
             if (err) {
 
@@ -1270,146 +1258,91 @@ app.post('/usuarios', (req, res) => {
                 success: true
             });
 
-        });
+        }
+    );
 
-    });
-    /*  CLIENTE */
-    app.put('/clientes/:id', (req, res) => {
+});
+/* EDITAR CLEINTE  */
 
-        const id = req.params.id;
+app.delete('/productos/:id', (req, res) => {
 
-        const {
-            nombre,
-            apellido_paterno,
-            apellido_materno,
-            correo,
-            telefono
-        } = req.body;
+    const id =
+        req.params.id;
 
-        const sql = `
-    
-        UPDATE usuarios
-        SET
-            nombre=?,
-            apellido_paterno=?,
-            apellido_materno=?,
-            correo=?,
-            telefono=?
-        WHERE id_usuario=?
-    
-    `;
-
-        db.query(
-            sql,
-            [
-                nombre,
-                apellido_paterno,
-                apellido_materno,
-                correo,
-                telefono,
-                id
-            ],
-            (err, result) => {
-
-                if (err) {
-
-                    console.log(err);
-
-                    return res.status(500).json({
-                        success: false
-                    });
-
-                }
-
-                res.json({
-                    success: true
-                });
-
-            }
-        );
-
-    });
-    /* EDITAR CLEINTE  */
-
-    app.delete('/productos/:id', (req, res) => {
-
-        const id =
-            req.params.id;
-
-        const sql = `
+    const sql = `
     
         DELETE FROM Productos
         WHERE id_producto = ?
     
     `;
 
-        db.query(
+    db.query(
 
-            sql,
+        sql,
 
-            [id],
+        [id],
 
-            (err, result) => {
+        (err, result) => {
 
-                if (err) {
+            if (err) {
 
-                    console.log(err);
+                console.log(err);
 
-                    res.json({
-                        success: false
-                    });
+                res.json({
+                    success: false
+                });
 
-                } else {
+            } else {
 
-                    res.json({
-                        success: true
-                    });
-
-                }
+                res.json({
+                    success: true
+                });
 
             }
 
-        );
+        }
 
-    });
-    /* OBTENER CATEGORIAS */
+    );
 
-    app.get('/categorias', (req, res) => {
+});
+/* OBTENER CATEGORIAS */
 
-        const sql = `
+app.get('/categorias', (req, res) => {
+
+    const sql = `
     
         SELECT *
         FROM Categorias
     
     `;
 
-        db.query(sql, (err, result) => {
+    db.query(sql, (err, result) => {
 
-            if (err) {
+        if (err) {
 
-                console.log(err);
+            console.log(err);
 
-                res.status(500).json({
-                    success: false
-                });
+            res.status(500).json({
+                success: false
+            });
 
-            } else {
+        } else {
 
-                res.json(result);
+            res.json(result);
 
-            }
-
-        });
+        }
 
     });
-    /* OBTENER 1 PRODUCTO */
 
-    app.get('/productos/:id', (req, res) => {
+});
+/* OBTENER 1 PRODUCTO */
 
-        const id =
-            req.params.id;
+app.get('/productos/:id', (req, res) => {
 
-        const sql = `
+    const id =
+        req.params.id;
+
+    const sql = `
     
         SELECT *
         FROM Productos
@@ -1417,70 +1350,70 @@ app.post('/usuarios', (req, res) => {
     
     `;
 
-        db.query(sql, [id], (err, result) => {
+    db.query(sql, [id], (err, result) => {
 
-            if (err) {
+        if (err) {
 
-                console.log(err);
+            console.log(err);
 
-            } else {
+        } else {
 
-                res.json(result[0]);
+            res.json(result[0]);
 
-            }
-
-        });
+        }
 
     });
 
-    /* ACTUALIZAR PRODUCTO */
+});
 
-    app.put(
+/* ACTUALIZAR PRODUCTO */
 
-        '/productos/:id',
+app.put(
 
-        upload.single('imagen'),
+    '/productos/:id',
 
-        (req, res) => {
+    upload.single('imagen'),
 
-            console.log(req.body);
+    (req, res) => {
 
-            const id = req.params.id;
+        console.log(req.body);
 
-            const nombre_producto =
-                req.body.nombre_producto;
+        const id = req.params.id;
 
-            const descripcion =
-                req.body.descripcion;
+        const nombre_producto =
+            req.body.nombre_producto;
 
-            const id_categoria =
-                req.body.id_categoria;
+        const descripcion =
+            req.body.descripcion;
 
-            const serie =
-                req.body.serie;
+        const id_categoria =
+            req.body.id_categoria;
 
-            const certificado_autenticidad =
-                req.body.certificado_autenticidad;
+        const serie =
+            req.body.serie;
 
-            const kilataje =
-                req.body.kilataje;
+        const certificado_autenticidad =
+            req.body.certificado_autenticidad;
 
-            const precio =
-                req.body.precio;
+        const kilataje =
+            req.body.kilataje;
 
-            const estado_producto =
-                req.body.estado_producto;
+        const precio =
+            req.body.precio;
 
-            let ruta_imagen = null;
+        const estado_producto =
+            req.body.estado_producto;
 
-            if (req.file) {
+        let ruta_imagen = null;
 
-                ruta_imagen =
-                    `/uploads/${req.file.filename}`;
+        if (req.file) {
 
-            }
+            ruta_imagen =
+                `/uploads/${req.file.filename}`;
 
-            let sql = `
+        }
+
+        let sql = `
         
             UPDATE Productos
             SET
@@ -1496,132 +1429,122 @@ app.post('/usuarios', (req, res) => {
         
         `;
 
-            let valores = [
+        let valores = [
 
-                nombre_producto,
-                descripcion,
-                id_categoria,
-                serie,
-                certificado_autenticidad,
-                kilataje,
-                precio,
-                estado_producto
+            nombre_producto,
+            descripcion,
+            id_categoria,
+            serie,
+            certificado_autenticidad,
+            kilataje,
+            precio,
+            estado_producto
 
-            ];
+        ];
 
-            /* SI HAY IMAGEN */
+        /* SI HAY IMAGEN */
 
-            if (ruta_imagen) {
+        if (ruta_imagen) {
 
-                sql += `,
+            sql += `,
             ruta_imagen=?
             `;
 
-                valores.push(ruta_imagen);
+            valores.push(ruta_imagen);
 
-            }
+        }
 
-            sql += `
+        sql += `
         
             WHERE id_producto=?
         
         `;
 
-            valores.push(id);
+        valores.push(id);
 
-            db.query(
+        db.query(
 
-                sql,
+            sql,
 
-                valores,
+            valores,
 
-                (err, result) => {
+            (err, result) => {
 
-                    if (err) {
+                if (err) {
 
-                        console.log(err);
+                    console.log(err);
 
-                        res.status(500).json({
+                    res.status(500).json({
 
-                            success: false
+                        success: false
 
-                        });
+                    });
 
-                    } else {
+                } else {
 
-                        res.json({
+                    res.json({
 
-                            success: true
+                        success: true
 
-                        });
-
-                    }
+                    });
 
                 }
 
-            );
+            }
 
-        });
-    /* CREAR VENTA */
+        );
 
-    app.post('/ventas', (req, res) => {
+    });
+/* CREAR VENTA */
 
-        const {
-            id_cliente,
-            id_usuario,
-            carrito,
-            metodo_pago,
-            subtotal,
-            descuento,
-            total
-        } = req.body;
+app.post('/ventas', (req, res) => {
 
-        /* METODO PAGO */
+    const {
+        id_cliente,
+        id_usuario,
+        carrito,
+        metodo_pago,
+        subtotal,
+        descuento,
+        total
+    } = req.body;
 
-        let id_metodo_pago = 1;
+    /* METODO PAGO */
 
-        if (metodo_pago === 'Tarjeta') {
+    let id_metodo_pago = 1;
 
-            id_metodo_pago = 2;
+    if (metodo_pago === 'Tarjeta') {
 
-        }
+        id_metodo_pago = 2;
 
+    }
 
-        /* INSERTAR VENTA */
+    /* REGISTRAR CADA PRODUCTO */
 
-        const ventaSQL = `
+    let ventasProcesadas = 0;
 
-       INSERT INTO ventas (
+    carrito.forEach(p => {
 
-            id_cliente, 
-            id_usuario,
-            id_metodo_pago,
-            tipo_venta,
-            estado_venta,
-            subtotal,
-            descuento,
-            total
+        const sql = `
 
+        CALL registrarVenta(
+            ?, ?, ?, ?, ?, ?
         )
-
-        VALUES (?,?,?,?,?,?,?,?)
 
     `;
 
         db.query(
 
-            ventaSQL,
+            sql,
 
             [
+
                 id_cliente,
                 id_usuario,
                 id_metodo_pago,
                 'Mostrador',
-                'Completada',
-                subtotal,
-                descuento,
-                total
-
+                p.id_producto,
+                p.precio
 
             ],
 
@@ -1633,91 +1556,41 @@ app.post('/usuarios', (req, res) => {
 
                     return res.status(500).json({
 
-                        success: false
+                        success: false,
+                        message: err.sqlMessage
 
                     });
 
                 }
 
-                const id_venta =
-                    result.insertId;
+                ventasProcesadas++;
 
-                /* INSERTAR DETALLE */
+                /* TERMINO */
 
-                carrito.forEach(p => {
+                if (
+                    ventasProcesadas === carrito.length
+                ) {
 
-                    const detalleSQL = `
+                    res.json({
 
-                    INSERT INTO detalle_ventas (
+                        success: true
 
-                        id_venta,
-                        id_producto,
-                        cantidad,
-                        precio_unitario,
-                        descuento,
-                        total
+                    });
 
-                    )
-
-                    VALUES (?,?,?,?,?,?)
-
-                `;
-
-                    db.query(
-
-                        detalleSQL,
-
-                        [
-
-                            id_venta,
-                            p.id_producto,
-                            1,
-                            p.precio,
-                            0,
-                            p.precio
-
-                        ]
-
-                    );
-
-                    /* CAMBIAR STOCK */
-
-                    const stockSQL = `
-
-                    UPDATE productos
-
-                    SET estado_producto='Vendido'
-
-                    WHERE id_producto=?
-
-                `;
-
-                    db.query(
-
-                        stockSQL,
-
-                        [p.id_producto]
-
-                    );
-
-                });
-
-                res.json({
-
-                    success: true
-
-                });
+                }
 
             }
 
         );
 
     });
-    /* OBTENER VENTAS */
 
-    app.get('/ventas', (req, res) => {
+});
+/* OBTENER VENTAS */ /*Trigger y stored procedure*/
 
-        const sql = `
+app.get('/ventas', (req, res) => {
+
+    const sql = `
 
         SELECT
             V.id_venta,
@@ -1734,30 +1607,30 @@ app.post('/usuarios', (req, res) => {
 
     `;
 
-        db.query(sql, (err, result) => {
+    db.query(sql, (err, result) => {
 
-            if (err) {
+        if (err) {
 
-                console.log(err);
+            console.log(err);
 
-                return res.status(500).json({
-                    success: false
-                });
+            return res.status(500).json({
+                success: false
+            });
 
-            }
+        }
 
-            res.json(result);
-
-        });
+        res.json(result);
 
     });
-    /* PRODUCTOS POR VENTA */
 
-    app.get('/ventas/:id/productos', (req, res) => {
+});
+/* PRODUCTOS POR VENTA */
 
-        const id_venta = req.params.id;
+app.get('/ventas/:id/productos', (req, res) => {
 
-        const sql = `
+    const id_venta = req.params.id;
+
+    const sql = `
 
         SELECT
 
@@ -1774,37 +1647,37 @@ app.post('/usuarios', (req, res) => {
 
     `;
 
-        db.query(sql, [id_venta], (err, result) => {
+    db.query(sql, [id_venta], (err, result) => {
 
-            if (err) {
+        if (err) {
 
-                console.log(err);
+            console.log(err);
 
-                return res.status(500).json({
-                    success: false
-                });
+            return res.status(500).json({
+                success: false
+            });
 
-            }
+        }
 
-            res.json(result);
-
-        });
+        res.json(result);
 
     });
-    /* REALIZAR DEVOLUCION */
 
-    app.post('/devoluciones', (req, res) => {
+});
+/* REALIZAR DEVOLUCION */
 
-        const {
+app.post('/devoluciones', (req, res) => {
 
-            id_venta,
-            id_producto,
-            id_usuario,
-            motivo
+    const {
 
-        } = req.body;
+        id_venta,
+        id_producto,
+        id_usuario,
+        motivo
 
-        const sql = `
+    } = req.body;
+
+    const sql = `
 
         INSERT INTO devoluciones (
 
@@ -1819,32 +1692,32 @@ app.post('/usuarios', (req, res) => {
 
     `;
 
-        db.query(
+    db.query(
 
-            sql,
+        sql,
 
-            [
-                id_venta,
-                id_producto,
-                id_usuario,
-                motivo
-            ],
+        [
+            id_venta,
+            id_producto,
+            id_usuario,
+            motivo
+        ],
 
-            (err, result) => {
+        (err, result) => {
 
-                if (err) {
+            if (err) {
 
-                    console.log(err);
+                console.log(err);
 
-                    return res.status(500).json({
-                        success: false
-                    });
+                return res.status(500).json({
+                    success: false
+                });
 
-                }
+            }
 
-                /* REGRESAR PRODUCTO */
+            /* REGRESAR PRODUCTO */
 
-                const updateSQL = `
+            const updateSQL = `
 
                 UPDATE productos
 
@@ -1854,22 +1727,22 @@ app.post('/usuarios', (req, res) => {
 
             `;
 
-                db.query(updateSQL, [id_producto]);
+            db.query(updateSQL, [id_producto]);
 
-                res.json({
-                    success: true
-                });
+            res.json({
+                success: true
+            });
 
-            }
+        }
 
-        );
+    );
 
-    });
-    /* HISTORIAL DEVOLUCIONES */
+});
+/* HISTORIAL DEVOLUCIONES */
 
-    app.get('/devoluciones', (req, res) => {
+app.get('/devoluciones', (req, res) => {
 
-        const sql = `
+    const sql = `
 
         SELECT
 
@@ -1898,34 +1771,34 @@ app.post('/usuarios', (req, res) => {
 
     `;
 
-        db.query(sql, (err, result) => {
+    db.query(sql, (err, result) => {
 
-            if (err) {
+        if (err) {
 
-                console.log(err);
+            console.log(err);
 
-                return res.status(500).json({
-                    success: false
-                });
+            return res.status(500).json({
+                success: false
+            });
 
-            }
+        }
 
-            res.json(result);
-
-        });
+        res.json(result);
 
     });
 
-    console.log("RUTA CAJA DIA CARGADA");
+});
 
-    /* CAJA DEL DIA */
+console.log("RUTA CAJA DIA CARGADA");
 
-    app.get('/caja-dia/:id_usuario', (req, res) => {
+/* CAJA DEL DIA */
 
-        const id_usuario =
-            req.params.id_usuario;
+app.get('/caja-dia/:id_usuario', (req, res) => {
 
-        const sql = `
+    const id_usuario =
+        req.params.id_usuario;
+
+    const sql = `
 
         SELECT
 
@@ -1945,44 +1818,44 @@ app.post('/usuarios', (req, res) => {
 
     `;
 
-        db.query(sql, [id_usuario], (err, result) => {
+    db.query(sql, [id_usuario], (err, result) => {
 
-            if (err) {
+        if (err) {
 
-                console.log(err);
+            console.log(err);
 
-                return res.status(500).json({
-                    success: false
-                });
+            return res.status(500).json({
+                success: false
+            });
+
+        }
+
+        let efectivo = 0;
+        let tarjeta = 0;
+
+        result.forEach(v => {
+
+            if (
+                v.nombre_metodo.toLowerCase() ===
+                "efectivo"
+            ) {
+
+                efectivo += Number(v.total);
+
+            } else {
+
+                tarjeta += Number(v.total);
 
             }
 
-            let efectivo = 0;
-            let tarjeta = 0;
+        });
 
-            result.forEach(v => {
+        const total =
+            efectivo + tarjeta;
 
-                if (
-                    v.nombre_metodo.toLowerCase() ===
-                    "efectivo"
-                ) {
+        /* DEVOLUCIONES */
 
-                    efectivo += Number(v.total);
-
-                } else {
-
-                    tarjeta += Number(v.total);
-
-                }
-
-            });
-
-            const total =
-                efectivo + tarjeta;
-
-            /* DEVOLUCIONES */
-
-            const devSQL = `
+        const devSQL = `
 
             SELECT COUNT(*) AS total
 
@@ -1994,34 +1867,32 @@ app.post('/usuarios', (req, res) => {
 
         `;
 
-            db.query(devSQL, [id_usuario], (err2, devResult) => {
+        db.query(devSQL, [id_usuario], (err2, devResult) => {
 
-                if (err2) {
+            if (err2) {
 
-                    console.log(err2);
+                console.log(err2);
 
-                    return res.status(500).json({
-                        success: false
-                    });
-
-                }
-
-                res.json({
-
-                    efectivo,
-                    tarjeta,
-                    total,
-
-                    cantidadVentas:
-                        result.length,
-
-                    devoluciones:
-                        devResult[0].total,
-
-                    historial:
-                        result
-
+                return res.status(500).json({
+                    success: false
                 });
+
+            }
+
+            res.json({
+
+                efectivo,
+                tarjeta,
+                total,
+
+                cantidadVentas:
+                    result.length,
+
+                devoluciones:
+                    devResult[0].total,
+
+                historial:
+                    result
 
             });
 
@@ -2029,16 +1900,18 @@ app.post('/usuarios', (req, res) => {
 
     });
 
-    /* DASHBOARD CAJERO */
+});
 
-    app.get('/dashboard-cajero/:id_usuario', (req, res) => {
+/* DASHBOARD CAJERO */
 
-        const id_usuario =
-            req.params.id_usuario;
+app.get('/dashboard-cajero/:id_usuario', (req, res) => {
 
-        /* VENTAS HOY */
+    const id_usuario =
+        req.params.id_usuario;
 
-        const ventasSQL = `
+    /* VENTAS HOY */
+
+    const ventasSQL = `
 
         SELECT
 
@@ -2052,21 +1925,21 @@ app.post('/usuarios', (req, res) => {
 
     `;
 
-        db.query(ventasSQL, [id_usuario], (err, ventasResult) => {
+    db.query(ventasSQL, [id_usuario], (err, ventasResult) => {
 
-            if (err) {
+        if (err) {
 
-                console.log(err);
+            console.log(err);
 
-                return res.status(500).json({
-                    success: false
-                });
+            return res.status(500).json({
+                success: false
+            });
 
-            }
+        }
 
-            /* DEVOLUCIONES */
+        /* DEVOLUCIONES */
 
-            const devSQL = `
+        const devSQL = `
 
             SELECT COUNT(*) AS devoluciones
 
@@ -2077,30 +1950,28 @@ app.post('/usuarios', (req, res) => {
 
         `;
 
-            db.query(devSQL, [id_usuario], (err2, devResult) => {
+        db.query(devSQL, [id_usuario], (err2, devResult) => {
 
-                if (err2) {
+            if (err2) {
 
-                    console.log(err2);
+                console.log(err2);
 
-                    return res.status(500).json({
-                        success: false
-                    });
-
-                }
-
-                res.json({
-
-                    ventasHoy:
-                        ventasResult[0].totalVentas || 0,
-
-                    tickets:
-                        ventasResult[0].tickets || 0,
-
-                    devoluciones:
-                        devResult[0].devoluciones || 0
-
+                return res.status(500).json({
+                    success: false
                 });
+
+            }
+
+            res.json({
+
+                ventasHoy:
+                    ventasResult[0].totalVentas || 0,
+
+                tickets:
+                    ventasResult[0].tickets || 0,
+
+                devoluciones:
+                    devResult[0].devoluciones || 0
 
             });
 
@@ -2108,13 +1979,15 @@ app.post('/usuarios', (req, res) => {
 
     });
 
-    /* DASHBOARD ALMACEN */
+});
 
-    app.get('/dashboard-almacen', (req, res) => {
+/* DASHBOARD ALMACEN */
 
-        /* PRODUCTOS DISPONIBLES */
+app.get('/dashboard-almacen', (req, res) => {
 
-        const disponiblesSQL = `
+    /* PRODUCTOS DISPONIBLES */
+
+    const disponiblesSQL = `
 
         SELECT COUNT(*) AS disponibles
 
@@ -2124,21 +1997,21 @@ app.post('/usuarios', (req, res) => {
 
     `;
 
-        db.query(disponiblesSQL, (err, disponiblesResult) => {
+    db.query(disponiblesSQL, (err, disponiblesResult) => {
 
-            if (err) {
+        if (err) {
 
-                console.log(err);
+            console.log(err);
 
-                return res.status(500).json({
-                    success: false
-                });
+            return res.status(500).json({
+                success: false
+            });
 
-            }
+        }
 
-            /* ENTRADAS HOY */
+        /* ENTRADAS HOY */
 
-            const entradasSQL = `
+        const entradasSQL = `
 
             SELECT COUNT(*) AS entradas
 
@@ -2148,21 +2021,21 @@ app.post('/usuarios', (req, res) => {
 
         `;
 
-            db.query(entradasSQL, (err2, entradasResult) => {
+        db.query(entradasSQL, (err2, entradasResult) => {
 
-                if (err2) {
+            if (err2) {
 
-                    console.log(err2);
+                console.log(err2);
 
-                    return res.status(500).json({
-                        success: false
-                    });
+                return res.status(500).json({
+                    success: false
+                });
 
-                }
+            }
 
-                /* SALIDAS HOY */
+            /* SALIDAS HOY */
 
-                const salidasSQL = `
+            const salidasSQL = `
 
                 SELECT COUNT(*) AS salidas
 
@@ -2172,30 +2045,28 @@ app.post('/usuarios', (req, res) => {
 
             `;
 
-                db.query(salidasSQL, (err3, salidasResult) => {
+            db.query(salidasSQL, (err3, salidasResult) => {
 
-                    if (err3) {
+                if (err3) {
 
-                        console.log(err3);
+                    console.log(err3);
 
-                        return res.status(500).json({
-                            success: false
-                        });
-
-                    }
-
-                    res.json({
-
-                        disponibles:
-                            disponiblesResult[0].disponibles,
-
-                        entradas:
-                            entradasResult[0].entradas,
-
-                        salidas:
-                            salidasResult[0].salidas
-
+                    return res.status(500).json({
+                        success: false
                     });
+
+                }
+
+                res.json({
+
+                    disponibles:
+                        disponiblesResult[0].disponibles,
+
+                    entradas:
+                        entradasResult[0].entradas,
+
+                    salidas:
+                        salidasResult[0].salidas
 
                 });
 
@@ -2204,4 +2075,6 @@ app.post('/usuarios', (req, res) => {
         });
 
     });
+
+});
 
