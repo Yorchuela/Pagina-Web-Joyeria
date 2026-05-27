@@ -153,6 +153,7 @@ nav a:hover{
 
     display:flex;
     align-items:center;
+    justify-content:flex-start;
 
     padding-left:90px;
 
@@ -211,7 +212,7 @@ nav a:hover{
 ========================= */
 
 .opciones{
-    padding:80px 40px;
+    padding:10px 40px;
 
     text-align:center;
 
@@ -387,7 +388,7 @@ nav a:hover{
 ========================= */
 
 .dashboard{
-    padding:40px 40px 100px;
+    padding:0px 40px 100px;
 
     background:var(--fondo);
 
@@ -401,7 +402,7 @@ nav a:hover{
 
     color:var(--negro);
 
-    margin-bottom:60px;
+    margin-bottom:40px;
 }
 
 /* =========================
