@@ -1,60 +1,158 @@
-// 🔥 INICIAR
-document.addEventListener("DOMContentLoaded", () => {
-    mostrarVentas();
-});
+document.addEventListener(
 
-// 🔥 MOSTRAR TODAS LAS VENTAS
-function mostrarVentas(ventasFiltradas = null){
+    "DOMContentLoaded",
 
-    let ventas = ventasFiltradas || JSON.parse(localStorage.getItem("ventas")) || [];
-    let tabla = document.getElementById("tablaVentas");
-    let totalGeneral = 0;
+    () => {
+
+        obtenerVentas();
+
+    }
+
+);
+
+let ventasGlobal = [];
+
+/* OBTENER VENTAS */
+
+async function obtenerVentas(){
+
+    try{
+
+        const response =
+
+            await fetch(
+                'http://localhost:3000/ventas'
+            );
+
+        ventasGlobal =
+            await response.json();
+
+        mostrarVentas(ventasGlobal);
+
+    }catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+/* MOSTRAR VENTAS */
+
+function mostrarVentas(ventas){
+
+    let tabla =
+
+        document.getElementById(
+            "tablaVentas"
+        );
 
     tabla.innerHTML = "";
 
+    let totalGeneral = 0;
+
     if(ventas.length === 0){
-        tabla.innerHTML = "<tr><td colspan='3'>No hay ventas registradas</td></tr>";
-        document.getElementById("totalGeneral").textContent = 0;
+
+        tabla.innerHTML = `
+
+            <tr>
+
+                <td colspan="4">
+
+                    No hay ventas
+
+                </td>
+
+            </tr>
+
+        `;
+
         return;
+
     }
 
     ventas.forEach(v => {
 
-        if(!v.productos) return;
+        totalGeneral += Number(v.total);
 
-        v.productos.forEach(p => {
+        tabla.innerHTML += `
 
-            let total = p.precio * p.cantidad;
-            totalGeneral += total;
+            <tr>
 
-            let fila = `
-                <tr>
-                    <td>${p.nombre}</td>
-                    <td>${p.cantidad}</td>
-                    <td>$${total}</td>
-                </tr>
-            `;
+                <td>
 
-            tabla.innerHTML += fila;
-        });
+                    ${v.id_venta}
+
+                </td>
+
+                <td>
+
+                    ${v.nombre}
+
+                </td>
+
+                <td>
+
+                    ${new Date(v.fecha_venta)
+                        .toLocaleDateString('es-MX')}
+
+                </td>
+
+                <td>
+
+                    $${Number(v.total)
+                        .toLocaleString('es-MX')}
+
+                </td>
+
+            </tr>
+
+        `;
 
     });
 
-    document.getElementById("totalGeneral").textContent = totalGeneral;
+    document.getElementById(
+        "totalGeneral"
+    ).textContent =
+
+        `$${totalGeneral.toLocaleString('es-MX')}`;
+
 }
 
-// 🔍 FILTRAR POR FECHA
+/* FILTRAR */
+
 function filtrar(){
 
-    let fecha = document.getElementById("filtroFecha").value;
-    let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
+    const fecha =
+
+        document.getElementById(
+            "filtroFecha"
+        ).value;
 
     if(!fecha){
-        mostrarVentas();
+
+        mostrarVentas(
+            ventasGlobal
+        );
+
         return;
+
     }
 
-    let filtradas = ventas.filter(v => v.fecha === fecha);
+    const filtradas =
+
+        ventasGlobal.filter(v => {
+
+            const fechaVenta =
+
+                new Date(v.fecha_venta)
+                .toISOString()
+                .split('T')[0];
+
+            return fechaVenta === fecha;
+
+        });
 
     mostrarVentas(filtradas);
+
 }

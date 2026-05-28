@@ -363,9 +363,13 @@ async function finalizarVenta() {
 
                         id_usuario:
 
-                            localStorage.getItem(
-                                "id_usuario"
-                            ),
+                            JSON.parse(
+
+                                localStorage.getItem(
+                                    "usuario"
+                                )
+
+                            )?.id_usuario,
 
                         carrito,
                         metodo_pago,

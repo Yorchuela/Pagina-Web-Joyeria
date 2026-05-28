@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // 🔥 MOSTRAR REPORTE
-function mostrarCaja(ventasFiltradas = null){
+function mostrarCaja(ventasFiltradas = null) {
 
     let ventas = ventasFiltradas || JSON.parse(localStorage.getItem("ventas")) || [];
     let devoluciones = JSON.parse(localStorage.getItem("devoluciones")) || [];
@@ -23,7 +23,7 @@ function mostrarCaja(ventasFiltradas = null){
 
         let fecha = v.fecha || "Sin fecha";
 
-        if(!cajaPorFecha[fecha]){
+        if (!cajaPorFecha[fecha]) {
             cajaPorFecha[fecha] = { ingresos: 0, egresos: 0 };
         }
 
@@ -35,7 +35,7 @@ function mostrarCaja(ventasFiltradas = null){
 
         let fecha = d.fecha || "Sin fecha";
 
-        if(!cajaPorFecha[fecha]){
+        if (!cajaPorFecha[fecha]) {
             cajaPorFecha[fecha] = { ingresos: 0, egresos: 0 };
         }
 
@@ -43,9 +43,9 @@ function mostrarCaja(ventasFiltradas = null){
         let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
         let venta = ventas.find(v => v.id == d.idVenta);
 
-        if(venta){
+        if (venta) {
             let producto = venta.productos.find(p => p.nombre == d.producto);
-            if(producto){
+            if (producto) {
                 let monto = producto.precio * d.cantidad;
                 cajaPorFecha[fecha].egresos += monto;
                 totalEgresos += monto;
@@ -54,7 +54,7 @@ function mostrarCaja(ventasFiltradas = null){
     });
 
     // 🔥 MOSTRAR TABLA
-    for(let fecha in cajaPorFecha){
+    for (let fecha in cajaPorFecha) {
 
         let ingreso = cajaPorFecha[fecha].ingresos;
         let egreso = cajaPorFecha[fecha].egresos;
@@ -72,23 +72,161 @@ function mostrarCaja(ventasFiltradas = null){
         tabla.innerHTML += fila;
     }
 
-    document.getElementById("ingresos").textContent = totalIngresos;
-    document.getElementById("egresos").textContent = totalEgresos;
-    document.getElementById("ganancia").textContent = totalIngresos - totalEgresos;
+    document.getElementById(
+
+        "cardIngresos"
+
+    ).textContent =
+
+        `$${Number(totalIngresos)
+            .toLocaleString('es-MX')}`;
+
+    document.getElementById(
+
+        "cardEgresos"
+
+    ).textContent =
+
+        `$${Number(totalEgresos)
+            .toLocaleString('es-MX')}`;
+
+    document.getElementById(
+
+        "cardGanancia"
+
+    ).textContent =
+
+        `$${Number(totalIngresos - totalEgresos)
+            .toLocaleString('es-MX')}`;
 }
 
 // 🔍 FILTRO
 function filtrarCaja(){
 
-    let fecha = document.getElementById("filtroFecha").value;
-    let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
+    const tipoReporte =
 
-    if(!fecha){
-        mostrarCaja();
-        return;
-    }
+        document.getElementById(
+            "tipoReporte"
+        ).value;
 
-    let filtradas = ventas.filter(v => v.fecha === fecha);
+    const fechaInicio =
+
+        document.getElementById(
+            "fechaInicio"
+        ).value;
+
+    const fechaFin =
+
+        document.getElementById(
+            "fechaFin"
+        ).value;
+
+    const mesInput =
+
+        document.getElementById(
+            "mesInput"
+        ).value;
+
+    const anioInput =
+
+        document.getElementById(
+            "anioInput"
+        ).value;
+
+    let ventas =
+
+        JSON.parse(
+            localStorage.getItem("ventas")
+        ) || [];
+
+    let filtradas = ventas.filter(v => {
+
+        if(!v.fecha){
+
+            return false;
+
+        }
+
+        const fechaVenta =
+
+            new Date(v.fecha);
+
+        const fechaTexto =
+
+            fechaVenta
+            .toISOString()
+            .split('T')[0];
+
+        /* 📅 DIARIO */
+
+        if(tipoReporte === "diario"){
+
+            return fechaTexto === fechaInicio;
+
+        }
+
+        /* 🗓 SEMANAL */
+
+        if(tipoReporte === "semanal"){
+
+            return (
+
+                fechaTexto >= fechaInicio
+
+                &&
+
+                fechaTexto <= fechaFin
+
+            );
+
+        }
+
+        /* 📆 MENSUAL */
+
+        if(tipoReporte === "mensual"){
+
+            const mesVenta =
+
+                fechaVenta
+                .toISOString()
+                .slice(0,7);
+
+            return mesVenta === mesInput;
+
+        }
+
+        /* 🧾 ANUAL */
+
+        if(tipoReporte === "anual"){
+
+            return fechaVenta
+                .getFullYear()
+                .toString() === anioInput;
+
+        }
+
+        /* ⚙ PERSONALIZADO */
+
+        if(tipoReporte === "personalizado"){
+
+            return (
+
+                (!fechaInicio || fechaTexto >= fechaInicio)
+
+                &&
+
+                (!fechaFin || fechaTexto <= fechaFin)
+
+            );
+
+        }
+
+        return true;
+
+    });
+
+    console.log(filtradas);
 
     mostrarCaja(filtradas);
+
 }

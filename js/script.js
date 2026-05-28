@@ -237,6 +237,14 @@ if (rol === "Invitado" || rol === "Cliente") {
             "./pages/catalogo.html"
         )
     );
+     container.appendChild(
+        card(
+            "✨",
+            "Mis compras",
+            "Observa las joyas que has comprado.",
+            "./pages/Historial Cliente.html"
+        )
+    );
 }
 
 /* =========================

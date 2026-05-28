@@ -5,15 +5,13 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         Historial de Compras
     </title>
 
-    <link rel="stylesheet"
-          href="../css/historial_cliente.css">
+    <link rel="stylesheet" href="../css/historial_cliente.css">
 
 </head>
 
@@ -23,15 +21,13 @@
 
     <div class="top-buttons">
 
-        <button class="btn-volver"
-                onclick="window.history.back()">
+        <button class="btn-volver" onclick="window.history.back()">
 
             ⬅ Regresar
 
         </button>
 
-        <button class="btn-inicio"
-                onclick="window.location.href='../index.html'">
+        <button class="btn-inicio" onclick="window.location.href='../index.html'">
 
             🏠 Inicio
 
@@ -47,26 +43,93 @@
             🧾 Mi Historial de Compras
         </h2>
 
+        <!-- RESUMEN -->
+
+        <div class="resumen">
+
+            <div class="card-resumen">
+
+                <span>
+                    🛍
+                </span>
+
+                <h3 id="totalCompras">
+                    0
+                </h3>
+
+                <p>
+                    Compras realizadas
+                </p>
+
+            </div>
+
+            <div class="card-resumen">
+
+                <span>
+                    💰
+                </span>
+
+                <h3 id="totalGastado">
+                    $0
+                </h3>
+
+                <p>
+                    Total gastado
+                </p>
+
+            </div>
+
+            <div class="card-resumen">
+
+                <span>
+                    📦
+                </span>
+
+                <h3 id="productosComprados">
+                    0
+                </h3>
+
+                <p>
+                    Productos comprados
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- BUSCADOR -->
+
+        <div class="buscador-container">
+
+            <input type="text" id="buscador" placeholder="🔍 Buscar producto...">
+
+        </div>
+
+        <!-- TABLA -->
+
         <table>
 
             <thead>
 
                 <tr>
 
+
                     <th>
-                        Fecha
+                        📅 Fecha
                     </th>
 
                     <th>
-                        Producto
+                        💎 Producto
                     </th>
 
                     <th>
-                        Cantidad
+                        📦 Cantidad
                     </th>
 
+            
+
                     <th>
-                        Total
+                        💰 Total
                     </th>
 
                 </tr>
@@ -75,7 +138,6 @@
 
             <tbody id="tablaHistorial">
 
-                <!-- DATOS DINAMICOS -->
 
             </tbody>
 

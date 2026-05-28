@@ -11,9 +11,9 @@ const colores = {
     morado: "#8387c3"
 };
 
-async function cargarDashboard(){
+async function cargarDashboard() {
 
-    try{
+    try {
 
         const id_usuario =
 
@@ -31,6 +31,8 @@ async function cargarDashboard(){
 
         const data =
             await response.json();
+        console.log(data);
+
 
         document.getElementById(
             "ventasHoy"
@@ -40,7 +42,7 @@ async function cargarDashboard(){
                 .toLocaleString('es-MX')}`;
 
         document.getElementById(
-            "devoluciones"
+            "devolucionesHoy"
         ).textContent =
 
             data.devoluciones;
@@ -51,127 +53,164 @@ async function cargarDashboard(){
 
             data.tickets;
 
-    } catch(error){
+    } catch (error) {
 
         console.log(error);
 
     }
 
 }
-function cargarGraficas(){
+async function cargarGraficas() {
 
-    let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
-    let devoluciones = JSON.parse(localStorage.getItem("devoluciones")) || [];
+    try {
 
-    // 📊 VENTAS POR DÍA
-    let ventasPorDia = {};
+        const response =
 
-    ventas.forEach(v => {
-        let fecha = v.fecha || "Sin fecha";
+            await fetch(
+                'http://localhost:3000/dashboard-admin'
+            );
 
-        if(!ventasPorDia[fecha]){
-            ventasPorDia[fecha] = 0;
-        }
+        const data =
+            await response.json();
 
-        ventasPorDia[fecha] += v.total;
-    });
+        /* =========================
+           VENTAS
+        ========================= */
 
-    new Chart(document.getElementById("graficaVentas"), {
-        type: "line",
-        data: {
-            labels: Object.keys(ventasPorDia),
-            datasets: [{
-                label: "Ventas",
-                data: Object.values(ventasPorDia),
-                borderColor: colores.azul,
-                backgroundColor: colores.morado,
-                tension: 0.3,
-                fill: true
-            }]
-        }
-    });
+        new Chart(
 
-    // 📦 PRODUCTOS MÁS VENDIDOS
-    let productosVendidos = {};
+            document.getElementById(
+                "graficaVentas"
+            ),
 
-    ventas.forEach(v => {
-        if(!v.productos) return;
+            {
 
-        v.productos.forEach(p => {
-            if(!productosVendidos[p.nombre]){
-                productosVendidos[p.nombre] = 0;
+                type: "line",
+
+                data: {
+
+                    labels:
+
+                        (data.ventas || []).map,
+
+                    datasets: [{
+
+                        label:
+                            "Ventas",
+
+                        data:
+
+                            data.ventas.map(
+                                v => v.total
+                            ),
+
+                        borderColor:
+                            colores.azul,
+
+                        backgroundColor:
+                            colores.morado,
+
+                        fill: true,
+
+                        tension: .4
+
+                    }]
+
+                }
+
             }
-            productosVendidos[p.nombre] += p.cantidad;
-        });
-    });
 
-    new Chart(document.getElementById("graficaProductos"), {
-        type: "bar",
-        data: {
-            labels: Object.keys(productosVendidos),
-            datasets: [{
-                label: "Cantidad Vendida",
-                data: Object.values(productosVendidos),
-                backgroundColor: colores.azul
-            }]
-        }
-    });
+        );
 
-    // 🔄 DEVOLUCIONES
-    let devPorDia = {};
+        /* =========================
+           PRODUCTOS
+        ========================= */
 
-    devoluciones.forEach(d => {
-        let fecha = d.fecha || "Sin fecha";
+        new Chart(
 
-        if(!devPorDia[fecha]){
-            devPorDia[fecha] = 0;
-        }
+            document.getElementById(
+                "graficaProductos"
+            ),
 
-        devPorDia[fecha]++;
-    });
+            {
 
-    new Chart(document.getElementById("graficaDevoluciones"), {
-        type: "bar",
-        data: {
-            labels: Object.keys(devPorDia),
-            datasets: [{
-                label: "Devoluciones",
-                data: Object.values(devPorDia),
-                backgroundColor: colores.rojo
-            }]
-        }
-    });
+                type: "bar",
 
-    // 💰 INGRESOS VS EGRESOS
-    let ingresos = 0;
-    let egresos = 0;
+                data: {
 
-    ventas.forEach(v => ingresos += v.total);
+                    labels:
 
-    devoluciones.forEach(d => {
-        let venta = ventas.find(v => v.id == d.idVenta);
-        if(venta){
-            let prod = venta.productos.find(p => p.nombre == d.producto);
-            if(prod){
-                egresos += prod.precio * d.cantidad;
+                        data.productos.map(
+                            p => p.nombre_producto
+                        ),
+
+                    datasets: [{
+
+                        label:
+                            "Vendidos",
+
+                        data:
+
+                            (data.productos || []).map,
+
+                        backgroundColor:
+                            colores.azul
+
+                    }]
+
+                }
+
             }
-        }
-    });
 
-    new Chart(document.getElementById("graficaCaja"), {
-        type: "doughnut",
-        data: {
-            labels: ["Ingresos", "Egresos"],
-            datasets: [{
-                data: [ingresos, egresos],
-                backgroundColor: [colores.verde, colores.rojo]
-            }]
-        }
-    });
+        );
+
+        /* =========================
+           TABLA STOCK
+        ========================= */
+
+       /* const tabla =
+
+            document.getElementById(
+                "tablaStock"
+            );
+
+        tabla.innerHTML = "";
+
+        data.stock.forEach(p => {
+
+            tabla.innerHTML += `
+
+                <tr>
+
+                    <td>
+
+                        ${p.nombre_producto}
+
+                    </td>
+
+                    <td>
+
+                        ${p.stock}
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });*/
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+    }
+
 }
-
 // 📄 EXPORTAR PDF
-function exportarPDF(){
+function exportarPDF() {
 
     const { jsPDF } = window.jspdf;
 

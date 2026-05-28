@@ -200,6 +200,109 @@ app.get('/movimientos', (req, res) => {
     });
 
 });
+app.get('/dashboard-admin', (req, res) => {
+
+    const sqlVentas = `
+
+        SELECT
+
+            DATE(fecha_venta) AS fecha,
+            SUM(total) AS total
+
+        FROM ventas
+
+        GROUP BY DATE(fecha_venta)
+
+        ORDER BY fecha ASC
+
+    `;
+
+    const sqlProductos = `
+
+        SELECT
+
+            p.nombre_producto,
+            COUNT(*) AS vendidos
+
+        FROM detalle_ventas dv
+
+        INNER JOIN productos p
+            ON dv.id_producto = p.id_producto
+
+        GROUP BY dv.id_producto
+
+        ORDER BY vendidos DESC
+
+        LIMIT 5
+
+    `;
+
+   /* const sqlStock = `
+
+        SELECT
+
+            nombre_producto,
+            stock
+
+        FROM productos
+
+        WHERE stock <= 5
+
+        ORDER BY stock ASC
+
+    `;*/
+
+    db.query(sqlVentas, (err, ventas) => {
+
+        if (err) {
+
+            console.log(err);
+
+            return res.status(500).json({
+                success:false
+            });
+
+        }
+
+        db.query(sqlProductos, (err2, productos) => {
+
+            if (err2) {
+
+                console.log(err2);
+
+                return res.status(500).json({
+                    success:false
+                });
+
+            }
+
+          /*  db.query(sqlStock, (err3, stock) => {
+
+                if (err3) {
+
+                    console.log(err3);
+
+                    return res.status(500).json({
+                        success:false
+                    });
+
+                }*/
+
+                res.json({
+
+                    success:true,
+
+                    ventas,
+                    productos
+
+                });
+
+            });
+
+        });
+
+    });
+
 /* SERVIDOR */
 
 app.listen(3000, () => {
@@ -1061,6 +1164,62 @@ app.get('/productos', (req, res) => {
 
 });
 
+/*este es*/
+app.get('/historial-cliente/:id_usuario', (req, res) => {
+
+    const { id_usuario } = req.params;
+
+    const sql = `
+
+        SELECT
+
+            v.fecha_venta,
+
+            p.nombre_producto,
+
+            dv.cantidad,
+
+            dv.total
+
+        FROM ventas v
+
+        INNER JOIN detalle_ventas dv
+            ON v.id_venta = dv.id_venta
+
+        INNER JOIN productos p
+            ON dv.id_producto = p.id_producto
+
+        WHERE v.id_usuario = ?
+
+        ORDER BY v.fecha_venta DESC
+
+    `;
+
+    db.query(sql, [id_usuario], (err, result) => {
+
+        if (err) {
+
+            console.log(err);
+
+            return res.status(500).json({
+
+                success: false
+
+            });
+
+        }
+
+        res.json({
+
+            success: true,
+            historial: result
+
+        });
+
+    });
+
+});
+
 /* MOSTRAR CLIENTES */
 
 app.get('/clientes', (req, res) => {
@@ -1576,7 +1735,7 @@ app.post('/ventas', (req, res) => {
         id_metodo_pago = 2;
 
     }
-    
+
 
     let ventasProcesadas = 0;
 
@@ -1656,10 +1815,68 @@ app.post('/ventas', (req, res) => {
     });
 
 });
+/*este*/
+app.get('/historial-cliente/:id_usuario', (req, res) => {
+
+    const { id_usuario } = req.params;
+
+    const sql = `
+
+        SELECT
+        
+
+            v.fecha_venta,
+
+            p.nombre_producto,
+
+            dv.cantidad,
+
+            dv.total
+
+        FROM ventas v
+
+        INNER JOIN detalle_ventas dv
+            ON v.id_venta = dv.id_venta
+
+        INNER JOIN productos p
+            ON dv.id_producto = p.id_producto
+        
+            INNER JOIN metodo_pago mp
+        ON v.id_metodo_pago = mp.id_metodo_pago
+
+        WHERE v.id_usuario = ?
+
+        ORDER BY v.fecha_venta DESC
+
+    `;
+
+    db.query(sql, [id_usuario], (err, result) => {
+
+        if (err) {
+
+            console.log(err);
+
+            return res.status(500).json({
+
+                success: false
+
+            });
+
+        }
+
+        res.json({
+
+            success: true,
+            historial: result
+
+        });
+
+    });
+
+});
 
 
-
-/* OBTENER VENTAS */ 
+/* OBTENER VENTAS */
 
 app.get('/ventas', (req, res) => {
 

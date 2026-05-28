@@ -373,3 +373,134 @@ tbody td:last-child{
         font-size:13px;
     }
 }
+/* =========================
+   RESUMEN
+========================= */
+
+.resumen{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    margin-bottom:35px;
+}
+
+.card-resumen{
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:25px;
+
+    text-align:center;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+}
+
+.card-resumen:hover{
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 15px 30px rgba(0,0,0,.12);
+}
+
+.card-resumen span{
+
+    font-size:38px;
+
+    display:block;
+
+    margin-bottom:12px;
+}
+
+.card-resumen h3{
+
+    font-size:30px;
+
+    color:#111827;
+
+    margin-bottom:8px;
+}
+
+.card-resumen p{
+
+    color:#64748b;
+
+    font-size:15px;
+}
+
+/* =========================
+   BUSCADOR
+========================= */
+
+.buscador-container{
+
+    margin-bottom:25px;
+}
+
+#buscador{
+
+    width:100%;
+
+    padding:16px 20px;
+
+    border-radius:16px;
+
+    border:
+        2px solid #e2e8f0;
+
+    outline:none;
+
+    font-size:16px;
+
+    transition:.3s;
+}
+
+#buscador:focus{
+
+    border-color:#6366f1;
+
+    box-shadow:
+        0 0 0 4px rgba(99,102,241,.15);
+}
+
+/* =========================
+   TABLA MEJORADA
+========================= */
+
+tbody tr{
+
+    transition:.3s;
+}
+
+tbody tr:hover{
+
+    background:#f8fafc;
+
+    transform:scale(1.01);
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.05);
+}
+
+tbody td{
+
+    padding:22px 18px;
+}
+
+tbody td:last-child{
+
+    font-weight:800;
+
+    color:#22c55e;
+}

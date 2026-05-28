@@ -18,23 +18,23 @@ async function login(event) {
     }
 
     try {
-        
+
         const response =
-       
-        await fetch('http://localhost:3000/login', {
 
-            method: 'POST',
+            await fetch('http://localhost:3000/login', {
 
-            headers: {
-                'Content-Type': 'application/json'
-            },
+                method: 'POST',
 
-            body: JSON.stringify({
-                correo,
-                password
-            })
+                headers: {
+                    'Content-Type': 'application/json'
+                },
 
-        });
+                body: JSON.stringify({
+                    correo,
+                    password
+                })
+
+            });
 
         const data = await response.json();
 
@@ -53,6 +53,7 @@ async function login(event) {
 
                     id_usuario:
                         data.usuario.id_usuario,
+
 
                     nombre:
                         data.usuario.nombre,
