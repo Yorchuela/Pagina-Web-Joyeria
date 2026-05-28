@@ -1,38 +1,375 @@
-body{
-font-family: Arial, Helvetica, sans-serif;
-background-color:#8387c3;
-margin:0;
-padding:40px;
-text-align:center;
+/* =========================
+   VARIABLES
+========================= */
+
+:root{
+
+    --negro:#081225;
+    --azul:#1e293b;
+
+    --morado:#6366f1;
+    --morado-hover:#4f46e5;
+
+    --blanco:#ffffff;
+
+    --gris:#64748b;
+
+    --fondo:#f1f5f9;
+
+    --verde:#22c55e;
+
+    --sombra:
+        0 10px 30px rgba(0,0,0,.10);
 }
 
-h2{
-color:#0a1123;
-margin-bottom:25px;
+/* =========================
+   RESET
+========================= */
+
+*{
+
+    margin:0;
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:'Segoe UI',sans-serif;
 }
+
+/* =========================
+   BODY
+========================= */
+
+body{
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,.88),
+            rgba(255,255,255,.88)
+        ),
+
+        url('https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=1974&auto=format&fit=crop');
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-attachment:fixed;
+
+    min-height:100vh;
+
+    padding:40px 20px;
+}
+
+/* =========================
+   CONTENEDOR BOTONES
+========================= */
+
+.top-buttons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:30px;
+
+    flex-wrap:wrap;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.btn-volver,
+.btn-inicio{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:14px 28px;
+
+    border:none;
+
+    border-radius:14px;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    text-decoration:none;
+
+    min-width:180px;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.15);
+}
+
+/* =========================
+   BOTON VOLVER
+========================= */
+
+.btn-volver{
+
+    background:
+        linear-gradient(
+            135deg,
+            #5566c8,
+            #6f7cff
+        );
+}
+
+.btn-volver:hover{
+
+    transform:
+        translateY(-3px)
+        scale(1.02);
+
+    background:
+        linear-gradient(
+            135deg,
+            #4957b3,
+            #5d69ea
+        );
+}
+
+/* =========================
+   BOTON INICIO
+========================= */
+
+.btn-inicio{
+
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #22c55e
+        );
+}
+
+.btn-inicio:hover{
+
+    transform:
+        translateY(-3px)
+        scale(1.02);
+
+    background:
+        linear-gradient(
+            135deg,
+            #15803d,
+            #16a34a
+        );
+}
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.container{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    background:rgba(255,255,255,.93);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:30px;
+
+    padding:50px 40px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.12);
+}
+
+/* =========================
+   TITULO
+========================= */
+
+.container h2{
+
+    text-align:center;
+
+    font-size:50px;
+
+    color:var(--negro);
+
+    margin-bottom:45px;
+
+    font-weight:800;
+}
+
+/* =========================
+   TABLA
+========================= */
 
 table{
-width:60%;
-margin:auto;
-border-collapse:collapse;
-background-color:#ffffff;
-border-radius:10px;
-overflow:hidden;
-box-shadow:0px 10px 25px #00000033;
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    background:white;
+
+    box-shadow:var(--sombra);
 }
 
-th{
-background-color:#8387c3;
-color:#ffffff;
-padding:12px;
-font-size:1rem;
+/* =========================
+   ENCABEZADOS
+========================= */
+
+thead{
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--morado),
+            #7c3aed
+        );
+
+    color:white;
 }
 
-td{
-padding:12px;
-border-bottom:1px solid #dddddd;
+thead th{
+
+    padding:20px;
+
+    font-size:18px;
+
+    text-align:center;
+
+    letter-spacing:.5px;
 }
 
-tr:hover{
-background-color:#f4f5ff;
+/* =========================
+   FILAS
+========================= */
+
+tbody tr{
+
+    transition:.3s;
+
+    border-bottom:
+        1px solid #e2e8f0;
+}
+
+tbody tr:hover{
+
+    background:#f8fafc;
+
+    transform:scale(1.01);
+}
+
+/* =========================
+   CELDAS
+========================= */
+
+tbody td{
+
+    padding:18px;
+
+    text-align:center;
+
+    color:var(--azul);
+
+    font-size:16px;
+}
+
+/* =========================
+   TOTAL
+========================= */
+
+tbody td:last-child{
+
+    font-weight:bold;
+
+    color:var(--verde);
+
+    font-size:17px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:20px 10px;
+    }
+
+    .container{
+
+        padding:30px 15px;
+    }
+
+    .container h2{
+
+        font-size:35px;
+    }
+
+    table{
+
+        display:block;
+
+        overflow-x:auto;
+    }
+
+    thead th{
+
+        font-size:15px;
+
+        padding:15px;
+    }
+
+    tbody td{
+
+        font-size:14px;
+
+        padding:14px;
+    }
+
+    .top-buttons{
+
+        flex-direction:column;
+    }
+
+    .btn-volver,
+    .btn-inicio{
+
+        width:100%;
+    }
+}
+
+/* =========================
+   CELULARES PEQUEÑOS
+========================= */
+
+@media(max-width:480px){
+
+    .container h2{
+
+        font-size:28px;
+    }
+
+    tbody td{
+
+        font-size:13px;
+    }
 }

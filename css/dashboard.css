@@ -1,15 +1,50 @@
 /* =========================
+   VARIABLES
+========================= */
+
+:root{
+
+    --negro:#0f172a;
+
+    --azul:#1e293b;
+
+    --morado:#6366f1;
+
+    --morado-hover:#4f46e5;
+
+    --gris:#64748b;
+
+    --gris-claro:#e2e8f0;
+
+    --blanco:#ffffff;
+
+    --fondo:#f8fafc;
+
+    --glass:
+        rgba(255,255,255,.75);
+
+    --sombra:
+        0 12px 35px rgba(0,0,0,.10);
+
+    --sombra-hover:
+        0 18px 45px rgba(99,102,241,.18);
+}
+
+/* =========================
    RESET
 ========================= */
 
 *{
+
     margin:0;
     padding:0;
+
     box-sizing:border-box;
 }
 
 html,
 body{
+
     overflow-x:hidden;
 }
 
@@ -23,14 +58,23 @@ body{
 
     background:
         linear-gradient(
-            135deg,
-            #8387c3,
-            #6c70b5
-        );
+            rgba(248,250,252,.92),
+            rgba(248,250,252,.92)
+        ),
+
+        url('https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=1974&auto=format&fit=crop');
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-attachment:fixed;
 
     min-height:100vh;
 
-    color:#222;
+    color:var(--negro);
+
+    padding-bottom:40px;
 }
 
 /* =========================
@@ -47,25 +91,23 @@ ul{
 
     align-items:center;
 
-    gap:25px;
+    justify-content:center;
+
+    gap:28px;
 
     background:
-        rgba(108,112,181,.95);
+        rgba(99,102,241,.92);
 
-    backdrop-filter:blur(8px);
+    backdrop-filter:blur(12px);
 
     box-shadow:
-        0 5px 15px rgba(0,0,0,.12);
+        0 5px 20px rgba(0,0,0,.12);
 
     position:sticky;
 
     top:0;
 
     z-index:1000;
-}
-
-ul li{
-    list-style:none;
 }
 
 ul a{
@@ -76,7 +118,7 @@ ul a{
 
     font-weight:700;
 
-    font-size:17px;
+    font-size:16px;
 
     transition:.3s;
 
@@ -85,7 +127,7 @@ ul a{
 
 ul a:hover{
 
-    color:#e4e7ff;
+    color:#e0e7ff;
 }
 
 /* LINEA HOVER */
@@ -97,7 +139,7 @@ ul a::after{
     position:absolute;
 
     left:0;
-    bottom:-5px;
+    bottom:-6px;
 
     width:0%;
 
@@ -121,13 +163,13 @@ ul a:hover::after{
 
     position:fixed;
 
-    top:85px;
+    top:90px;
 
     left:25px;
 
     z-index:2000;
 
-    display:inline-flex;
+    display:flex;
 
     align-items:center;
 
@@ -135,43 +177,42 @@ ul a:hover::after{
 
     gap:10px;
 
-    width:auto;
-
     padding:14px 22px;
+
+    border-radius:16px;
 
     background:
         linear-gradient(
             135deg,
-            #5566c8,
-            #6f7cff
+            var(--morado),
+            #818cf8
         );
 
     color:white;
 
     text-decoration:none;
 
-    font-weight:bold;
+    font-weight:700;
 
     font-size:15px;
-
-    border-radius:16px;
 
     transition:.3s;
 
     box-shadow:
-        0 10px 25px rgba(0,0,0,.18);
+        0 10px 25px rgba(99,102,241,.25);
 }
 
 .btn-volver:hover{
 
     transform:
-        translateY(-3px);
+        translateY(-3px)
+        scale(1.02);
 
     background:
         linear-gradient(
             135deg,
-            #4957b3,
-            #5d69ea
+            var(--morado-hover),
+            #6366f1
         );
 }
 
@@ -183,21 +224,22 @@ ul a:hover::after{
 
     width:92%;
 
-    max-width:1200px;
+    max-width:1300px;
 
-    margin:35px auto;
+    margin:40px auto;
 
-    background:
-        rgba(255,255,255,.96);
+    background:var(--glass);
 
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(12px);
+
+    border:
+        1px solid rgba(255,255,255,.4);
+
+    border-radius:32px;
 
     padding:40px;
 
-    border-radius:28px;
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.15);
+    box-shadow:var(--sombra);
 }
 
 /* =========================
@@ -208,9 +250,11 @@ h2{
 
     text-align:center;
 
-    color:#1e293b;
+    color:var(--negro);
 
-    font-size:48px;
+    font-size:52px;
+
+    font-weight:800;
 
     margin-bottom:40px;
 }
@@ -224,32 +268,32 @@ h2{
     display:grid;
 
     grid-template-columns:
-        repeat(auto-fit,minmax(220px,1fr));
+        repeat(auto-fit,minmax(240px,1fr));
 
     gap:25px;
 
-    margin-bottom:40px;
+    margin-bottom:45px;
 }
 
 .card{
 
     background:
-        linear-gradient(
-            135deg,
-            #f7f8ff,
-            #eef1ff
-        );
+        rgba(255,255,255,.75);
 
-    padding:30px 20px;
+    backdrop-filter:blur(10px);
 
-    border-radius:22px;
+    border:
+        1px solid rgba(255,255,255,.5);
+
+    border-radius:24px;
+
+    padding:30px 25px;
 
     text-align:center;
 
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.10);
-
     transition:.35s;
+
+    box-shadow:var(--sombra);
 }
 
 .card:hover{
@@ -257,15 +301,14 @@ h2{
     transform:
         translateY(-8px);
 
-    box-shadow:
-        0 18px 35px rgba(0,0,0,.15);
+    box-shadow:var(--sombra-hover);
 }
 
 .card h3{
 
     margin-bottom:15px;
 
-    color:#333;
+    color:var(--gris);
 
     font-size:18px;
 
@@ -274,11 +317,11 @@ h2{
 
 .card p{
 
-    font-size:38px;
+    font-size:2.5rem;
 
-    font-weight:bold;
+    font-weight:800;
 
-    color:#5566c8;
+    color:var(--morado);
 }
 
 /* =========================
@@ -287,11 +330,11 @@ h2{
 
 h3{
 
-    margin-top:40px;
+    margin-top:35px;
 
     margin-bottom:15px;
 
-    color:#1e293b;
+    color:var(--negro);
 
     font-size:28px;
 }
@@ -300,22 +343,26 @@ h3{
    TABLA
 ========================= */
 
+.tabla-responsive{
+
+    overflow-x:auto;
+
+    border-radius:22px;
+}
+
 table{
 
     width:100%;
 
     border-collapse:collapse;
 
-    margin-top:20px;
+    background:white;
 
     overflow:hidden;
 
-    border-radius:18px;
+    border-radius:20px;
 
-    background:white;
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.10);
+    box-shadow:var(--sombra);
 }
 
 th{
@@ -323,35 +370,45 @@ th{
     background:
         linear-gradient(
             135deg,
-            #5566c8,
-            #6f7cff
+            var(--morado),
+            #818cf8
         );
 
     color:white;
 
-    padding:16px;
+    padding:18px;
 
     font-size:15px;
+
+    font-weight:700;
+
+    letter-spacing:.5px;
 }
 
 td{
 
-    padding:15px;
+    padding:16px;
 
-    border-bottom:1px solid #eee;
+    border-bottom:
+        1px solid #f1f5f9;
 
     text-align:center;
 
     font-size:14px;
 }
 
+tr{
+
+    transition:.25s;
+}
+
 tr:hover{
 
-    background-color:#f5f6ff;
+    background:#eef2ff;
 }
 
 /* =========================
-   CANVAS
+   GRAFICAS
 ========================= */
 
 canvas{
@@ -360,12 +417,11 @@ canvas{
 
     background:white;
 
-    padding:20px;
+    padding:22px;
 
-    border-radius:20px;
+    border-radius:24px;
 
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.10);
+    box-shadow:var(--sombra);
 
     width:100% !important;
 
@@ -380,52 +436,58 @@ button{
 
     margin-top:25px;
 
-    padding:16px;
+    padding:15px;
 
     width:100%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5566c8,
-            #6f7cff
-        );
-
-    color:white;
 
     border:none;
 
     border-radius:16px;
 
+    background:
+        linear-gradient(
+            135deg,
+            var(--morado),
+            #818cf8
+        );
+
+    color:white;
+
     cursor:pointer;
 
-    font-weight:bold;
+    font-weight:700;
 
-    font-size:16px;
+    font-size:15px;
 
     transition:.3s;
 
     box-shadow:
-        0 10px 20px rgba(0,0,0,.15);
+        0 10px 20px rgba(99,102,241,.18);
 }
 
 button:hover{
 
-    transform:translateY(-3px);
+    transform:
+        translateY(-3px);
 
     background:
         linear-gradient(
             135deg,
-            #4957b3,
-            #5d69ea
+            var(--morado-hover),
+            #6366f1
         );
 }
 
 /* =========================
-   RESPONSIVE TABLET
+   TABLETS
 ========================= */
 
 @media(max-width:992px){
+
+    .container{
+
+        padding:30px 22px;
+    }
 
     h2{
 
@@ -434,20 +496,30 @@ button:hover{
 
     .card p{
 
-        font-size:32px;
+        font-size:2rem;
     }
 
     h3{
 
         font-size:24px;
     }
+
+    .btn-volver{
+
+        top:85px;
+    }
 }
 
 /* =========================
-   RESPONSIVE MOVIL
+   MOVILES
 ========================= */
 
 @media(max-width:768px){
+
+    body{
+
+        padding-bottom:20px;
+    }
 
     ul{
 
@@ -462,16 +534,16 @@ button:hover{
 
     ul a{
 
-        font-size:15px;
+        font-size:14px;
     }
 
     .btn-volver{
 
-        top:75px;
+        position:static;
 
-        left:15px;
+        width:90%;
 
-        padding:12px 18px;
+        margin:20px auto 0 auto;
 
         font-size:14px;
     }
@@ -480,14 +552,14 @@ button:hover{
 
         width:95%;
 
-        padding:25px 18px;
+        padding:25px 16px;
 
-        margin:25px auto;
+        margin:20px auto;
     }
 
     h2{
 
-        font-size:34px;
+        font-size:32px;
 
         margin-bottom:30px;
     }
@@ -496,22 +568,22 @@ button:hover{
 
         grid-template-columns:1fr;
 
-        gap:20px;
+        gap:18px;
     }
 
     .card{
 
-        padding:25px 18px;
+        padding:24px 18px;
     }
 
     .card h3{
 
-        font-size:17px;
+        font-size:16px;
     }
 
     .card p{
 
-        font-size:30px;
+        font-size:2rem;
     }
 
     h3{
@@ -519,31 +591,32 @@ button:hover{
         font-size:22px;
     }
 
-    table{
-
-        display:block;
+    .tabla-responsive{
 
         overflow-x:auto;
+    }
 
-        white-space:nowrap;
+    table{
+
+        min-width:700px;
     }
 
     th,
     td{
 
-        font-size:13px;
+        padding:14px;
 
-        padding:12px;
+        font-size:13px;
     }
 
     canvas{
 
-        padding:12px;
+        padding:14px;
     }
 
     button{
 
-        font-size:15px;
+        font-size:14px;
     }
 }
 
@@ -555,11 +628,6 @@ button:hover{
 
     h2{
 
-        font-size:28px;
-    }
-
-    .card p{
-
         font-size:26px;
     }
 
@@ -568,13 +636,25 @@ button:hover{
         font-size:20px;
     }
 
+    .card{
+
+        padding:20px 16px;
+    }
+
+    .card p{
+
+        font-size:1.7rem;
+    }
+
+    th,
+    td{
+
+        font-size:12px;
+    }
+
     .btn-volver{
 
-        top:70px;
-
-        left:10px;
-
-        padding:10px 16px;
+        padding:12px 18px;
 
         font-size:13px;
     }

@@ -202,115 +202,6 @@ app.get('/movimientos', (req, res) => {
     });
 
 });
-/* REPORTE INVENTARIO */
-
-app.get('/reporte-inventario', (req, res) => {
-
-    const {
-
-        categoria,
-        estado,
-        busqueda
-
-    } = req.query;
-
-    let sql = `
-
-        SELECT
-
-            P.id_producto,
-            P.nombre_producto,
-            P.descripcion,
-            P.serie,
-            P.certificado_autenticidad,
-            P.kilataje,
-            P.precio,
-            P.estado_producto,
-            P.fecha_registro,
-
-            C.nombre_categoria
-
-        FROM productos P
-
-        INNER JOIN categorias C
-        ON P.id_categoria = C.id_categoria
-
-        WHERE 1=1
-
-    `;
-
-    let valores = [];
-
-    if (categoria) {
-
-        sql += `
-
-            AND C.nombre_categoria = ?
-
-        `;
-
-        valores.push(categoria);
-
-    }
-
-    if (estado) {
-
-        sql += `
-
-            AND P.estado_producto = ?
-
-        `;
-
-        valores.push(estado);
-
-    }
-
-    if (busqueda) {
-
-        sql += `
-
-            AND (
-
-            P.nombre_producto LIKE ?
-
-            OR
-
-            P.id_producto LIKE ?
-            )
-        `;
-
-        valores.push(
-            `%${busqueda}%`,
-            `%${busqueda}%`
-        );
-
-    }
-
-    sql += `
-
-        ORDER BY P.id_producto DESC
-
-    `;
-
-    db.query(sql, valores, (err, result) => {
-
-        if (err) {
-
-            console.log(err);
-
-            return res.status(500).json({
-
-                success: false
-
-            });
-
-        }
-
-        res.json(result);
-
-    });
-
-});
 /* SERVIDOR */
 
 app.listen(3000, () => {
@@ -968,15 +859,14 @@ app.put('/usuarios/:id', (req, res) => {
         id_rol,
         password
     } = req.body;
-
     /* VALIDAR CORREO DUPLICADO */
     const sqlCorreo = `
-        SELECT *
-        FROM Usuarios
-        WHERE correo = ?
-        AND id_usuario != ?
+            SELECT *
+            FROM Usuarios
+            WHERE correo = ?
+            AND id_usuario != ?
 
-    `;
+        `;
     db.query(
         sqlCorreo,
         [correo, id],
@@ -986,7 +876,8 @@ app.put('/usuarios/:id', (req, res) => {
                 return res.status(500).json({
                     success: false
                 });
-            } if (resultCorreo.length > 0) {
+            }
+            if (resultCorreo.length > 0) {
                 return res.json({
                     success: false,
                     message: 'Correo ya registrado'
@@ -994,15 +885,15 @@ app.put('/usuarios/:id', (req, res) => {
             }
             /* SQL BASE */
             let sql = `
-                UPDATE Usuarios 
-                SET
-            nombre = ?,
-            apellido_paterno = ?,
-            apellido_materno = ?,
-            correo = ?,
-            telefono = ?,
-            id_rol = ?
-            `;
+                    UPDATE Usuarios
+                    SET
+                        nombre = ?,
+                        apellido_paterno = ?,
+                        apellido_materno = ?,
+                        correo = ?,
+                        telefono = ?,
+                        id_rol = ?
+                `;
             let valores = [
                 nombre,
                 apellido_paterno,
@@ -1725,7 +1616,7 @@ app.post('/ventas', (req, res) => {
     });
 
 });
-/* OBTENER VENTAS */
+/* OBTENER VENTAS */ 
 
 app.get('/ventas', (req, res) => {
 
@@ -1787,185 +1678,6 @@ app.get('/ventas/:id/productos', (req, res) => {
     `;
 
     db.query(sql, [id_venta], (err, result) => {
-
-        if (err) {
-
-            console.log(err);
-
-            return res.status(500).json({
-                success: false
-            });
-
-        }
-
-        res.json(result);
-
-    });
-
-});
-
-
-/* REPORTE VENTAS */
-
-app.get('/reporte-ventas', (req, res) => {
-
-    const {
-        tipo,
-        fechaInicio,
-        fechaFin,
-        mes,
-        anio
-    } = req.query;
-
-    let sql = `
-
-        SELECT
-
-            P.id_producto,
-
-            P.nombre_producto,
-
-            P.descripcion,
-
-            P.serie,
-
-            P.certificado_autenticidad,
-
-            P.kilataje,
-
-            P.estado_producto,
-
-            C.nombre_categoria,
-
-            V.tipo_venta,
-
-            V.fecha_venta,
-
-            V.total,
-
-            U.nombre AS usuario,
-
-            MP.nombre_metodo AS metodo_pago
-
-        FROM ventas V
-
-        INNER JOIN detalle_ventas D
-        ON V.id_venta = D.id_venta
-
-        INNER JOIN productos P
-        ON D.id_producto = P.id_producto
-
-        INNER JOIN categorias C
-        ON P.id_categoria = C.id_categoria
-
-        INNER JOIN usuarios U
-        ON V.id_usuario = U.id_usuario
-
-        INNER JOIN metodo_pago MP
-        ON V.id_metodo_pago = MP.id_metodo_pago
-
-    `;
-
-    let valores = [];
-
-    /* DIARIO */
-
-    if (tipo === 'diario') {
-
-        sql += `
-
-            WHERE DATE(V.fecha_venta) = ?
-
-        `;
-
-        valores.push(
-            fechaInicio
-        );
-
-    }
-
-    /* SEMANAL */
-
-    else if (tipo === 'semanal') {
-
-        sql += `
-
-            WHERE DATE(V.fecha_venta)
-
-            BETWEEN ? AND DATE_ADD(?, INTERVAL 7 DAY)
-
-        `;
-
-        valores.push(
-            fechaInicio,
-            fechaInicio
-        );
-
-    }
-
-    /* MENSUAL */
-
-    else if (tipo === 'mensual') {
-
-        sql += `
-
-            WHERE DATE_FORMAT(
-                V.fecha_venta,
-                '%Y-%m'
-            ) = ?
-
-        `;
-
-        valores.push(
-            mes
-        );
-
-    }
-
-    /* ANUAL */
-
-    else if (tipo === 'anual') {
-
-        sql += `
-
-            WHERE YEAR(
-                V.fecha_venta
-            ) = ?
-
-        `;
-
-        valores.push(
-            anio
-        );
-
-    }
-
-    /* PERSONALIZADO */
-
-    else if (tipo === 'personalizado') {
-
-        sql += `
-
-            WHERE DATE(V.fecha_venta)
-
-            BETWEEN ? AND ?
-
-        `;
-
-        valores.push(
-            fechaInicio,
-            fechaFin
-        );
-
-    }
-
-    sql += `
-
-        ORDER BY V.fecha_venta DESC
-
-    `;
-
-    db.query(sql, valores, (err, result) => {
 
         if (err) {
 
@@ -2220,137 +1932,6 @@ app.get('/caja-dia/:id_usuario', (req, res) => {
 
 });
 
-/* REPORTE CAJA */
-
-app.get('/reporte-caja', (req, res) => {
-
-    const {
-        tipo,
-        fechaInicio,
-        fechaFin,
-        mes,
-        anio
-    } = req.query;
-
-    let sql = `
-
-        SELECT
-
-            DATE(V.fecha_venta) AS fecha,
-
-            COUNT(V.id_venta) AS ventas,
-
-            SUM(
-                CASE
-                    WHEN MP.nombre_metodo='Efectivo'
-                    THEN V.total
-                    ELSE 0
-                END
-            ) AS efectivo,
-
-            SUM(
-                CASE
-                    WHEN MP.nombre_metodo='Tarjeta'
-                    THEN V.total
-                    ELSE 0
-                END
-            ) AS tarjeta,
-
-            SUM(V.total) AS ingresos
-
-        FROM ventas V
-
-        INNER JOIN metodo_pago MP
-        ON V.id_metodo_pago = MP.id_metodo_pago
-
-        WHERE 1=1
-
-    `;
-
-    /* DIARIO */
-
-    if (tipo === 'diario') {
-
-        sql += `
-
-            AND DATE(V.fecha_venta)=
-            '${fechaInicio}'
-
-        `;
-
-    }
-
-    /* PERSONALIZADO */
-
-    if (
-        tipo === 'personalizado'
-    ) {
-
-        sql += `
-
-            AND DATE(V.fecha_venta)
-
-            BETWEEN '${fechaInicio}'
-            AND '${fechaFin}'
-
-        `;
-
-    }
-
-    /* MENSUAL */
-
-    if (tipo === 'mensual') {
-
-        sql += `
-
-            AND DATE_FORMAT(
-                V.fecha_venta,
-                '%Y-%m'
-            )='${mes}'
-
-        `;
-
-    }
-
-    /* ANUAL */
-
-    if (tipo === 'anual') {
-
-        sql += `
-
-            AND YEAR(
-                V.fecha_venta
-            )='${anio}'
-
-        `;
-
-    }
-
-    sql += `
-
-        GROUP BY DATE(V.fecha_venta)
-
-        ORDER BY V.fecha_venta DESC
-
-    `;
-
-    db.query(sql, (err, result) => {
-
-        if (err) {
-
-            console.log(err);
-
-            return res.status(500).json({
-                success:false
-            });
-
-        }
-
-        res.json(result);
-
-    });
-
-});
 /* DASHBOARD CAJERO */
 
 app.get('/dashboard-cajero/:id_usuario', (req, res) => {

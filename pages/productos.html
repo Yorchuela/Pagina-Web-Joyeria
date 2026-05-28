@@ -10,36 +10,34 @@
 <body>
 
     <h2>Gestión de Productos</h2>
-    <button class="btn-regresar" onclick="
-    window.location.href=
-    '../index.html'
-    ">
 
-        ⬅ Regresar
+    <button 
+    type="button"
+    class="btn-regresar"
+    onclick="history.back()"
+>
 
-    </button>
+    ← Regresar
 
-    <!-- HERRAMIENTAS SUPERIORES -->
+</button>
 
-    <!-- TOOLBAR PRODUCTOS -->
+<button 
+    type="button"
+    class="btn-inicio"
+    onclick="window.location.href='../index.html'"
+>
 
-    <div class="toolbar-productos">
+    🏠 Ir al Inicio
 
-        <div class="busqueda-productos">
+</button>
+     
 
-            <input type="text" id="buscador" placeholder="Buscar por ID, nombre o estado..."
-                onkeyup="buscarProductos()">
 
-            <button class="btn-limpiar" onclick="limpiarBusqueda()">
-                🧹 Limpiar búsqueda
-            </button>
-            <button class="btn-excel" onclick="exportarExcel()">
-                    📥 Exportar Excel
-            </button>
 
-            <button class="btn-pdf" onclick="exportarPDF()">
-                    📄 Exportar PDF
-            </button>
+    <!--Agregar un producto-->
+    <table border="1">
+        <div class="acciones-superior">
+
             <button class="btn-agregar" onclick="irAgregarProducto()">
                     ➕ Agregar Producto
                 </button>
