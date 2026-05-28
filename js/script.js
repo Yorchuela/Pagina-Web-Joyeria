@@ -312,7 +312,7 @@ else {
             </a>
 
             <a href="${
-                obtenerRuta("reportes.html")
+                obtenerRuta("reporte.html")
             }">
                 Reportes
             </a>
@@ -457,11 +457,7 @@ else {
                 Ventas
             </a>
 
-            <a href="${
-                obtenerRuta("tickets.html")
-            }">
-                Tickets
-            </a>
+            
 
             <a href="${
                 obtenerRuta("clientes.html")
