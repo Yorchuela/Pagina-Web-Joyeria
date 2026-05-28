@@ -1,60 +1,284 @@
 // 🔥 INICIAR
 document.addEventListener("DOMContentLoaded", () => {
+
     mostrarVentas();
+
 });
 
 // 🔥 MOSTRAR TODAS LAS VENTAS
-function mostrarVentas(ventasFiltradas = null){
+async function mostrarVentas(ventasFiltradas = null) {
 
-    let ventas = ventasFiltradas || JSON.parse(localStorage.getItem("ventas")) || [];
-    let tabla = document.getElementById("tablaVentas");
-    let totalGeneral = 0;
+    try {
 
-    tabla.innerHTML = "";
+        let ventas = ventasFiltradas;
 
-    if(ventas.length === 0){
-        tabla.innerHTML = "<tr><td colspan='3'>No hay ventas registradas</td></tr>";
-        document.getElementById("totalGeneral").textContent = 0;
-        return;
-    }
+        // 🔥 SI NO HAY FILTROS TRAER DEL BACKEND
+        if (!ventas) {
 
-    ventas.forEach(v => {
+            const response = await fetch(
+                "http://localhost:3000/ventas"
+            );
 
-        if(!v.productos) return;
+            ventas = await response.json();
 
-        v.productos.forEach(p => {
+        }
 
-            let total = p.precio * p.cantidad;
-            totalGeneral += total;
+        const tabla =
+            document.getElementById("tablaVentas");
+
+        tabla.innerHTML = "";
+
+        let totalGeneral = 0;
+
+        // 🔥 SI NO HAY VENTAS
+        if (ventas.length === 0) {
+
+            tabla.innerHTML = `
+            
+                <tr>
+                    <td colspan="6">
+                        No hay ventas registradas
+                    </td>
+                </tr>
+
+            `;
+
+            document.getElementById(
+                "totalGeneral"
+            ).textContent = "$0.00";
+
+            return;
+
+        }
+
+        // 🔥 RECORRER VENTAS
+        ventas.forEach(v => {
+
+            totalGeneral += Number(v.total);
 
             let fila = `
+            
                 <tr>
-                    <td>${p.nombre}</td>
-                    <td>${p.cantidad}</td>
-                    <td>$${total}</td>
+
+                    <td>
+                        ${v.id_venta}
+                    </td>
+
+                    <td>
+                        ${v.nombre}
+                    </td>
+
+                    <td>
+                        $${Number(v.total).toFixed(2)}
+                    </td>
+
+                    <td>
+                        ${new Date(v.fecha_venta)
+                            .toLocaleDateString()}
+                    </td>
+
+                    <td>
+                        ${new Date(v.fecha_venta)
+                            .toLocaleTimeString()}
+                    </td>
+
+                    <td>
+                        <button
+                            class="btn-ver"
+                            onclick="verProductos(${v.id_venta})"
+                        >
+                            👁
+                        </button>
+                    </td>
+
                 </tr>
+
             `;
 
             tabla.innerHTML += fila;
+
         });
 
-    });
+        // 🔥 TOTAL GENERAL
+        document.getElementById(
+            "totalGeneral"
+        ).textContent =
+            `$${totalGeneral.toFixed(2)}`;
 
-    document.getElementById("totalGeneral").textContent = totalGeneral;
+    } catch (error) {
+
+        console.error(
+            "Error cargando ventas:",
+            error
+        );
+
+    }
+
 }
 
 // 🔍 FILTRAR POR FECHA
-function filtrar(){
+async function filtrar() {
 
-    let fecha = document.getElementById("filtroFecha").value;
-    let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
+    try {
 
-    if(!fecha){
-        mostrarVentas();
-        return;
+        const fecha =
+            document.getElementById(
+                "filtroFecha"
+            ).value;
+
+        const response = await fetch(
+            "http://localhost:3000/ventas"
+        );
+
+        let ventas =
+            await response.json();
+
+        // 🔥 SI NO HAY FECHA
+        if (!fecha) {
+
+            mostrarVentas();
+
+            return;
+
+        }
+
+        let filtradas = ventas.filter(v => {
+
+            let fechaVenta =
+                new Date(v.fecha_venta)
+                .toISOString()
+                .split("T")[0];
+
+            return fechaVenta === fecha;
+
+        });
+
+        mostrarVentas(filtradas);
+
+    } catch (error) {
+
+        console.error(
+            "Error filtrando ventas:",
+            error
+        );
+
     }
 
-    let filtradas = ventas.filter(v => v.fecha === fecha);
+}
 
-    mostrarVentas(filtradas);
+// 👁 VER PRODUCTOS DE LA VENTA
+async function verProductos(idVenta) {
+
+    try {
+
+        const response = await fetch(
+            `http://localhost:3000/ventas/${idVenta}/productos`
+        );
+
+        const productos =
+            await response.json();
+
+        let contenido = "";
+
+        productos.forEach(p => {
+
+            contenido += `
+            
+                <div class="producto-detalle">
+
+                    <p>
+                        <strong>Producto:</strong>
+                        ${p.nombre_producto}
+                    </p>
+
+                    <p>
+                        <strong>Precio:</strong>
+                        $${Number(
+                            p.precio_unitario
+                        ).toFixed(2)}
+                    </p>
+
+                    <hr>
+
+                </div>
+
+            `;
+
+        });
+
+        document.getElementById(
+            "detalleProductos"
+        ).innerHTML = contenido;
+
+        document.getElementById(
+            "modalProductos"
+        ).style.display = "flex";
+
+    } catch (error) {
+
+        console.error(
+            "Error obteniendo productos:",
+            error
+        );
+
+    }
+
+}
+
+// ❌ CERRAR MODAL
+function cerrarModal() {
+
+    document.getElementById(
+        "modalProductos"
+    ).style.display = "none";
+
+}
+
+// 📗 EXPORTAR EXCEL
+document.querySelector(".btn-excel")
+.addEventListener("click", exportarExcel);
+
+function exportarExcel() {
+
+    const tabla =
+        document.querySelector("table");
+
+    const wb =
+        XLSX.utils.table_to_book(tabla);
+
+    XLSX.writeFile(
+        wb,
+        "Reporte_Ventas.xlsx"
+    );
+
+}
+
+// 📕 EXPORTAR PDF
+document.querySelector(".btn-pdf")
+.addEventListener("click", exportarPDF);
+
+function exportarPDF() {
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    doc.text(
+        "Reporte de Ventas",
+        14,
+        15
+    );
+
+    doc.autoTable({
+
+        html: "table",
+
+        startY: 25
+
+    });
+
+    doc.save(
+        "Reporte_Ventas.pdf"
+    );
+
 }

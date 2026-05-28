@@ -1009,7 +1009,7 @@ app.put('/usuarios/activar/:id', (req, res) => {
     });
 
 });
-/* OBTENER PRODUCTOS */
+//* OBTENER PRODUCTOS */
 
 app.get('/productos', (req, res) => {
 
@@ -1018,25 +1018,35 @@ app.get('/productos', (req, res) => {
         SELECT
 
             P.id_producto,
-            P.nombre_producto,
+
+            P.nombre_producto AS producto,
+
             P.descripcion,
+
             P.id_categoria,
+
             P.serie,
+
             P.certificado_autenticidad,
+
             P.kilataje,
+
             P.precio,
+
             P.ruta_imagen,
-            P.estado_producto,
+
+            P.estado_producto AS estado,
+
             P.fecha_registro,
 
-            C.nombre_categoria
+            C.nombre_categoria AS categoria
 
         FROM productos P
 
         INNER JOIN categorias C
         ON P.id_categoria = C.id_categoria
 
-        WHERE P.estado_producto='Disponible'
+        WHERE P.estado_producto = 'Disponible'
 
         ORDER BY P.id_producto DESC
     
@@ -1049,13 +1059,16 @@ app.get('/productos', (req, res) => {
             console.log(err);
 
             return res.status(500).json({
+
                 success: false
+
             });
 
         }
 
-        res.json(result);
+        console.log(result);
 
+        res.json(result);
 
     });
 

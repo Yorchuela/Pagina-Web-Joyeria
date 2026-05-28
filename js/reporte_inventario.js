@@ -1,57 +1,378 @@
 // 🔥 INICIAR
 document.addEventListener("DOMContentLoaded", () => {
+
     mostrarInventario();
+
+    cargarCategorias();
+
 });
 
 // 🔥 MOSTRAR INVENTARIO
-function mostrarInventario(productosFiltrados = null){
+async function mostrarInventario(productosFiltrados = null) {
 
-    let productos = productosFiltrados || JSON.parse(localStorage.getItem("productos")) || [];
-    let tabla = document.getElementById("tablaInventario");
+    try {
 
-    tabla.innerHTML = "";
+        let productos = productosFiltrados;
 
-    if(productos.length === 0){
-        tabla.innerHTML = "<tr><td colspan='3'>No hay productos</td></tr>";
-        return;
-    }
+        // 🔥 SI NO HAY FILTROS TRAER TODO
+        if (!productos) {
 
-    productos.forEach(p => {
+            const response = await fetch(
+                "http://localhost:3000/productos"
+            );
 
-        let estado = "";
-        
-        if(p.stock <= 5){
-            estado = "🔴 Crítico";
-        }else if(p.stock <= 10){
-            estado = "🟠 Bajo";
-        }else{
-            estado = "🟢 Normal";
+            productos = await response.json();
+            console.log(productos);
+
         }
 
-        let fila = `
-            <tr>
-                <td>${p.nombre}</td>
-                <td>${p.stock}</td>
-                <td>${estado}</td>
-            </tr>
-        `;
+        const tabla =
+            document.getElementById("tablaInventario");
 
-        tabla.innerHTML += fila;
-    });
-}
+        tabla.innerHTML = "";
 
-// 🔍 FILTRO DE STOCK
-function filtrarStock(){
+        let totalPiezas = 0;
 
-    let limite = parseInt(document.getElementById("filtroStock").value);
-    let productos = JSON.parse(localStorage.getItem("productos")) || [];
+        let valorInventario = 0;
 
-    if(!limite){
-        mostrarInventario();
-        return;
+        // 🔥 SIN PRODUCTOS
+        if (productos.length === 0) {
+
+            tabla.innerHTML = `
+                <tr>
+                    <td colspan="7">
+                        No hay productos registrados
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+        // 🔥 RECORRER PRODUCTOS
+        productos.forEach(p => {
+
+            totalPiezas++;
+
+            valorInventario += Number(p.precio);
+
+            let fila = `
+            
+                <tr>
+
+                    <td>
+                        ${p.id_producto}
+                    </td>
+
+                    <td>
+                        <button 
+                            class="btn-ver"
+                            onclick='verDetalle(${JSON.stringify(p)})'
+                        >
+                            👁
+                        </button>
+                    </td>
+
+                    <td>
+                        ${p.producto}
+                    </td>
+
+                    <td>
+                        ${p.categoria}
+                    </td>
+
+                    <td>
+                        ${p.kilataje}K
+                    </td>
+
+                    <td>
+                        ${p.estado}
+                    </td>
+
+                    <td>
+                        $${Number(p.precio).toFixed(2)}
+                    </td>
+
+                </tr>
+
+            `;
+
+            tabla.innerHTML += fila;
+
+        });
+
+        // 🔥 CARDS
+        document.getElementById("totalPiezas")
+            .textContent = totalPiezas;
+
+        document.getElementById("valorInventario")
+            .textContent = valorInventario.toFixed(2);
+
+    } catch (error) {
+
+        console.error(
+            "Error cargando inventario:",
+            error
+        );
+
     }
 
-    let filtrados = productos.filter(p => p.stock <= limite);
+}
 
-    mostrarInventario(filtrados);
+// 🔍 FILTRAR INVENTARIO
+async function filtrarInventario() {
+
+    try {
+
+        const texto =
+            document.getElementById("busqueda")
+            .value
+            .toLowerCase();
+
+        const categoria =
+            document.getElementById("filtroCategoria")
+            .value;
+
+        const estado =
+            document.getElementById("filtroEstado")
+            .value;
+
+        const response = await fetch(
+            "http://localhost:3000/productos"
+        );
+
+        let productos =
+            await response.json();
+
+        let filtrados = productos.filter(p => {
+
+            let coincideTexto =
+
+                p.producto
+                .toLowerCase()
+                .includes(texto)
+
+                ||
+
+                String(p.id_producto)
+                .includes(texto);
+
+            let coincideCategoria =
+
+                categoria === ""
+
+                ||
+
+                p.categoria === categoria;
+
+            let coincideEstado =
+
+                estado === ""
+
+                ||
+
+                p.estado === estado;
+
+            return coincideTexto
+                &&
+                coincideCategoria
+                &&
+                coincideEstado;
+
+        });
+
+        mostrarInventario(filtrados);
+
+    } catch (error) {
+
+        console.error(
+            "Error filtrando inventario:",
+            error
+        );
+
+    }
+
+}
+
+// ✖ LIMPIAR FILTROS
+function limpiarFiltros() {
+
+    document.getElementById("busqueda").value = "";
+
+    document.getElementById("filtroCategoria").value = "";
+
+    document.getElementById("filtroEstado").value = "";
+
+    mostrarInventario();
+
+}
+
+// 🔥 CARGAR CATEGORIAS
+async function cargarCategorias() {
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:3000/productos"
+        );
+
+        const productos =
+            await response.json();
+
+        const select =
+            document.getElementById("filtroCategoria");
+
+        // 🔥 ELIMINAR REPETIDOS
+        const categorias = [
+
+            ...new Set(
+                productos.map(
+                    p => p.categoria
+                )
+            )
+
+        ];
+
+        categorias.forEach(cat => {
+
+            if (!cat) return;
+
+            select.innerHTML += `
+            
+                <option value="${cat}">
+                    ${cat}
+                </option>
+
+            `;
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Error cargando categorías:",
+            error
+        );
+
+    }
+
+}
+
+// 👁 VER DETALLE
+function verDetalle(producto) {
+
+    const modal =
+        document.getElementById("modalDetalle");
+
+    const detalle =
+        document.getElementById("detalleProducto");
+
+    detalle.innerHTML = `
+    
+        <div class="detalle-box">
+
+            <img
+                src="http://localhost:3000${producto.ruta_imagen}"
+                class="img-detalle"
+            >
+
+            <h2>
+                ${producto.producto}
+            </h2>
+
+            <p>
+                <strong>Categoría:</strong>
+                ${producto.categoria}
+            </p>
+
+            <p>
+                <strong>Kilataje:</strong>
+                ${producto.kilataje}K
+            </p>
+
+            <p>
+                <strong>Precio:</strong>
+                $${Number(producto.precio).toFixed(2)}
+            </p>
+
+            <p>
+                <strong>Estado:</strong>
+                ${producto.estado}
+            </p>
+
+            <p>
+                <strong>Serie:</strong>
+                ${producto.serie}
+            </p>
+
+            <p>
+                <strong>Descripción:</strong>
+                ${producto.descripcion}
+            </p>
+
+        </div>
+
+    `;
+
+    modal.style.display = "flex";
+
+}
+
+// ❌ CERRAR MODAL
+function cerrarModal() {
+
+    document.getElementById(
+        "modalDetalle"
+    ).style.display = "none";
+
+}
+
+// 📗 EXPORTAR EXCEL
+document.querySelector(".btn-excel")
+.addEventListener("click", exportarExcel);
+
+function exportarExcel() {
+
+    let tabla =
+        document.querySelector("table");
+
+    let wb =
+        XLSX.utils.table_to_book(tabla);
+
+    XLSX.writeFile(
+        wb,
+        "Reporte_Inventario.xlsx"
+    );
+
+}
+
+// 📕 EXPORTAR PDF
+document.querySelector(".btn-pdf")
+.addEventListener("click", exportarPDF);
+
+function exportarPDF() {
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    doc.text(
+        "Reporte de Inventario",
+        14,
+        15
+    );
+
+    doc.autoTable({
+
+        html: "table",
+
+        startY: 25
+
+    });
+
+    doc.save(
+        "Reporte_Inventario.pdf"
+    );
+
 }
