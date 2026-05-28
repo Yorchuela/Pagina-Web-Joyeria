@@ -147,29 +147,76 @@ if (rol === "Invitado" || rol === "Cliente") {
     /* MOSTRAR / OCULTAR */
 
     if (dashboard) {
-        dashboard.style.display = "none";
+        dashboard.style.display = "block";
     }
 
     if (categorias) {
-        categorias.style.display = "grid";
+        categorias.style.display = "none";
     }
 
     /* HERO */
 
     if (tituloHero) {
         tituloHero.textContent =
-            "Bienvenido a Joyeria Yorch";
+            "Bienvenido a YORCH JEWELRY";
     }
 
     if (textoHero) {
         textoHero.textContent =
-            "Explora nuestros productos";
+            "Explora nuestros productos exclusivos";
     }
 
     if (btnHero) {
         btnHero.textContent =
             "Comprar ahora";
     }
+
+    /* BIENVENIDA */
+
+    if (bienvenida) {
+        bienvenida.textContent =
+            rol === "Cliente"
+                ? "Panel de Cliente"
+                : "Catálogo Principal";
+    }
+
+    /* CARDS */
+
+    container.appendChild(
+        card(
+            "🛍️",
+            "Productos",
+            "Explora el catálogo completo de joyería.",
+            "./pages/catalogo.html"
+        )
+    );
+
+    container.appendChild(
+        card(
+            "📂",
+            "Categorías",
+            "Consulta productos por categorías.",
+            "./pages/categorias.html"
+        )
+    );
+
+    container.appendChild(
+        card(
+            "🛒",
+            "Carrito",
+            "Revisa y administra tus compras.",
+            "./pages/carrito.html"
+        )
+    );
+
+    container.appendChild(
+        card(
+            "💎",
+            "Colecciones",
+            "Descubre piezas exclusivas y nuevas.",
+            "./pages/catalogo.html"
+        )
+    );
 }
 
 /* =========================
@@ -212,7 +259,7 @@ else {
             Ventas
         </a>
 
-        <a href="./pages/reportes.html"
+        <a href="./pages/reporte_caja.html"
            id="reportes">
             Reportes
         </a>
@@ -223,6 +270,7 @@ else {
     ========================= */
 
     if (rol === "Administrador") {
+
         menu.innerHTML += `
 
         <a href="./pages/dashboard.html">
@@ -232,6 +280,21 @@ else {
         </a>
 
     `;
+
+        if (tituloHero) {
+            tituloHero.textContent =
+                "Administración Total";
+        }
+
+        if (textoHero) {
+            textoHero.textContent =
+                "Control completo del sistema y operaciones";
+        }
+
+        if (btnHero) {
+            btnHero.textContent =
+                "Ir al panel";
+        }
 
         if (bienvenida) {
             bienvenida.textContent =
@@ -311,6 +374,62 @@ else {
         if (reportes) {
             reportes.style.display = "none";
         }
+
+        if (tituloHero) {
+            tituloHero.textContent =
+                "Panel de Ventas";
+        }
+
+        if (textoHero) {
+            textoHero.textContent =
+                "Gestiona ventas y atención a clientes";
+        }
+
+        if (btnHero) {
+            btnHero.textContent =
+                "Nueva venta";
+        }
+
+        if (bienvenida) {
+            bienvenida.textContent =
+                "Panel de Cajero";
+        }
+
+        container.appendChild(
+            card(
+                "💰",
+                "Registrar Venta",
+                "Realiza nuevas ventas rápidamente.",
+                "./pages/reporte_ventas.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "🛍️",
+                "Productos",
+                "Consulta disponibilidad de productos.",
+                "./pages/productos.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "👥",
+                "Clientes",
+                "Consulta información de clientes.",
+                "./pages/clientes.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "🧾",
+                "Historial",
+                "Revisa ventas recientes realizadas.",
+                "./pages/reporte_ventas.html"
+            )
+        );
     }
 
     /* =========================
@@ -349,6 +468,80 @@ else {
             }
 
         }, 0);
+
+        if (tituloHero) {
+            tituloHero.textContent =
+                "Gestión de Inventario";
+        }
+
+        if (textoHero) {
+            textoHero.textContent =
+                "Administra productos y controla existencias";
+        }
+
+        if (btnHero) {
+            btnHero.textContent =
+                "Ver inventario";
+        }
+
+        if (bienvenida) {
+            bienvenida.textContent =
+                "Panel de Inventario";
+        }
+
+        container.appendChild(
+            card(
+                "📦",
+                "Productos",
+                "Gestiona productos y stock disponible.",
+                "./pages/productos.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "➕",
+                "Registrar Producto",
+                "Agrega nuevos productos al inventario.",
+                "./pages/productos.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "📋",
+                "Movimientos",
+                "Consulta entradas y salidas de mercancía.",
+                "./pages/movimientos.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "⚠️",
+                "Stock Bajo",
+                "Visualiza productos con pocas existencias.",
+                "./pages/stock_bajo.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "🏷️",
+                "Categorías",
+                "Administra categorías de productos.",
+                "./pages/categorias.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "🔍",
+                "Buscar Producto",
+                "Consulta información rápida del inventario.",
+                "./pages/productos.html"
+            )
+        );
     }
 }
 
@@ -386,9 +579,4 @@ function logout(){
         estaEnPages
             ? "../index.html"
             : "index.html";
-
-            
 }
-
-
-

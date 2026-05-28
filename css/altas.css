@@ -1,99 +1,462 @@
+/* =========================
+   VARIABLES
+========================= */
+
+:root{
+
+    --negro:#0f172a;
+
+    --azul:#1e293b;
+
+    --morado:#6366f1;
+
+    --morado-hover:#4f46e5;
+
+    --gris:#64748b;
+
+    --gris-claro:#e2e8f0;
+
+    --blanco:#ffffff;
+
+    --fondo:#f8fafc;
+
+    --glass:
+        rgba(255,255,255,.84);
+
+    --sombra:
+        0 20px 50px rgba(0,0,0,.18);
+
+    --sombra-hover:
+        0 18px 45px rgba(99,102,241,.20);
+}
+
+/* =========================
+   RESET
+========================= */
+
+*{
+
+    margin:0;
+    padding:0;
+
+    box-sizing:border-box;
+}
+
+/* =========================
+   BODY
+========================= */
+
 body{
-font-family: Arial, Helvetica, sans-serif;
-background: #8387c3;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
+
+    font-family:
+        'Segoe UI',
+        sans-serif;
+
+    background:
+        linear-gradient(
+            rgba(15,23,42,.72),
+            rgba(30,41,59,.72)
+        ),
+
+        url('https://images.unsplash.com/photo-1603974372039-adc49044b6bd?q=80&w=1974&auto=format&fit=crop');
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    background-attachment:fixed;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 20px;
+
+    overflow-x:hidden;
+
+    position:relative;
 }
 
-h2{
-color:#0a1123;
-margin-bottom:15px;
-text-align: center;
+/* =========================
+   EFECTOS DECORATIVOS
+========================= */
+
+body::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:450px;
+    height:450px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(99,102,241,.28),
+            transparent 70%
+        );
+
+    top:-120px;
+    left:-120px;
+
+    z-index:0;
 }
 
-form{
-width:320px;
-padding:30px;
-background-color:#fff;
-border-radius:12px;
-box-shadow:0px 10px 25px #00000033;
+body::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:400px;
+    height:400px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(59,130,246,.25),
+            transparent 70%
+        );
+
+    bottom:-120px;
+    right:-120px;
+
+    z-index:0;
 }
 
-label{
-display:block;
-margin-top:12px;
-font-size:0.95rem;
-color:#0a1123;
-}
+/* =========================
+   CONTENEDOR REGRESAR
+========================= */
 
-input{
-width:93%;
-padding:10px;
-margin-top: 5px;
-border:1px solid #d6d8f5;
-border-radius:6px;
-background-color:#f6f7ff;
-}
+.contenedor-regresar{
 
-input:focus{
-outline:none;
-border-color:#8387c3;
-background-color:#ffffff;
-}
+    position:fixed;
 
-button{
-width:100%;
-margin-top:20px;
-padding:11px;
-background-color:#8387c3;
-color:#ffffff;
-border:none;
-border-radius:6px;
-font-weight:bold;
-cursor:pointer;
-transition:0.3s;
-}
+    top:25px;
 
-button:hover{
-background-color:#6c70b5;
+    left:25px;
+
+    z-index:10;
 }
 
 /* =========================
    BOTON REGRESAR
 ========================= */
 
-.contenedor-regresar{
-    position:absolute;
-    top:30px;
-    left:30px;
-}
-
 .btn-regresar{
-    padding:12px 22px;
 
     border:none;
-    border-radius:12px;
 
-    background:#0f172a;
+    padding:14px 22px;
+
+    border-radius:16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--morado),
+            #818cf8
+        );
+
     color:white;
 
-    font-weight:bold;
+    font-weight:700;
+
     font-size:15px;
 
     cursor:pointer;
 
     transition:.3s;
 
-    box-shadow:0 8px 20px rgba(0,0,0,.15);
+    box-shadow:
+        0 10px 25px rgba(99,102,241,.25);
 }
 
 .btn-regresar:hover{
-    background:#d4af37;
-    color:black;
 
-    transform:translateY(-3px);
+    transform:
+        translateY(-3px);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--morado-hover),
+            #6366f1
+        );
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+
+form{
+
+    position:relative;
+
+    z-index:2;
+
+    width:100%;
+
+    max-width:520px;
+
+    padding:45px 40px;
+
+    background:var(--glass);
+
+    backdrop-filter:blur(18px);
+
+    border:
+        1px solid rgba(255,255,255,.45);
+
+    border-radius:30px;
+
+    box-shadow:var(--sombra);
+
+    animation:fade .5s ease;
+}
+
+/* =========================
+   ANIMACION
+========================= */
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+/* =========================
+   TITULO
+========================= */
+
+h2{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    font-size:38px;
+
+    font-weight:800;
+
+    color:var(--negro);
+}
+
+/* =========================
+   LABELS
+========================= */
+
+label{
+
+    display:block;
+
+    margin-top:16px;
+
+    margin-bottom:8px;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    color:var(--azul);
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+input{
+
+    width:100%;
+
+    padding:15px;
+
+    border:
+        1px solid var(--gris-claro);
+
+    border-radius:16px;
+
+    background:
+        rgba(255,255,255,.78);
+
+    font-size:15px;
+
+    transition:.3s;
+}
+
+input:focus{
+
+    outline:none;
+
+    border-color:var(--morado);
+
+    background:white;
+
+    box-shadow:
+        0 0 0 4px rgba(99,102,241,.15);
+}
+
+/* =========================
+   BOTON GUARDAR
+========================= */
+
+button[type="submit"]{
+
+    width:100%;
+
+    margin-top:30px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--morado),
+            #818cf8
+        );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:
+        0 10px 25px rgba(99,102,241,.20);
+}
+
+button[type="submit"]:hover{
+
+    transform:
+        translateY(-3px);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--morado-hover),
+            #6366f1
+        );
+
+    box-shadow:var(--sombra-hover);
+}
+
+/* =========================
+   RESPONSIVE TABLET
+========================= */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:20px 15px;
+    }
+
+    form{
+
+        padding:35px 25px;
+
+        border-radius:26px;
+    }
+
+    h2{
+
+        font-size:30px;
+    }
+
+    input{
+
+        padding:14px;
+
+        font-size:14px;
+    }
+
+    button[type="submit"]{
+
+        padding:15px;
+
+        font-size:15px;
+    }
+
+    .contenedor-regresar{
+
+        top:15px;
+
+        left:15px;
+    }
+
+    .btn-regresar{
+
+        padding:12px 18px;
+
+        font-size:14px;
+    }
+}
+
+/* =========================
+   CELULARES PEQUEÑOS
+========================= */
+
+@media(max-width:480px){
+
+    form{
+
+        padding:28px 20px;
+    }
+
+    h2{
+
+        font-size:26px;
+    }
+
+    label{
+
+        font-size:14px;
+    }
+
+    input{
+
+        padding:13px;
+
+        border-radius:14px;
+    }
+
+    button[type="submit"]{
+
+        border-radius:16px;
+
+        font-size:14px;
+    }
+
+    .btn-regresar{
+
+        width:100%;
+    }
 }

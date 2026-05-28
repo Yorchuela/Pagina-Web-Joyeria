@@ -350,3 +350,120 @@ tr:hover{
         margin-left:20px;
     }
 }
+
+/* =========================
+   CONTENEDOR BOTONES
+========================= */
+
+.top-buttons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin:25px;
+
+    flex-wrap:wrap;
+}
+
+/* =========================
+   BOTON REGRESAR
+========================= */
+
+.btn-volver{
+
+    padding:12px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5566c8,
+            #6f7cff
+        );
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    border-radius:14px;
+
+    transition:.3s;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.15);
+}
+
+.btn-volver:hover{
+
+    transform:translateY(-3px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #4957b3,
+            #5d69ea
+        );
+}
+
+/* =========================
+   BOTON INICIO
+========================= */
+
+.btn-inicio{
+
+    padding:12px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #22c55e
+        );
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    border-radius:14px;
+
+    transition:.3s;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.15);
+}
+
+.btn-inicio:hover{
+
+    transform:translateY(-3px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #15803d,
+            #16a34a
+        );
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .top-buttons{
+
+        margin:15px;
+
+        flex-direction:column;
+    }
+
+    .btn-volver,
+    .btn-inicio{
+
+        text-align:center;
+    }
+}

@@ -1,9 +1,13 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f6ff;
-    margin: 0;
-    padding: 20px;
-    color: #0a1123;
+/* =========================
+   BODY
+========================= */
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f5f6ff;
+    margin:0;
+    padding:30px;
+    color:#0a1123;
 }
 
 /* =========================
@@ -28,9 +32,11 @@ h2 {
    BUSCADOR
 ========================= */
 
-#buscador {
-    width: 480px;
-    padding: 10px 12px;
+#buscador{
+    width:260px;
+    max-width:100%;
+
+    padding:10px 12px;
 
     border: 1px solid #d6d8f5;
     border-radius: 10px;
@@ -49,7 +55,7 @@ h2 {
 }
 
 /* =========================
-   FORMULARIO MODERNO
+   FORMULARIO
 ========================= */
 
 form {
@@ -121,17 +127,38 @@ button:hover {
     font-size: 14px;
 }
 
-.btn-agregar:hover {
-    background: #5b5fa3;
+.btn-agregar:hover{
+    background:#5b5fa3;
 }
 
 /* =========================
-   TABLA MODERNA
+   CONTENEDOR ACCIONES
 ========================= */
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+.acciones-superior{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:15px;
+}
+
+/* =========================
+   CONTENEDOR TABLA
+========================= */
+
+.table-container{
+    width:100%;
+    overflow-x:auto;
+}
+
+/* =========================
+   TABLA
+========================= */
+
+table{
+    width:100%;
+    min-width:1200px;
+
+    border-collapse:collapse;
 
     background: white;
 
@@ -149,14 +176,11 @@ th {
 
     color: white;
 
-    padding: 12px 10px;
+    padding:15px;
+    text-align:center;
+    font-weight:bold;
 
-    text-align: center;
-
-    font-weight: bold;
-
-    font-size: 15px;
-
+    white-space:nowrap;
 }
 
 /* CELDAS */
@@ -167,7 +191,9 @@ td {
 
     border-bottom: 1px solid #f0f0ff;
 
-    vertical-align: middle;
+    vertical-align:middle;
+
+    white-space:nowrap;
 }
 
 /* HOVER FILAS */
@@ -558,81 +584,17 @@ td img {
    BOTONES TOOLBAR
 ========================= */
 
-.toolbar-top .btn-agregar{
+.btn-regresar{
 
-    min-width:180px;
+    position:fixed;
 
-}
+    top:20px;
 
-.toolbar-bottom{
+    left:20px;
 
-    margin-top:-5px;
+    z-index:1000;
 
-}
-
-.toolbar-bottom .btn-limpiar{
-
-    min-width:170px;
-
-}
-/* ===================================
-   TOOLBAR MODERNA
-=================================== */
-
-.toolbar-productos{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:14px;
-
-    margin-bottom:12px;
-
-}
-
-/* FILA SUPERIOR */
-
-.barra-superior{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    flex-wrap:wrap;
-
-}
-
-/* INPUT */
-
-.barra-superior input{
-
-    flex:1;
-
-    min-width:300px;
-
-}
-
-/* FILA INFERIOR */
-
-.barra-inferior{
-
-    display:flex;
-
-    align-items:center;
-
-}
-
-/* BOTONES TOOLBAR */
-
-.barra-superior button,
-.barra-inferior button{
-
-    height:45px;
-
-    padding:0 18px;
+    padding:10px 20px;
 
     border:none;
 
@@ -645,53 +607,79 @@ td img {
     cursor:pointer;
 
     transition:.3s;
-
 }
 
-/* LIMPIAR */
-
-.btn-limpiar{
-
-    background:#e2534a;
-
-    color:white;
-
+.btn-regresar:hover{
+    background:#6c70b5;
+    transform:translateY(-2px);
 }
 
-.btn-limpiar:hover{
+/* =========================
+   RESPONSIVE
+========================= */
 
-    background:#c9443c;
+@media(max-width:768px){
 
+    body{
+        padding:80px 15px 20px 15px;
+    }
+
+    h2{
+        font-size:28px;
+    }
+
+    #buscador{
+        width:100%;
+    }
+
+    .acciones-superior{
+        justify-content:center;
+    }
+
+    .btn-agregar{
+        width:100%;
+    }
+
+    .btn-regresar{
+        top:15px;
+        left:15px;
+        font-size:14px;
+        padding:10px 16px;
+    }
+
+    table{
+        min-width:1200px;
+    }
+
+    th,
+    td{
+        font-size:13px;
+        padding:12px;
+    }
+
+    td img{
+        width:70px;
+        height:70px;
+    }
+
+    .acciones button{
+        width:100px;
+        font-size:12px;
+    }
 }
 
-/* EXCEL */
+/* =========================
+   CELULARES PEQUEÑOS
+========================= */
 
-.btn-excel{
+@media(max-width:480px){
 
-    background:#1f9d55;
+    h2{
+        font-size:24px;
+    }
 
-    color:white;
-
-}
-
-.btn-excel:hover{
-
-    background:#188447;
-
-}
-
-/* PDF */
-
-.btn-pdf{
-
-    background:#c73b2f;
-
-    color:white;
-
-}
-
-.btn-pdf:hover{
-
-    background:#ab3127;
-
+    .btn-regresar{
+        font-size:13px;
+        padding:8px 14px;
+    }
 }
