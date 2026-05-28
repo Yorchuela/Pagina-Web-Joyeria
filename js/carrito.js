@@ -235,111 +235,7 @@ function volverCatalogo() {
 
 }
 
-/* ========================= */
-/* COMPRAR */
-/* ========================= */
 
-async function comprar() {
-
-    const rol =
-
-        localStorage.getItem('rol');
-
-    /* VALIDAR LOGIN */
-
-    if (rol !== 'Cliente') {
-
-        alert(
-            'Debes iniciar sesión como Cliente'
-        );
-
-        window.location.href =
-            './login.html';
-
-        return;
-
-    }
-
-    /* OBTENER CARRITO */
-
-    const carrito =
-
-        JSON.parse(
-            localStorage.getItem('carrito')
-        ) || [];
-
-    /* VALIDAR CARRITO */
-
-    if (carrito.length === 0) {
-
-        alert(
-            'Carrito vacío'
-        );
-
-        return;
-
-    }
-
-    /* OBTENER CLIENTE */
-
-    const id_cliente =
-
-        localStorage.getItem(
-            'id_cliente'
-        );
-
-    try {
-
-        const response =
-
-            await fetch(
-
-                'http://localhost:3000/ventas',
-
-                {
-
-                    method: 'POST',
-
-                    headers: {
-                        'Content-Type':
-                            'application/json'
-                    },
-
-                    body: JSON.stringify({
-
-                        id_cliente,
-                        carrito
-
-                    })
-
-                }
-
-            );
-
-        const data =
-            await response.json();
-
-        if (data.success) {
-
-            alert(
-                'Compra realizada correctamente'
-            );
-
-            localStorage.removeItem(
-                'carrito'
-            );
-
-            mostrarCarrito();
-
-        }
-
-    } catch (error) {
-
-        console.log(error);
-
-    }
-
-}
 /* ABRIR MODAL */
 
 function comprar() {
@@ -390,6 +286,18 @@ function cerrarModalPago() {
 /* PROCESAR PAGO */
 
 async function procesarPago() {
+
+    const usuario =
+        JSON.parse(localStorage.getItem("usuario"));
+    if (!usuario) {
+
+        alert("Debes iniciar sesión para comprar");
+
+        window.location.href =
+            "../pages/login.html";
+
+        return;
+    }
 
     const titular =
 
@@ -478,11 +386,7 @@ async function procesarPago() {
             localStorage.getItem("carrito")
         ) || [];
 
-    const usuario =
-
-        JSON.parse(
-            localStorage.getItem("usuario")
-        );
+    
 
     const total = carrito.reduce(
 

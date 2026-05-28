@@ -181,7 +181,7 @@
         </div>
 
     </div>
-    
+
     <!-- MODAL TICKET -->
 
     <div class="modal-ticket" id="modalTicket">
@@ -213,7 +213,22 @@
         </div>
 
     </div>
-    
+    <script>
+
+    const usuario =
+    JSON.parse(localStorage.getItem("usuario"));
+
+    if (!usuario) {
+
+    alert("Inicia sesión para acceder al carrito");
+
+    window.location.href =
+    "../pages/login.html";
+
+    }
+
+    </script>
+
 
 
     <!-- JSPDF -->
