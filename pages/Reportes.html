@@ -1,40 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/reportes.css">
-    <title>Reportes</title>
+
+    <title>
+
+        Panel de Reportes
+
+    </title>
+
+    <link rel="stylesheet" href="../css/reporte.css">
+
 </head>
 
 <body>
 
-    <h2>Reportes</h2>
+    <a
+    href="javascript:history.back()"
+    class="btn-volver"
+>
 
-    <!-- BOTÓN VOLVER -->
-    <a href="../index.html" class="btn-volver">← Volver al Inicio</a>
+    ← Regresar
 
-    <ul>
-        <li><a href="reporte_caja.html">Reporte de Caja</a></li>
-        <li><a href="reporte_ventas.html">Reporte de Ventas</a></li>
-        <li><a href="reporte_inventario.html">Reporte de Inventario</a></li>
-    </ul>
+</a>
 
-    <table border="1">
+    <div class="container">
 
-        <tr>
-            <th>Producto</th>
-            <th>Stock</th>
-        </tr>
+        <h2>
 
-        <tr>
-            <td>Collar plata</td>
-            <td>15</td>
-        </tr>
+            Panel de Reportes
 
-    </table>
+        </h2>
 
-    <script src="../js/protect.js"></script>
+        <div class="cards-reportes">
+
+            <a href="reporte_caja.html" class="card-reporte">
+
+                <h3>
+
+                    Reporte de Caja
+
+                </h3>
+
+                <p>
+
+                    Consulta ingresos, egresos y ganancias.
+
+                </p>
+
+            </a>
+
+            <a href="reporte_ventas.html" class="card-reporte">
+
+                <h3>
+
+                    Reporte de Ventas
+
+                </h3>
+
+                <p>
+
+                    Consulta todas las ventas realizadas.
+
+                </p>
+
+            </a>
+
+            <a href="reporte_inventario.html" class="card-reporte">
+
+                <h3>
+
+                    Reporte de Inventario
+
+                </h3>
+
+                <p>
+
+                    Consulta stock y productos disponibles.
+
+                </p>
+
+            </a>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

@@ -3,6 +3,7 @@
 ========================= */
 
 :root{
+
     --negro:#081225;
     --azul:#0f172a;
 
@@ -28,6 +29,11 @@
     font-family:'Segoe UI',sans-serif;
 }
 
+html,
+body{
+    overflow-x:hidden;
+}
+
 body{
     background:var(--fondo);
     color:#333;
@@ -38,9 +44,11 @@ body{
 ========================= */
 
 header{
+
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:20px;
 
     padding:20px 45px;
 
@@ -56,6 +64,7 @@ header{
 /* LOGO */
 
 .logo{
+
     font-size:34px;
     font-weight:bold;
 
@@ -67,12 +76,16 @@ header{
 ========================= */
 
 nav{
+
     display:flex;
     align-items:center;
     gap:35px;
+
+    flex-wrap:wrap;
 }
 
 nav a{
+
     text-decoration:none;
 
     color:white;
@@ -92,6 +105,7 @@ nav a:hover{
 ========================= */
 
 .user{
+
     color:white;
 
     font-weight:bold;
@@ -104,18 +118,21 @@ nav a:hover{
 ========================= */
 
 .acciones-header{
+
     display:flex;
     align-items:center;
     gap:15px;
-}
 
+    flex-wrap:wrap;
+}
 
 /* =========================
    HERO
 ========================= */
 
 .hero{
-    height:60vh;
+
+    min-height:70vh;
 
     background:
         linear-gradient(
@@ -131,7 +148,7 @@ nav a:hover{
     align-items:center;
     justify-content:flex-start;
 
-    padding-left:90px;
+    padding:60px 90px;
 
     color:white;
 }
@@ -143,25 +160,29 @@ nav a:hover{
 }
 
 .hero h1{
+
     font-size:65px;
 
     line-height:1.1;
 
-    margin-top: -80px;
     margin-bottom:20px;
 }
 
 .hero p{
+
     font-size:22px;
 
     margin-bottom:35px;
 
     color:#f1f5f9;
+
+    line-height:1.6;
 }
 
 /* BOTON HERO */
 
 .hero button{
+
     padding:16px 32px;
 
     border:none;
@@ -179,6 +200,7 @@ nav a:hover{
 }
 
 .hero button:hover{
+
     background:var(--dorado-hover);
 
     transform:translateY(-4px);
@@ -189,7 +211,8 @@ nav a:hover{
 ========================= */
 
 .opciones{
-    padding:-30px 40px;
+
+    padding:5px 40px;
 
     text-align:center;
 
@@ -199,6 +222,7 @@ nav a:hover{
 /* TITULO PANEL */
 
 .opciones h2{
+
     font-size:55px;
 
     color:var(--negro);
@@ -211,6 +235,7 @@ nav a:hover{
 ========================= */
 
 .cards-panel{
+
     display:grid;
 
     grid-template-columns:
@@ -228,6 +253,7 @@ nav a:hover{
 ========================= */
 
 .card-panel{
+
     background:white;
 
     border-radius:24px;
@@ -242,6 +268,7 @@ nav a:hover{
 }
 
 .card-panel:hover{
+
     transform:translateY(-10px);
 
     box-shadow:
@@ -251,6 +278,7 @@ nav a:hover{
 /* TITULO */
 
 .card-panel h3{
+
     font-size:30px;
 
     color:var(--negro);
@@ -261,6 +289,7 @@ nav a:hover{
 /* TEXTO */
 
 .card-panel p{
+
     font-size:16px;
 
     color:var(--gris);
@@ -273,6 +302,7 @@ nav a:hover{
 /* BOTON */
 
 .card-panel a{
+
     display:inline-block;
 
     padding:14px 26px;
@@ -290,6 +320,7 @@ nav a:hover{
 }
 
 .card-panel a:hover{
+
     background:var(--dorado);
 
     color:black;
@@ -300,6 +331,7 @@ nav a:hover{
 ========================= */
 
 .categorias{
+
     display:grid;
 
     grid-template-columns:
@@ -307,7 +339,7 @@ nav a:hover{
 
     gap:35px;
 
-    padding: 0 40px 40px 40px;
+    padding:0 40px 70px 40px;
 
     background:white;
 }
@@ -317,6 +349,7 @@ nav a:hover{
 ========================= */
 
 .card{
+
     background:white;
 
     border-radius:22px;
@@ -331,6 +364,7 @@ nav a:hover{
 }
 
 .card:hover{
+
     transform:translateY(-10px);
 
     box-shadow:
@@ -338,6 +372,7 @@ nav a:hover{
 }
 
 .card img{
+
     width:100%;
     height:260px;
 
@@ -351,6 +386,7 @@ nav a:hover{
 }
 
 .card h3{
+
     padding:25px;
 
     text-align:center;
@@ -365,7 +401,8 @@ nav a:hover{
 ========================= */
 
 .dashboard{
-    padding:0px 40px 100px;
+
+    padding:0 40px 100px;
 
     background:var(--fondo);
 
@@ -375,6 +412,7 @@ nav a:hover{
 /* TITULO */
 
 .dashboard h2{
+
     font-size:60px;
 
     color:var(--negro);
@@ -387,6 +425,7 @@ nav a:hover{
 ========================= */
 
 .cards{
+
     display:grid;
 
     grid-template-columns:
@@ -404,6 +443,7 @@ nav a:hover{
 ========================= */
 
 .card-admin{
+
     background:white;
 
     border-radius:24px;
@@ -418,6 +458,7 @@ nav a:hover{
 }
 
 .card-admin:hover{
+
     transform:translateY(-10px);
 
     box-shadow:
@@ -427,6 +468,7 @@ nav a:hover{
 /* ICONO */
 
 .card-admin .icono{
+
     font-size:60px;
 
     margin-bottom:20px;
@@ -435,6 +477,7 @@ nav a:hover{
 /* TITULO */
 
 .card-admin h3{
+
     font-size:30px;
 
     color:var(--negro);
@@ -445,6 +488,7 @@ nav a:hover{
 /* TEXTO */
 
 .card-admin p{
+
     font-size:16px;
 
     color:var(--gris);
@@ -457,6 +501,7 @@ nav a:hover{
 /* BOTON */
 
 .card-admin a{
+
     display:inline-block;
 
     padding:14px 28px;
@@ -474,6 +519,7 @@ nav a:hover{
 }
 
 .card-admin a:hover{
+
     background:var(--dorado);
 
     color:black;
@@ -484,6 +530,7 @@ nav a:hover{
 ========================= */
 
 footer{
+
     background:var(--negro);
 
     color:white;
@@ -496,61 +543,8 @@ footer{
 }
 
 /* =========================
-   RESPONSIVE
+   BOTONES LOGIN
 ========================= */
-
-@media(max-width:768px){
-
-    header{
-        flex-direction:column;
-
-        gap:20px;
-
-        padding:20px;
-    }
-
-    nav{
-        flex-wrap:wrap;
-        justify-content:center;
-
-        gap:20px;
-    }
-
-    .hero{
-        justify-content:center;
-
-        text-align:center;
-
-        padding:20px;
-    }
-
-    .hero h1{
-        font-size:45px;
-    }
-
-    .hero p{
-        font-size:18px;
-    }
-
-    .opciones h2,
-    .dashboard h2{
-        font-size:40px;
-    }
-
-    .cards-panel,
-    .categorias,
-    .cards{
-        grid-template-columns:1fr;
-    }
-
-    .card-panel,
-    .card,
-    .card-admin{
-        max-width:400px;
-
-        margin:auto;
-    }
-}
 
 #btnLogin,
 #btnLogout{
@@ -583,4 +577,252 @@ footer{
 
     box-shadow:
         0 12px 25px rgba(212,175,55,.35);
+}
+
+/* =========================
+   RESPONSIVE TABLET
+========================= */
+
+@media(max-width:992px){
+
+    header{
+        padding:18px 25px;
+    }
+
+    .logo{
+        font-size:28px;
+    }
+
+    nav{
+        gap:20px;
+    }
+
+    nav a{
+        font-size:15px;
+    }
+
+    .hero{
+
+        padding:50px 40px;
+
+        justify-content:center;
+
+        text-align:center;
+    }
+
+    .hero h1{
+        font-size:50px;
+    }
+
+    .hero p{
+        font-size:19px;
+    }
+
+    .opciones h2,
+    .dashboard h2{
+        font-size:45px;
+    }
+
+    .card-panel h3,
+    .card-admin h3{
+        font-size:26px;
+    }
+
+    .card h3{
+        font-size:24px;
+    }
+}
+
+/* =========================
+   RESPONSIVE MOVIL
+========================= */
+
+@media(max-width:768px){
+
+    header{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        padding:20px;
+    }
+
+    nav{
+
+        justify-content:center;
+
+        gap:15px;
+    }
+
+    nav a{
+        font-size:14px;
+    }
+
+    .acciones-header{
+
+        justify-content:center;
+    }
+
+    .hero{
+
+        padding:40px 20px;
+
+        min-height:70vh;
+
+        justify-content:center;
+
+        text-align:center;
+    }
+
+    .hero-text{
+        max-width:100%;
+    }
+
+    .hero h1{
+
+        font-size:38px;
+
+        line-height:1.2;
+    }
+
+    .hero p{
+
+        font-size:17px;
+
+        line-height:1.6;
+    }
+
+    .hero button{
+
+        width:100%;
+
+        max-width:300px;
+
+        font-size:16px;
+    }
+
+    .opciones,
+    .dashboard{
+
+        padding:40px 20px;
+    }
+
+    .categorias{
+
+        padding:0 20px 40px 20px;
+    }
+
+    .opciones h2,
+    .dashboard h2{
+
+        font-size:34px;
+
+        margin-bottom:35px;
+    }
+
+    .cards-panel,
+    .categorias,
+    .cards{
+
+        grid-template-columns:1fr;
+
+        gap:25px;
+    }
+
+    .card-panel,
+    .card,
+    .card-admin{
+
+        width:100%;
+
+        max-width:100%;
+    }
+
+    .card-panel,
+    .card-admin{
+
+        padding:30px 20px;
+    }
+
+    .card-panel h3,
+    .card-admin h3{
+        font-size:24px;
+    }
+
+    .card h3{
+
+        font-size:22px;
+
+        padding:20px;
+    }
+
+    .card img{
+        height:220px;
+    }
+
+    footer{
+
+        font-size:16px;
+
+        padding:25px 15px;
+    }
+
+    #btnLogin,
+    #btnLogout{
+
+        width:100%;
+
+        max-width:220px;
+    }
+}
+
+/* =========================
+   CELULARES PEQUEÑOS
+========================= */
+
+@media(max-width:480px){
+
+    .logo{
+        font-size:24px;
+    }
+
+    .hero{
+
+        padding:30px 15px;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .hero button{
+        padding:14px 20px;
+    }
+
+    .opciones h2,
+    .dashboard h2{
+        font-size:28px;
+    }
+
+    .card-panel h3,
+    .card-admin h3{
+        font-size:22px;
+    }
+
+    .card h3{
+        font-size:20px;
+    }
+
+    .card img{
+        height:200px;
+    }
+
+    .user{
+        font-size:15px;
+    }
 }

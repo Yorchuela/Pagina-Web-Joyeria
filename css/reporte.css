@@ -1,0 +1,255 @@
+/* =========================
+   VARIABLES
+========================= */
+
+:root{
+
+    --negro:#081225;
+    --azul:#1e293b;
+
+    --morado:#6366f1;
+    --morado-hover:#4f46e5;
+
+    --blanco:#ffffff;
+
+    --gris:#64748b;
+
+    --fondo:#f1f5f9;
+
+    --sombra:
+        0 10px 30px rgba(0,0,0,.10);
+}
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,.85),
+            rgba(255,255,255,.85)
+        ),
+        url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a');
+
+    background-size:cover;
+    background-position:center;
+
+    min-height:100vh;
+
+    padding:40px 20px;
+}
+
+/* =========================
+   BOTON VOLVER
+========================= */
+
+.btn-volver{
+
+    display:inline-block;
+
+    margin-bottom:40px;
+
+    padding:14px 28px;
+
+    background:var(--negro);
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:14px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+    box-shadow:var(--sombra);
+}
+
+.btn-volver:hover{
+
+    background:var(--morado);
+
+    transform:translateY(-3px);
+}
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.container{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    background:rgba(255,255,255,.92);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:30px;
+
+    padding:60px 40px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.12);
+}
+
+/* =========================
+   TITULO
+========================= */
+
+.container h2{
+
+    text-align:center;
+
+    font-size:60px;
+
+    color:var(--negro);
+
+    margin-bottom:60px;
+}
+
+/* =========================
+   GRID REPORTES
+========================= */
+
+.cards-reportes{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(280px,1fr));
+
+    gap:35px;
+}
+
+/* =========================
+   CARD REPORTE
+========================= */
+
+.card-reporte{
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:40px 30px;
+
+    text-decoration:none;
+
+    box-shadow:var(--sombra);
+
+    transition:.35s;
+
+    border-top:6px solid var(--morado);
+}
+
+.card-reporte:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.15);
+}
+
+/* TITULO CARD */
+
+.card-reporte h3{
+
+    font-size:30px;
+
+    color:var(--negro);
+
+    margin-bottom:15px;
+
+    text-align:center;
+}
+
+/* TEXTO CARD */
+
+.card-reporte p{
+
+    color:var(--gris);
+
+    font-size:17px;
+
+    line-height:1.7;
+
+    text-align:center;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    body{
+        padding:20px 15px;
+    }
+
+    .container{
+
+        padding:40px 20px;
+    }
+
+    .container h2{
+
+        font-size:40px;
+
+        margin-bottom:40px;
+    }
+
+    .cards-reportes{
+        gap:25px;
+    }
+
+    .card-reporte{
+
+        padding:30px 20px;
+    }
+
+    .card-reporte h3{
+
+        font-size:24px;
+    }
+
+    .card-reporte p{
+
+        font-size:15px;
+    }
+
+    .btn-volver{
+
+        width:100%;
+
+        text-align:center;
+    }
+}
+
+/* =========================
+   CELULARES PEQUEÑOS
+========================= */
+
+@media(max-width:480px){
+
+    .container h2{
+
+        font-size:32px;
+    }
+
+    .card-reporte h3{
+
+        font-size:22px;
+    }
+}

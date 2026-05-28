@@ -1,132 +1,463 @@
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color:#8387c3;
+/* =========================
+   RESET
+========================= */
+
+*{
     margin:0;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    min-height:100vh;
-}
-
-/* 🔥 CONTENEDOR PRINCIPAL */
-.container{
-    width:100%;
-    max-width:700px;
-    margin-top:40px;
-    background-color:#ffffff;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0px 10px 25px #00000033;
-}
-
-/* TITULOS */
-h2{
-    text-align:center;
-    color:#333;
-    margin-bottom:20px;
-}
-
-h3{
-    margin-top:25px;
-    margin-bottom:10px;
-    color:#333;
-}
-
-/* FORM */
-label{
-    display:block;
-    margin-top:15px;
-    margin-bottom:5px;
-    color:#333;
-    font-size:14px;
-}
-
-input, select{
-    width:100%;
-    padding:12px;
-    border:1px solid #ffd6d6; /* 🔥 tono rojizo suave */
-    border-radius:6px;
-    background-color:#fff5f5; /* 🔥 diferente a ventas */
-    font-size:14px;
+    padding:0;
     box-sizing:border-box;
 }
 
-/* 🔥 FOCUS */
-input:focus, select:focus{
-    outline:none;
-    border-color:#c1121f;
-    
+html,
+body{
+    overflow-x:hidden;
 }
 
-/* BOTONES */
-button{
-    margin-top:20px;
-    padding:12px;
+/* =========================
+   BODY
+========================= */
+
+body{
+
+    font-family:'Segoe UI',sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8387c3,
+            #6c70b5
+        );
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-start;
+
+    padding:30px 15px;
+
+    color:#222;
+}
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.container{
+
     width:100%;
-    background-color:#c1121f; /* 🔥 color devolución (rojo elegante) */
-    color:white;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
+
+    max-width:760px;
+
+    background:
+        rgba(255,255,255,.97);
+
+    backdrop-filter:blur(10px);
+
+    padding:40px;
+
+    border-radius:28px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.15);
+
+    position:relative;
+}
+
+/* =========================
+   TITULOS
+========================= */
+
+h2{
+
+    text-align:center;
+
+    color:#1e293b;
+
+    font-size:42px;
+
+    margin-bottom:30px;
+}
+
+h3{
+
+    margin-top:35px;
+
+    margin-bottom:15px;
+
+    color:#1e293b;
+
+    font-size:24px;
+}
+
+/* =========================
+   LABELS
+========================= */
+
+label{
+
+    display:block;
+
+    margin-top:18px;
+
+    margin-bottom:8px;
+
+    color:#374151;
+
     font-size:15px;
+
+    font-weight:600;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+input,
+select{
+
+    width:100%;
+
+    padding:15px;
+
+    border:2px solid #ffd6d6;
+
+    border-radius:14px;
+
+    background:#fff5f5;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    outline:none;
+}
+
+input:focus,
+select:focus{
+
+    border-color:#c1121f;
+
+    background:white;
+
+    box-shadow:
+        0 0 0 4px rgba(193,18,31,.12);
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+button{
+
+    margin-top:25px;
+
+    padding:16px;
+
+    width:100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c1121f,
+            #e63946
+        );
+
+    color:white;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
     font-weight:bold;
+
+    transition:.3s;
+
+    box-shadow:
+        0 10px 25px rgba(193,18,31,.20);
 }
 
 button:hover{
-    background-color:#780000;
+
+    transform:translateY(-3px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #780000,
+            #b00020
+        );
 }
 
-/* TABLA */
+/* =========================
+   TABLA
+========================= */
+
 table{
+
     width:100%;
-    margin-top:15px;
+
+    margin-top:20px;
+
     border-collapse:collapse;
-    background-color:#fff;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    background:white;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.10);
 }
 
 th{
-    background-color:#c1121f; /* 🔥 encabezado rojo */
+
+    background:
+        linear-gradient(
+            135deg,
+            #c1121f,
+            #e63946
+        );
+
     color:white;
-    padding:12px;
-    font-size:14px;
+
+    padding:16px;
+
+    font-size:15px;
 }
 
 td{
-    padding:12px;
+
+    padding:15px;
+
     text-align:center;
+
     border-bottom:1px solid #eee;
+
     font-size:14px;
 }
 
 tr:hover{
-    background-color:#fff0f0;
+
+    background:#fff0f0;
 }
 
-/* 🔥 MENSAJE IMPORTANTE */
+/* =========================
+   ALERTA
+========================= */
+
 .alerta{
-    margin-top:15px;
-    padding:10px;
-    background-color:#ffe5e5;
+
+    margin-top:20px;
+
+    padding:15px;
+
+    background:#ffe5e5;
+
     color:#900;
-    border-radius:6px;
+
+    border-radius:14px;
+
     text-align:center;
+
     font-size:14px;
+
+    font-weight:600;
+
+    border-left:5px solid #c1121f;
 }
 
-/* 🔥 DESTACAR DEVOLUCIÓN */
+/* =========================
+   DEVOLUCION
+========================= */
+
 .devolucion{
+
     color:#c1121f;
+
     font-weight:bold;
 }
 
+/* =========================
+   BOTON REGRESAR
+========================= */
+
 .btn-regresar{
-    position: absolute;
-    top: 20px;
-    left: 20px;
 
-    width: auto;
-    height: auto;
-    padding: 10px 15px;
+    position:fixed;
 
-    font-size: 14px;
+    top:20px;
+
+    left:20px;
+
+    z-index:1000;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:14px 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5566c8,
+            #6f7cff
+        );
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    font-size:15px;
+
+    border-radius:16px;
+
+    transition:.3s;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.18);
+}
+
+.btn-regresar:hover{
+
+    transform:translateY(-3px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #4957b3,
+            #5d69ea
+        );
+}
+
+/* =========================
+   RESPONSIVE TABLET
+========================= */
+
+@media(max-width:992px){
+
+    h2{
+
+        font-size:36px;
+    }
+
+    h3{
+
+        font-size:22px;
+    }
+}
+
+/* =========================
+   RESPONSIVE MOVIL
+========================= */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:90px 12px 20px 12px;
+    }
+
+    .container{
+
+        padding:30px 20px;
+    }
+
+    h2{
+
+        font-size:30px;
+
+        margin-bottom:25px;
+    }
+
+    h3{
+
+        font-size:20px;
+    }
+
+    input,
+    select{
+
+        padding:14px;
+
+        font-size:14px;
+    }
+
+    button{
+
+        font-size:15px;
+
+        padding:15px;
+    }
+
+    table{
+
+        display:block;
+
+        overflow-x:auto;
+
+        white-space:nowrap;
+    }
+
+    th,
+    td{
+
+        padding:12px;
+
+        font-size:13px;
+    }
+
+    .btn-regresar{
+
+        top:15px;
+
+        left:15px;
+
+        padding:12px 18px;
+
+        font-size:14px;
+    }
+}
+
+/* =========================
+   CELULARES PEQUEÑOS
+========================= */
+
+@media(max-width:480px){
+
+    .container{
+
+        padding:25px 15px;
+    }
+
+    h2{
+
+        font-size:26px;
+    }
+
+    h3{
+
+        font-size:18px;
+    }
+
+    .btn-regresar{
+
+        width:auto;
+
+        max-width:220px;
+    }
 }

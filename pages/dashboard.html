@@ -2,86 +2,218 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+
+    <title>
+
+        Dashboard
+
+    </title>
+
     <link rel="stylesheet" href="../css/dashboard.css">
 
     <!-- LIBRERÍAS -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 
 <body>
 
     <!-- MENÚ -->
-    <ul>
-        <li><a href="dashboard.html">Inicio</a></li>
-        <li><a href="ventas.html">Ventas</a></li>
-        <li><a href="devoluciones.html">Devoluciones</a></li>
-        <li><a href="reporte_ventas.html">Reportes</a></li>
+
+    <!-- MENÚ -->
+
+<ul>
+    <li><a href="dashboard.html">Inicio</a></li>
+    <li><a href="ventas.html">Ventas</a></li>
+    <li><a href="devoluciones.html">Devoluciones</a></li>
+    <li><a href="Reportes.html">Reportes</a></li>
+</ul>
+
+<!-- BOTÓN VOLVER -->
+
+<a
+    href="../index.html"
+    class="btn-volver"
+>
+
+    ⬅ Volver
+
+</a>
+        </div>
+
     </ul>
+
+    <!-- CONTENEDOR -->
 
     <div class="container" id="dashboard">
 
-        <h2>Dashboard General</h2>
+        <h2>
+
+            Dashboard General
+
+        </h2>
 
         <!-- TARJETAS -->
+
         <div class="cards">
+
             <div class="card">
-                <h3>💰 Ventas del Día</h3>
-                <p id="ventasHoy">$0</p>
+
+                <h3>
+
+                    💰 Ventas del Día
+
+                </h3>
+
+                <p id="ventasHoy">
+
+                    $0
+
+                </p>
+
             </div>
 
             <div class="card">
-                <h3>📦 Stock Bajo</h3>
-                <p id="stockBajo">0</p>
+
+                <h3>
+
+                    📦 Stock Bajo
+
+                </h3>
+
+                <p id="stockBajo">
+
+                    0
+
+                </p>
+
             </div>
 
             <div class="card">
-                <h3>🔄 Devoluciones Hoy</h3>
-                <p id="devolucionesHoy">0</p>
+
+                <h3>
+
+                    🔄 Devoluciones Hoy
+
+                </h3>
+
+                <p id="devolucionesHoy">
+
+                    0
+
+                </p>
+
             </div>
 
             <div class="card">
-                <h3>📊 Total en Caja</h3>
-                <p id="totalCaja">$0</p>
+
+                <h3>
+
+                    📊 Total en Caja
+
+                </h3>
+
+                <p id="totalCaja">
+
+                    $0
+
+                </p>
+
             </div>
+
         </div>
 
         <!-- GRÁFICAS -->
-        <h3>📈 Ventas por Día</h3>
+
+        <h3>
+
+            📈 Ventas por Día
+
+        </h3>
+
         <canvas id="graficaVentas"></canvas>
 
-        <h3>📦 Productos Más Vendidos</h3>
+        <h3>
+
+            📦 Productos Más Vendidos
+
+        </h3>
+
         <canvas id="graficaProductos"></canvas>
 
-        <h3>🔄 Devoluciones por Día</h3>
+        <h3>
+
+            🔄 Devoluciones por Día
+
+        </h3>
+
         <canvas id="graficaDevoluciones"></canvas>
 
-        <h3>💰 Ingresos vs Egresos</h3>
+        <h3>
+
+            💰 Ingresos vs Egresos
+
+        </h3>
+
         <canvas id="graficaCaja"></canvas>
 
         <!-- TABLA -->
-        <h3>⚠ Productos con bajo stock</h3>
+
+        <h3>
+
+            ⚠ Productos con bajo stock
+
+        </h3>
+
         <table>
+
             <thead>
+
                 <tr>
-                    <th>Producto</th>
-                    <th>Stock</th>
+
+                    <th>
+
+                        Producto
+
+                    </th>
+
+                    <th>
+
+                        Stock
+
+                    </th>
+
                 </tr>
+
             </thead>
+
             <tbody id="tablaStock"></tbody>
+
         </table>
 
-        <button onclick="exportarPDF()">Exportar a PDF</button>
+        <!-- BOTÓN PDF -->
+
+        <button onclick="exportarPDF()">
+
+            Exportar a PDF
+
+        </button>
 
     </div>
 
-    <!-- TU JS -->
+    <!-- JS -->
+
     <script src="../js/dashboard.js"></script>
 
+    <script src="../js/protect.js"></script>
+
 </body>
-<script src="../js/protect.js"></script>
 
 </html>
