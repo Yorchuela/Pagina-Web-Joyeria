@@ -683,3 +683,71 @@ td img {
         padding:8px 14px;
     }
 }
+
+.btn-regresar{
+
+    position: fixed;
+
+    top: 20px;
+
+    left: 20px;
+
+    background: #8387c3;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px 20px;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    z-index: 1000;
+
+    transition: .3s;
+}
+
+.btn-regresar:hover{
+
+    background: #6c70b5;
+
+    transform: translateY(-2px);
+}
+
+.btn-inicio{
+
+    position: fixed;
+
+    top: 75px;
+
+    left: 20px;
+
+    background: #ef4b3f;
+
+    color: white;
+
+    border: none;
+
+    padding: 12px 20px;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    z-index: 1000;
+
+    transition: .3s;
+}
+
+.btn-inicio:hover{
+
+    background: #d83b30;
+
+    transform: translateY(-2px);
+}

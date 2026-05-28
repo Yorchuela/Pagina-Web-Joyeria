@@ -2,7 +2,8 @@
    OBTENER DATOS
 ========================= */
 
-const rol = localStorage.getItem("rol") || "Invitado";
+const rol =
+    localStorage.getItem("rol") || "Invitado";
 
 const nombreUsuario =
     localStorage.getItem("usuario") || "";
@@ -132,8 +133,6 @@ if (rol === "Invitado" || rol === "Cliente") {
         </a>
     `;
 
-    /* BOTONES */
-
     btnLogin.style.display =
         rol === "Invitado"
             ? "inline-block"
@@ -144,8 +143,6 @@ if (rol === "Invitado" || rol === "Cliente") {
             ? "inline-block"
             : "none";
 
-    /* MOSTRAR / OCULTAR */
-
     if (dashboard) {
         dashboard.style.display = "block";
     }
@@ -153,8 +150,6 @@ if (rol === "Invitado" || rol === "Cliente") {
     if (categorias) {
         categorias.style.display = "none";
     }
-
-    /* HERO */
 
     if (tituloHero) {
         tituloHero.textContent =
@@ -167,20 +162,26 @@ if (rol === "Invitado" || rol === "Cliente") {
     }
 
     if (btnHero) {
+
         btnHero.textContent =
             "Comprar ahora";
+
+        btnHero.onclick = () => {
+
+            window.location.href =
+                estaEnPages
+                    ? "./catalogo.html"
+                    : "./pages/catalogo.html";
+        };
     }
 
-    /* BIENVENIDA */
-
     if (bienvenida) {
+
         bienvenida.textContent =
             rol === "Cliente"
                 ? "Panel de Cliente"
                 : "Catálogo Principal";
     }
-
-    /* CARDS */
 
     container.appendChild(
         card(
@@ -237,8 +238,6 @@ else {
 
     btnLogout.style.display = "inline-block";
 
-    /* MENU */
-
     menu.innerHTML = `
         <a href="index.html">
             Inicio
@@ -272,14 +271,10 @@ else {
     if (rol === "Administrador") {
 
         menu.innerHTML += `
-
-        <a href="./pages/dashboard.html">
-
-            Panel Administrador
-
-        </a>
-
-    `;
+            <a href="./pages/dashboard.html">
+                Panel Administrador
+            </a>
+        `;
 
         if (tituloHero) {
             tituloHero.textContent =
@@ -292,8 +287,15 @@ else {
         }
 
         if (btnHero) {
+
             btnHero.textContent =
                 "Ir al panel";
+
+            btnHero.onclick = () => {
+
+                window.location.href =
+                    "./pages/dashboard.html";
+            };
         }
 
         if (bienvenida) {
@@ -333,7 +335,7 @@ else {
                 "📊",
                 "Reportes",
                 "Visualiza estadísticas y reportes del negocio.",
-                "./pages/Reportes.html"
+                "./pages/Reporte_caja.html"
             )
         );
 
@@ -386,50 +388,21 @@ else {
         }
 
         if (btnHero) {
+
             btnHero.textContent =
                 "Nueva venta";
+
+            btnHero.onclick = () => {
+
+                window.location.href =
+                    "./pages/reporte_ventas.html";
+            };
         }
 
         if (bienvenida) {
             bienvenida.textContent =
                 "Panel de Cajero";
         }
-
-        container.appendChild(
-            card(
-                "💰",
-                "Registrar Venta",
-                "Realiza nuevas ventas rápidamente.",
-                "./pages/reporte_ventas.html"
-            )
-        );
-
-        container.appendChild(
-            card(
-                "🛍️",
-                "Productos",
-                "Consulta disponibilidad de productos.",
-                "./pages/productos.html"
-            )
-        );
-
-        container.appendChild(
-            card(
-                "👥",
-                "Clientes",
-                "Consulta información de clientes.",
-                "./pages/clientes.html"
-            )
-        );
-
-        container.appendChild(
-            card(
-                "🧾",
-                "Historial",
-                "Revisa ventas recientes realizadas.",
-                "./pages/reporte_ventas.html"
-            )
-        );
     }
 
     /* =========================
@@ -480,68 +453,21 @@ else {
         }
 
         if (btnHero) {
+
             btnHero.textContent =
                 "Ver inventario";
+
+            btnHero.onclick = () => {
+
+                window.location.href =
+                    "./pages/dashboard_almacen.html";
+            };
         }
 
         if (bienvenida) {
             bienvenida.textContent =
                 "Panel de Inventario";
         }
-
-        container.appendChild(
-            card(
-                "📦",
-                "Productos",
-                "Gestiona productos y stock disponible.",
-                "./pages/productos.html"
-            )
-        );
-
-        container.appendChild(
-            card(
-                "➕",
-                "Registrar Producto",
-                "Agrega nuevos productos al inventario.",
-                "./pages/productos.html"
-            )
-        );
-
-        container.appendChild(
-            card(
-                "📋",
-                "Movimientos",
-                "Consulta entradas y salidas de mercancía.",
-                "./pages/movimientos.html"
-            )
-        );
-
-        container.appendChild(
-            card(
-                "⚠️",
-                "Stock Bajo",
-                "Visualiza productos con pocas existencias.",
-                "./pages/stock_bajo.html"
-            )
-        );
-
-        container.appendChild(
-            card(
-                "🏷️",
-                "Categorías",
-                "Administra categorías de productos.",
-                "./pages/categorias.html"
-            )
-        );
-
-        container.appendChild(
-            card(
-                "🔍",
-                "Buscar Producto",
-                "Consulta información rápida del inventario.",
-                "./pages/productos.html"
-            )
-        );
     }
 }
 
