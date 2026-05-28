@@ -1,30 +1,55 @@
-body{
+/* =========================
+   RESET
+========================= */
 
+*{
     margin:0;
-
     padding:0;
-
-    font-family:Arial, Helvetica, sans-serif;
-
-    background:#8387c3;
-
+    box-sizing:border-box;
 }
 
-/* CONTENEDOR */
+/* =========================
+   BODY
+========================= */
+
+body{
+
+    font-family:'Segoe UI',sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8387c3,
+            #6c70b5
+        );
+
+    min-height:100vh;
+
+    color:#222;
+
+    padding:20px;
+
+    overflow-x:hidden;
+}
+
+/* =========================
+   CONTENEDOR
+========================= */
 
 .container{
 
-    width:90%;
+    width:100%;
 
-    max-width:1200px;
+    max-width:1300px;
 
     margin:auto;
 
-    padding:30px 0;
-
+    padding:20px 0;
 }
 
-/* TITULO */
+/* =========================
+   TITULO
+========================= */
 
 h1{
 
@@ -32,109 +57,151 @@ h1{
 
     color:white;
 
-    margin-bottom:30px;
+    font-size:55px;
 
+    margin-bottom:35px;
+
+    text-shadow:
+        0 5px 15px rgba(0,0,0,.20);
 }
 
-/* BOTON VOLVER */
+/* =========================
+   BOTON VOLVER
+========================= */
 
 .btn-volver{
 
+    display:inline-block;
+
     background:white;
 
-    border:none;
+    color:#222;
 
-    padding:12px 20px;
+    text-decoration:none;
 
-    border-radius:10px;
+    padding:14px 24px;
 
-    cursor:pointer;
+    border-radius:14px;
 
     font-weight:bold;
 
-    margin-bottom:25px;
+    margin-bottom:30px;
 
+    transition:.3s;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.15);
 }
 
-/* PRODUCTO */
+.btn-volver:hover{
+
+    transform:translateY(-3px);
+
+    background:#f5f5f5;
+}
+
+/* =========================
+   PRODUCTO
+========================= */
 
 .producto{
 
-    background:white;
+    background:rgba(255,255,255,.96);
 
-    border-radius:18px;
+    border-radius:28px;
 
-    padding:20px;
+    padding:25px;
 
-    margin-bottom:25px;
+    margin-bottom:30px;
 
     display:flex;
 
     align-items:center;
 
-    gap:25px;
+    gap:30px;
 
-    box-shadow:0 10px 25px #00000020;
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.12);
 
+    transition:.35s;
 }
 
-/* IMAGEN */
+.producto:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.15);
+}
+
+/* =========================
+   IMAGEN
+========================= */
 
 .img-producto{
 
-    width:170px;
+    width:190px;
 
-    height:170px;
+    height:190px;
 
     object-fit:cover;
 
-    border-radius:15px;
+    border-radius:20px;
 
     background:#f5f5f5;
 
+    border:4px solid #eef1ff;
+
+    flex-shrink:0;
 }
 
-/* INFO */
+/* =========================
+   INFO
+========================= */
 
 .info{
 
     flex:1;
-
 }
 
 .info h3{
 
-    margin:0 0 10px;
+    margin-bottom:15px;
 
-    font-size:24px;
+    font-size:32px;
 
-    color:#222;
-
+    color:#111;
 }
 
 .info p{
 
-    margin:8px 0;
+    margin:10px 0;
 
-    color:#444;
+    color:#555;
 
-    font-size:15px;
+    font-size:16px;
 
+    line-height:1.6;
 }
+
+/* =========================
+   PRECIO
+========================= */
 
 .precio{
 
-    font-size:28px;
+    font-size:34px;
 
     color:#6c70b5;
 
     font-weight:bold;
 
-    margin-top:15px;
-
+    margin-top:18px;
 }
 
-/* ACCIONES */
+/* =========================
+   ACCIONES
+========================= */
 
 .acciones{
 
@@ -144,11 +211,12 @@ h1{
 
     align-items:flex-end;
 
-    gap:15px;
-
+    gap:18px;
 }
 
-/* CANTIDAD */
+/* =========================
+   CANTIDAD
+========================= */
 
 .cantidad{
 
@@ -156,29 +224,33 @@ h1{
 
     align-items:center;
 
-    gap:10px;
+    gap:15px;
 
-    background:#f5f5f5;
+    background:#f3f4ff;
 
-    padding:8px 15px;
+    padding:12px 18px;
 
-    border-radius:10px;
+    border-radius:14px;
 
+    font-weight:bold;
 }
 
-/* SUBTOTAL */
+/* =========================
+   SUBTOTAL
+========================= */
 
 .subtotal{
 
-    font-size:22px;
+    font-size:28px;
 
     font-weight:bold;
 
     color:#111;
-
 }
 
-/* ELIMINAR */
+/* =========================
+   ELIMINAR
+========================= */
 
 .btn-eliminar{
 
@@ -188,18 +260,17 @@ h1{
 
     color:#b00020;
 
-    padding:12px 18px;
+    padding:14px 20px;
 
-    border-radius:12px;
+    border-radius:14px;
 
     cursor:pointer;
 
-    font-size:14px;
+    font-size:15px;
 
     font-weight:bold;
 
-    transition:0.3s;
-
+    transition:.3s;
 }
 
 .btn-eliminar:hover{
@@ -207,18 +278,19 @@ h1{
     background:#ffcccc;
 
     transform:scale(1.05);
-
 }
 
-/* TOTAL */
+/* =========================
+   TOTAL BOX
+========================= */
 
 .total-box{
 
-    background:white;
+    background:rgba(255,255,255,.97);
 
-    padding:30px;
+    padding:35px;
 
-    border-radius:18px;
+    border-radius:28px;
 
     display:flex;
 
@@ -226,24 +298,26 @@ h1{
 
     align-items:center;
 
-    margin-top:30px;
+    gap:20px;
 
-    box-shadow:0 10px 25px #00000020;
+    margin-top:35px;
 
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.12);
 }
 
 .total-box h2{
 
     margin:0;
 
-    font-size:32px;
+    font-size:38px;
 
     color:#111;
-
 }
 
-
-/* BOTON COMPRAR */
+/* =========================
+   BOTON COMPRAR
+========================= */
 
 .btn-comprar{
 
@@ -257,29 +331,91 @@ h1{
 
     border:none;
 
-    padding:18px;
+    padding:20px;
 
-    border-radius:15px;
+    border-radius:18px;
 
-    font-size:18px;
+    font-size:20px;
 
     font-weight:bold;
 
     cursor:pointer;
 
-    transition:0.3s;
+    transition:.3s;
 
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.18);
 }
 
 .btn-comprar:hover{
 
     background:#151d35;
 
+    transform:translateY(-3px);
 }
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE TABLET
+========================= */
+
+@media(max-width:992px){
+
+    h1{
+
+        font-size:45px;
+    }
+
+    .producto{
+
+        gap:20px;
+    }
+
+    .img-producto{
+
+        width:160px;
+        height:160px;
+    }
+
+    .info h3{
+
+        font-size:28px;
+    }
+
+    .precio{
+
+        font-size:30px;
+    }
+
+    .subtotal{
+
+        font-size:24px;
+    }
+}
+
+/* =========================
+   RESPONSIVE MOVIL
+========================= */
 
 @media(max-width:768px){
+
+    body{
+
+        padding:15px;
+    }
+
+    h1{
+
+        font-size:36px;
+
+        margin-bottom:25px;
+    }
+
+    .btn-volver{
+
+        width:100%;
+
+        text-align:center;
+    }
 
     .producto{
 
@@ -287,12 +423,125 @@ h1{
 
         text-align:center;
 
+        padding:25px 20px;
+    }
+
+    .img-producto{
+
+        width:220px;
+
+        height:220px;
+    }
+
+    .info{
+
+        width:100%;
+    }
+
+    .info h3{
+
+        font-size:26px;
+    }
+
+    .info p{
+
+        font-size:15px;
+    }
+
+    .precio{
+
+        font-size:30px;
     }
 
     .acciones{
 
-        align-items:center;
+        width:100%;
 
+        align-items:center;
     }
 
+    .cantidad{
+
+        justify-content:center;
+    }
+
+    .subtotal{
+
+        font-size:26px;
+    }
+
+    .btn-eliminar{
+
+        width:100%;
+    }
+
+    .total-box{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        padding:30px 20px;
+    }
+
+    .total-box h2{
+
+        font-size:32px;
+    }
+
+    .btn-comprar{
+
+        font-size:18px;
+    }
+}
+
+/* =========================
+   CELULARES PEQUEÑOS
+========================= */
+
+@media(max-width:480px){
+
+    h1{
+
+        font-size:30px;
+    }
+
+    .producto{
+
+        padding:20px 15px;
+    }
+
+    .img-producto{
+
+        width:180px;
+
+        height:180px;
+    }
+
+    .info h3{
+
+        font-size:22px;
+    }
+
+    .precio{
+
+        font-size:26px;
+    }
+
+    .subtotal{
+
+        font-size:22px;
+    }
+
+    .total-box h2{
+
+        font-size:26px;
+    }
+
+    .btn-comprar{
+
+        padding:18px;
+
+        font-size:17px;
+    }
 }
