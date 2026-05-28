@@ -143,6 +143,7 @@ if (rol === "Invitado" || rol === "Cliente") {
             ? "inline-block"
             : "none";
 
+
     if (dashboard) {
         dashboard.style.display = "block";
     }
@@ -151,6 +152,7 @@ if (rol === "Invitado" || rol === "Cliente") {
         categorias.style.display = "none";
     }
 
+    
     if (tituloHero) {
         tituloHero.textContent =
             "Bienvenido a YORCH JEWELRY";
@@ -308,7 +310,7 @@ else {
                 "💰",
                 "Ventas",
                 "Controla ventas y movimientos del sistema.",
-                "./pages/Reportes.html"
+                "./pages/reporte_ventas.html"
             )
         );
 
