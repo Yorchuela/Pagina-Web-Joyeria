@@ -6,13 +6,11 @@ const rol =
     localStorage.getItem("rol") || "Invitado";
 
 const usuario =
-
     JSON.parse(
         localStorage.getItem("usuario")
     );
 
 const nombreUsuario =
-
     usuario
         ? usuario.nombre
         : "Invitado";
@@ -25,6 +23,17 @@ console.log("ROL ACTUAL:", rol);
 
 const estaEnPages =
     window.location.pathname.includes("/pages/");
+
+/* =========================
+   FUNCION RUTAS
+========================= */
+
+function obtenerRuta(ruta){
+
+    return estaEnPages
+        ? `./${ruta}`
+        : `./pages/${ruta}`;
+}
 
 /* =========================
    ELEMENTOS DOM
@@ -47,6 +56,7 @@ const container =
     document.getElementById(
         "contenedorCategorias"
     );
+
 const menu =
     document.getElementById("menu");
 
@@ -106,7 +116,7 @@ function card(icono, titulo, descripcion, link){
             ${descripcion}
         </p>
 
-        <a href="${link}">
+        <a href="${obtenerRuta(link)}">
             Entrar
         </a>
     `;
@@ -121,30 +131,28 @@ function card(icono, titulo, descripcion, link){
 if (rol === "Invitado" || rol === "Cliente") {
 
     menu.innerHTML = `
-        <a href="${estaEnPages ? '../index.html' : 'index.html'}">
+        <a href="${
+            estaEnPages
+                ? "../index.html"
+                : "index.html"
+        }">
             Inicio
         </a>
 
         <a href="${
-            estaEnPages
-                ? './categorias.html'
-                : './pages/categorias.html'
+            obtenerRuta("categorias.html")
         }">
             Categorías
         </a>
 
         <a href="${
-            estaEnPages
-                ? './catalogo.html'
-                : './pages/catalogo.html'
+            obtenerRuta("catalogo.html")
         }">
             Productos
         </a>
 
         <a href="${
-            estaEnPages
-                ? './carrito.html'
-                : './pages/carrito.html'
+            obtenerRuta("carrito.html")
         }">
             Carrito 🛒
         </a>
@@ -160,7 +168,6 @@ if (rol === "Invitado" || rol === "Cliente") {
             ? "inline-block"
             : "none";
 
-
     if (dashboard) {
         dashboard.style.display = "block";
     }
@@ -169,13 +176,14 @@ if (rol === "Invitado" || rol === "Cliente") {
         categorias.style.display = "none";
     }
 
-    
     if (tituloHero) {
+
         tituloHero.textContent =
             "Bienvenido a YORCH JEWELRY";
     }
 
     if (textoHero) {
+
         textoHero.textContent =
             "Explora nuestros productos exclusivos";
     }
@@ -188,9 +196,7 @@ if (rol === "Invitado" || rol === "Cliente") {
         btnHero.onclick = () => {
 
             window.location.href =
-                estaEnPages
-                    ? "./catalogo.html"
-                    : "./pages/catalogo.html";
+                obtenerRuta("catalogo.html");
         };
     }
 
@@ -207,16 +213,34 @@ if (rol === "Invitado" || rol === "Cliente") {
             "🛍️",
             "Productos",
             "Explora el catálogo completo de joyería.",
-            "./pages/catalogo.html"
+            "catalogo.html"
         )
     );
 
     container.appendChild(
         card(
-            "📂",
-            "Categorías",
-            "Consulta productos por categorías.",
-            "./pages/categorias.html"
+            "📿",
+            "Collares",
+            "Explora nuestra colección de collares.",
+            "catalogo.html?id_categoria=1"
+        )
+    );
+
+    container.appendChild(
+        card(
+            "💫",
+            "Pulseras",
+            "Descubre pulseras exclusivas y elegantes.",
+            "catalogo.html?id_categoria=2"
+        )
+    );
+
+    container.appendChild(
+        card(
+            "💍",
+            "Anillos",
+            "Encuentra anillos únicos para cualquier ocasión.",
+            "catalogo.html?id_categoria=3"
         )
     );
 
@@ -225,16 +249,7 @@ if (rol === "Invitado" || rol === "Cliente") {
             "🛒",
             "Carrito",
             "Revisa y administra tus compras.",
-            "./pages/carrito.html"
-        )
-    );
-
-    container.appendChild(
-        card(
-            "💎",
-            "Colecciones",
-            "Descubre piezas exclusivas y nuevas.",
-            "./pages/catalogo.html"
+            "carrito.html"
         )
     );
      container.appendChild(
@@ -265,50 +280,78 @@ else {
 
     btnLogout.style.display = "inline-block";
 
-    menu.innerHTML = `
-        <a href="index.html">
-            Inicio
-        </a>
-
-        <a href="./pages/clientes.html"
-           id="clientes">
-            Clientes
-        </a>
-
-        <a href="./pages/productos.html"
-           id="productos">
-            Productos
-        </a>
-
-        <a href="./pages/reporte_ventas.html"
-           id="ventas">
-            Ventas
-        </a>
-
-        <a href="./pages/reporte_caja.html"
-           id="reportes">
-            Reportes
-        </a>
-    `;
-
     /* =========================
        ADMINISTRADOR
     ========================= */
 
     if (rol === "Administrador") {
 
-        menu.innerHTML += `
-            <a href="./pages/dashboard.html">
-                Panel Administrador
+        menu.innerHTML = `
+            <a href="${
+                estaEnPages
+                    ? "../index.html"
+                    : "index.html"
+            }">
+                Inicio
+            </a>
+
+            <a href="${
+                obtenerRuta("dashboard.html")
+            }">
+                Dashboard
+            </a>
+
+            <a href="${
+                obtenerRuta("clientes.html")
+            }">
+                Clientes
+            </a>
+
+            <a href="${
+                obtenerRuta("productos.html")
+            }">
+                Productos
+            </a>
+
+            <a href="${
+                obtenerRuta("reporte_ventas.html")
+            }">
+                Ventas
+            </a>
+
+            <a href="${
+                obtenerRuta("reportes.html")
+            }">
+                Reportes
+            </a>
+
+            <a href="${
+                obtenerRuta("usuarios.html")
+            }">
+                Usuarios
+            </a>
+
+            <a href="${
+                obtenerRuta("devoluciones.html")
+            }">
+                Devoluciones
+            </a>
+
+            <a href="${
+                obtenerRuta("movimientos.html")
+            }">
+                Inventario
             </a>
         `;
 
         if (tituloHero) {
+
             tituloHero.textContent =
                 "Administración Total";
         }
 
         if (textoHero) {
+
             textoHero.textContent =
                 "Control completo del sistema y operaciones";
         }
@@ -321,11 +364,12 @@ else {
             btnHero.onclick = () => {
 
                 window.location.href =
-                    "./pages/dashboard.html";
+                    obtenerRuta("dashboard.html");
             };
         }
 
         if (bienvenida) {
+
             bienvenida.textContent =
                 "Panel de Administrador";
         }
@@ -335,7 +379,7 @@ else {
                 "💰",
                 "Ventas",
                 "Controla ventas y movimientos del sistema.",
-                "./pages/reporte_ventas.html"
+                "reporte_ventas.html"
             )
         );
 
@@ -344,7 +388,7 @@ else {
                 "📦",
                 "Inventario",
                 "Administra productos y stock disponible.",
-                "./pages/movimientos.html"
+                "movimientos.html"
             )
         );
 
@@ -353,7 +397,7 @@ else {
                 "👤",
                 "Clientes",
                 "Consulta clientes registrados y compras.",
-                "./pages/clientes.html"
+                "clientes.html"
             )
         );
 
@@ -362,7 +406,7 @@ else {
                 "📊",
                 "Reportes",
                 "Visualiza estadísticas y reportes del negocio.",
-                "./pages/Reportes.html"
+                "Reportes.html"
             )
         );
 
@@ -371,7 +415,7 @@ else {
                 "⚙️",
                 "Usuarios",
                 "Gestiona permisos y usuarios del sistema.",
-                "./pages/usuarios.html"
+                "usuarios.html"
             )
         );
 
@@ -380,7 +424,16 @@ else {
                 "🛍️",
                 "Productos",
                 "Gestiona el catálogo de productos.",
-                "./pages/productos.html"
+                "productos.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "🔄",
+                "Devoluciones",
+                "Gestiona devoluciones y reembolsos.",
+                "devoluciones.html"
             )
         );
     }
@@ -391,25 +444,54 @@ else {
 
     if (rol === "Vendedor") {
 
-        menu.innerHTML += `
-            <a href="./pages/dashboard_cajero.html">
+        menu.innerHTML = `
+            <a href="${
+                estaEnPages
+                    ? "../index.html"
+                    : "index.html"
+            }">
+                Inicio
+            </a>
+
+            <a href="${
+                obtenerRuta("dashboard_cajero.html")
+            }">
                 Panel Cajero
+            </a>
+
+            <a href="${
+                obtenerRuta("reporte_ventas.html")
+            }">
+                Ventas
+            </a>
+
+            <a href="${
+                obtenerRuta("tickets.html")
+            }">
+                Tickets
+            </a>
+
+            <a href="${
+                obtenerRuta("clientes.html")
+            }">
+                Clientes
+            </a>
+
+            <a href="${
+                obtenerRuta("devoluciones.html")
+            }">
+                Devoluciones
             </a>
         `;
 
-        const reportes =
-            document.getElementById("reportes");
-
-        if (reportes) {
-            reportes.style.display = "none";
-        }
-
         if (tituloHero) {
+
             tituloHero.textContent =
                 "Panel de Ventas";
         }
 
         if (textoHero) {
+
             textoHero.textContent =
                 "Gestiona ventas y atención a clientes";
         }
@@ -422,14 +504,51 @@ else {
             btnHero.onclick = () => {
 
                 window.location.href =
-                    "./pages/reporte_ventas.html";
+                    obtenerRuta("reporte_ventas.html");
             };
         }
 
         if (bienvenida) {
+
             bienvenida.textContent =
                 "Panel de Cajero";
         }
+
+        container.appendChild(
+            card(
+                "💰",
+                "Ventas",
+                "Realiza ventas y genera tickets.",
+                "reporte_ventas.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "🧾",
+                "Tickets",
+                "Consulta y genera tickets de compra.",
+                "tickets.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "👥",
+                "Clientes",
+                "Consulta información de clientes.",
+                "clientes.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "🔄",
+                "Devoluciones",
+                "Gestiona devoluciones de clientes.",
+                "devoluciones.html"
+            )
+        );
     }
 
     /* =========================
@@ -438,43 +557,54 @@ else {
 
     if (rol === "Inventario") {
 
-        menu.innerHTML += `
-            <a href="./pages/dashboard_almacen.html">
+        menu.innerHTML = `
+            <a href="${
+                estaEnPages
+                    ? "../index.html"
+                    : "index.html"
+            }">
+                Inicio
+            </a>
+
+            <a href="${
+                obtenerRuta("dashboard_almacen.html")
+            }">
                 Panel Almacén
+            </a>
+
+            <a href="${
+                obtenerRuta("productos.html")
+            }">
+                Productos
+            </a>
+
+            <a href="${
+                obtenerRuta("agregar_producto.html")
+            }">
+                Agregar Producto
+            </a>
+
+            <a href="${
+                obtenerRuta("movimientos.html")
+            }">
+                Movimientos
+            </a>
+
+            <a href="${
+                obtenerRuta("devoluciones.html")
+            }">
+                Devoluciones
             </a>
         `;
 
-        setTimeout(() => {
-
-            const ventas =
-                document.getElementById("ventas");
-
-            const clientes =
-                document.getElementById("clientes");
-
-            const reportes =
-                document.getElementById("reportes");
-
-            if (ventas) {
-                ventas.style.display = "none";
-            }
-
-            if (clientes) {
-                clientes.style.display = "none";
-            }
-
-            if (reportes) {
-                reportes.style.display = "none";
-            }
-
-        }, 0);
-
         if (tituloHero) {
+
             tituloHero.textContent =
                 "Gestión de Inventario";
         }
 
         if (textoHero) {
+
             textoHero.textContent =
                 "Administra productos y controla existencias";
         }
@@ -487,14 +617,51 @@ else {
             btnHero.onclick = () => {
 
                 window.location.href =
-                    "./pages/dashboard_almacen.html";
+                    obtenerRuta("dashboard_almacen.html");
             };
         }
 
         if (bienvenida) {
+
             bienvenida.textContent =
                 "Panel de Inventario";
         }
+
+        container.appendChild(
+            card(
+                "📦",
+                "Inventario",
+                "Administra productos y controla existencias.",
+                "dashboard_almacen.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "➕",
+                "Agregar Productos",
+                "Registra nuevos productos al sistema.",
+                "agregar_producto.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "🔄",
+                "Devoluciones",
+                "Gestiona devoluciones y productos regresados.",
+                "devoluciones.html"
+            )
+        );
+
+        container.appendChild(
+            card(
+                "📋",
+                "Movimientos",
+                "Consulta entradas y salidas de inventario.",
+                "movimientos.html"
+            )
+        );
     }
 }
 

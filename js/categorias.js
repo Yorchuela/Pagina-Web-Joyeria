@@ -1,28 +1,26 @@
 document.addEventListener(
-
     "DOMContentLoaded",
-
     mostrarCategorias
-
 );
+
+/* =========================
+   MOSTRAR CATEGORIAS
+========================= */
 
 async function mostrarCategorias() {
 
     try {
 
-        const response =
-
-            await fetch(
-                'http://localhost:3000/categorias'
-            );
+        const response = await fetch(
+            "http://localhost:3000/categorias"
+        );
 
         const categorias =
             await response.json();
 
         const contenedor =
-
             document.getElementById(
-                'contenedorCategorias'
+                "contenedorCategorias"
             );
 
         contenedor.innerHTML = "";
@@ -31,42 +29,56 @@ async function mostrarCategorias() {
 
             contenedor.innerHTML += `
 
-        <div
-            class="card"
-            onclick="verProductos(
-                ${c.id_categoria}
-            )"
-        >
+                <div
+                    class="card"
+                    onclick="verProductos(${c.id_categoria})"
+                >
 
-            <h3>
+                    <div class="icono">
+                        💎
+                    </div>
 
-                ${c.nombre_categoria}
+                    <h3>
+                        ${c.nombre_categoria}
+                    </h3>
 
-            </h3>
+                    <p>
+                        Explora nuestra colección exclusiva
+                    </p>
 
-            <p>
+                    <button>
+                        Ver productos
+                    </button>
 
-                Explorar colección
-
-            </p>
-
-        </div>
-
-    `;
-
+                </div>
+            `;
         });
+
     } catch (error) {
 
-        console.log(error);
-
+        console.log(
+            "Error cargando categorías:",
+            error
+        );
     }
-
 }
+
+/* =========================
+   IR A PRODUCTOS
+========================= */
 
 function verProductos(id) {
 
+    const estaEnPages =
+        window.location.pathname.includes(
+            "/pages/"
+        );
+
     window.location.href =
 
-        `catalogo.html?id_categoria=${id}`;
+        estaEnPages
 
+            ? `./catalogo.html?id_categoria=${id}`
+
+            : `./pages/catalogo.html?id_categoria=${id}`;
 }
