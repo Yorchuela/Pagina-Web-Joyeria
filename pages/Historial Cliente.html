@@ -1,67 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Historial de Compras
+    </title>
+
+    <link rel="stylesheet"
+          href="../css/historial_cliente.css">
+
 </head>
+
 <body>
 
-    <h2>Historial de Compras de Jorge</h2>
+    <!-- BOTONES -->
 
-    <table border="1">
+    <div class="top-buttons">
 
-    <tr>
-        <th>Fecha</th>
-        <th>Producto</th>
-        <th>Total</th>
-    </tr>
+        <button class="btn-volver"
+                onclick="window.history.back()">
 
-    <tr>
-        <td>01/03/2026</td>
-        <td>Anillo de oro</td>
-        <td>$300</td>
-    </tr>
+            ⬅ Regresar
 
-    <tr>
-        <td>04/03/2026</td>
-        <td>Reloj de plata</td>
-        <td>$350</td>
-    </tr>
+        </button>
 
-    <tr>
-        <td>09/03/2026</td>
-        <td>Collar de oro</td>
-        <td>$325</td>
-    </tr>
+        <button class="btn-inicio"
+                onclick="window.location.href='../index.html'">
 
-    <tr>
-        <td>12/03/2026</td>
-        <td>Pulsera de oro</td>
-        <td>$300</td>
-    </tr>
+            🏠 Inicio
 
-    <tr>
-        <td>21/03/2026</td>
-        <td>Brazalete de oro</td>
-        <td>$349</td>
-    </tr>
+        </button>
 
-    <tr>
-        <td>29/03/2026</td>
-        <td>Dije de plata</td>
-        <td>$200</td>
-    </tr>
+    </div>
 
+    <!-- CONTENEDOR -->
 
-    
+    <div class="container">
 
-    </table>
-    
+        <h2>
+            🧾 Mi Historial de Compras
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Fecha
+                    </th>
+
+                    <th>
+                        Producto
+                    </th>
+
+                    <th>
+                        Cantidad
+                    </th>
+
+                    <th>
+                        Total
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="tablaHistorial">
+
+                <!-- DATOS DINAMICOS -->
+
+            </tbody>
+
+        </table>
+
+    </div>
+
 </body>
+
 <script src="../js/auth.js"></script>
+
 <script>
-verificarRol(["admin", "cajero"]);
+
+    verificarRol([
+        "Administrador",
+        "Cliente"
+    ]);
+
 </script>
+
+<script src="../js/historial.js"></script>
+
 </html>
