@@ -252,7 +252,7 @@ else {
                 "📦",
                 "Inventario",
                 "Administra productos y stock disponible.",
-                "./pages/productos.html"
+                "./pages/movimientos.html"
             )
         );
 

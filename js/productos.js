@@ -106,142 +106,140 @@ document.addEventListener(
 
     "DOMContentLoaded",
 
-    () => {
+    async () => {
 
-        mostrarProductos();
+        const response =
 
-        /* MENSAJE */
-
-        /* MENSAJE PRODUCTO */
-
-        if (
-
-            localStorage.getItem(
-                'productoActualizado'
-            )
-
-        ) {
-
-            alert(
-                'Producto actualizado'
+            await fetch(
+                'http://localhost:3000/productos'
             );
 
-            localStorage.removeItem(
-                'productoActualizado'
-            );
+        const productos =
+            await response.json();
 
-        }
+        mostrarProductos(
+            productos
+        );
 
     }
 
 );
 
 // 📋 MOSTRAR
-async function mostrarProductos(lista = null) {
+function mostrarProductos(productos) {
 
     const tabla =
-        document.getElementById("tablaProductos");
 
-    tabla.innerHTML = "";
+        document.getElementById(
+            "tablaProductos"
+        );
 
-    let productos = lista;
+     tabla.innerHTML = "";
 
-    if (!productos) {
-
-        const response =
-            await fetch(
-                'http://localhost:3000/productos'
-            );
-
-        productos =
-            await response.json();
-
-    }
-
-    productos.forEach(p => {
+        productos.forEach(p => {
 
         tabla.innerHTML += `
-        
-<tr>
 
-    <td>
+                <tr>
 
-        <img
+                <td>
 
-            src="${p.ruta_imagen
+                    ${p.id_producto}
 
-                ?
+                </td>
 
-                'http://localhost:3000' +
-                p.ruta_imagen
+                <td>
 
-                :
+                    <img
 
-                'https://via.placeholder.com/80'
-            }"
+                        src="${p.ruta_imagen
 
-        >
+                            ?
 
-    </td>
-    
+                            'http://localhost:3000' +
+                            p.ruta_imagen
 
-    <td>${p.nombre_producto}</td>
+                            :
 
-    <td>${p.descripcion || ''}</td>
+                            'https://via.placeholder.com/80'
+                        }"
 
-    <td>${p.nombre_categoria}</td>
+                    >
 
-    <td>${p.serie}</td>
+                </td>
 
-    <td>
+                <td>
 
-        ${p.certificado_autenticidad || 'N/A'
-            }
+                    ${p.nombre_producto}
 
-    </td>
+                </td>
 
-    <td>
+                <td>
 
-         ${p.kilataje
-                ?
-                parseInt(p.kilataje) + 'K'
-                :
-                'N/A'}
+                    $${p.precio}
 
-    </td>
+                </td>
 
-    <td>$${p.precio}</td>
+                <td>
 
-    <td>${p.estado_producto}</td>
+                    <span class="
+                        ${p.estado_producto === 'Disponible'
+                            ? 'estado-disponible'
+                            : 'estado-vendido'
+                        }
+                    ">
 
-    <td>
-    ${new Date(p.fecha_registro)
-                .toLocaleDateString('es-MX')}
-    </td>
+                        ${p.estado_producto}
 
-    <td>
+                    </span>
 
-        <div class="acciones">
+                </td>
 
-        <button
-        onclick="editarProducto(${p.id_producto})"
-        >
-           ✏️ Editar
-        </button>
+                <td>
 
-        <button
-        onclick="eliminarProducto(${p.id_producto})"
-        >
-           🗑 Eliminar
-        </button>
+                    <div class="acciones">
 
-        </div>
+                        <button
+                            onclick='verDetalleProducto(
+                                ${JSON.stringify(p)}
+                            )'
+                        >
 
-    </td>
+                            👁 Ver
 
-</tr>
-        
-`;
+                        </button>
+
+                        <button
+                            onclick="
+                                editarProducto(
+                                    ${p.id_producto}
+                                )
+                            "
+                        >
+
+                            ✏️ Editar
+
+                        </button>
+
+                        <button
+                            onclick="
+                                eliminarProducto(
+                                    ${p.id_producto}
+                                )
+                            "
+                        >
+
+                            🗑 Eliminar
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
 
     });
 
@@ -250,11 +248,15 @@ async function mostrarProductos(lista = null) {
 async function buscarProductos() {
 
     const texto =
-        document.getElementById("buscador")
+
+        document.getElementById(
+            "buscador"
+        )
             .value
             .toLowerCase();
 
     const response =
+
         await fetch(
             'http://localhost:3000/productos'
         );
@@ -265,13 +267,13 @@ async function buscarProductos() {
     const filtrados =
         productos.filter(p =>
 
-            p.nombre_producto
-                .toLowerCase()
+            p.id_producto
+                .toString()
                 .includes(texto)
 
             ||
 
-            p.serie
+            p.nombre_producto
                 .toLowerCase()
                 .includes(texto)
 
@@ -335,6 +337,28 @@ async function eliminarProducto(id) {
     }
 
 }
+/* LIMPIAR BUSQUEDA */
+
+async function limpiarBusqueda() {
+
+    document.getElementById(
+        "buscador"
+    ).value = "";
+
+    const response =
+
+        await fetch(
+            'http://localhost:3000/productos'
+        );
+
+    const productos =
+        await response.json();
+
+    mostrarProductos(
+        productos
+    );
+
+}
 //  CARGAR CATEGORIA
 async function cargarCategorias() {
 
@@ -379,5 +403,260 @@ function irAgregarProducto() {
 
     window.location.href =
         'agregar_producto.html';
+
+}
+/* EXPORTAR EXCEL*/
+
+function exportarExcelProductos() {
+
+    const tabla =
+
+        document.querySelector("table");
+
+    const wb =
+
+        XLSX.utils.table_to_book(
+            tabla,
+            {
+                sheet: "Productos"
+            }
+        );
+
+    XLSX.writeFile(
+        wb,
+        "productos.xlsx"
+    );
+
+}
+
+/* EXPORTAR PDF*/
+
+async function exportarPDFProductos() {
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF(
+        'landscape'
+    );
+
+    /* FECHA */
+
+    const fecha = new Date();
+
+    const fechaActual =
+
+        fecha.toLocaleDateString();
+
+    /* TITULO */
+
+    doc.setFontSize(22);
+
+    doc.text(
+        "JOYERIA WEB",
+        14,
+        20
+    );
+
+    /* SUBTITULO */
+
+    doc.setFontSize(14);
+
+    doc.text(
+        "Reporte de Productos",
+        14,
+        30
+    );
+
+    /* FECHA */
+
+    doc.setFontSize(11);
+
+    doc.text(
+        `Fecha exportación: ${fechaActual}`,
+        14,
+        40
+    );
+
+    /* FILAS */
+
+    const filas = [];
+
+    document.querySelectorAll(
+        "#tablaProductos tr"
+    ).forEach(fila => {
+
+        const columnas =
+
+            fila.querySelectorAll("td");
+
+        filas.push([
+
+            columnas[0].textContent.trim(),
+            columnas[2].textContent.trim(),
+            columnas[3].textContent.trim(),
+            columnas[4].textContent.trim(),
+            columnas[5].textContent.trim(),
+            columnas[6].textContent.trim(),
+            columnas[7].textContent.trim(),
+            columnas[8].textContent.trim(),
+            columnas[9].textContent.trim(),
+            columnas[10].textContent.trim()
+
+        ]);
+
+    });
+
+    /* TABLA */
+
+    doc.autoTable({
+
+        startY: 50,
+
+        head: [[
+            "ID",
+            "PRODUCTO",
+            "DESCRIPCIÓN",
+            "CATEGORÍA",
+            "SERIE",
+            "CERTIFICADO",
+            "KILATAJE",
+            "PRECIO",
+            "ESTADO",
+            "FECHA"
+        ]],
+
+        body: filas,
+
+        styles: {
+            fontSize: 8
+        },
+
+        headStyles: {
+            fillColor: [131, 135, 195]
+        }
+
+    });
+
+    /* TOTAL */
+
+    doc.text(
+
+        `Total productos: ${filas.length}`,
+
+        14,
+
+        doc.lastAutoTable.finalY + 15
+
+    );
+
+    /* GUARDAR */
+
+    doc.save(
+        "reporte_productos.pdf"
+    );
+
+}
+/* =========================
+   VER DETALLE PRODUCTO
+========================= */
+
+function verDetalleProducto(p){
+
+    document.getElementById(
+        "modalDetalle"
+    ).style.display = "flex";
+
+    /* IMAGEN */
+
+    document.getElementById(
+        "detalleImagen"
+    ).src =
+
+        p.ruta_imagen
+
+        ?
+
+        'http://localhost:3000' +
+        p.ruta_imagen
+
+        :
+
+        'https://via.placeholder.com/300';
+
+    /* DATOS */
+
+    document.getElementById(
+        "detalleNombre"
+    ).textContent =
+
+        p.nombre_producto;
+
+    document.getElementById(
+        "detalleID"
+    ).textContent =
+
+        p.id_producto;
+
+    document.getElementById(
+        "detalleDescripcion"
+    ).textContent =
+
+        p.descripcion;
+
+    document.getElementById(
+        "detalleCategoria"
+    ).textContent =
+
+        p.nombre_categoria;
+
+    document.getElementById(
+        "detalleSerie"
+    ).textContent =
+
+        p.serie;
+
+    document.getElementById(
+        "detalleCertificado"
+    ).textContent =
+
+        p.certificado_autenticidad;
+
+    document.getElementById(
+        "detalleKilataje"
+    ).textContent =
+
+        p.kilataje + "K";
+
+    document.getElementById(
+        "detallePrecio"
+    ).textContent =
+
+        "$" + p.precio;
+
+    document.getElementById(
+        "detalleEstado"
+    ).textContent =
+
+        p.estado_producto;
+
+    document.getElementById(
+        "detalleFecha"
+    ).textContent =
+
+        new Date(
+            p.fecha_registro
+        ).toLocaleDateString(
+            'es-MX'
+        );
+
+}
+
+/* CERRAR */
+
+function cerrarModalDetalle(){
+
+    document.getElementById(
+        "modalDetalle"
+    ).style.display = "none";
 
 }

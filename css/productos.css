@@ -1,234 +1,697 @@
-body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f5f6ff;
-    margin:0;
-    padding:30px;
-    color:#0a1123;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f6ff;
+    margin: 0;
+    padding: 20px;
+    color: #0a1123;
 }
 
 /* =========================
    TITULO
 ========================= */
 
-h2{
-    text-align:center;
-    margin-bottom:25px;
-    color:#8387c3;
+h2 {
+
+    text-align: center;
+
+    margin-top: 5px;
+
+    margin-bottom: 10px;
+
+    color: #8387c3;
+
+    font-size: 35px;
+
 }
 
 /* =========================
    BUSCADOR
 ========================= */
 
-#buscador{
-    width:260px;
-    padding:10px 12px;
+#buscador {
+    width: 480px;
+    padding: 10px 12px;
 
-    border:1px solid #d6d8f5;
-    border-radius:10px;
+    border: 1px solid #d6d8f5;
+    border-radius: 10px;
 
-    background:#ffffff;
+    background: #ffffff;
 
-    margin-bottom:20px;
+    margin-bottom: 20px;
 
-    transition:.3s;
+    transition: .3s;
 }
 
-#buscador:focus{
-    outline:none;
-    border-color:#8387c3;
-    box-shadow:0 0 0 3px rgba(131,135,195,.2);
+#buscador:focus {
+    outline: none;
+    border-color: #8387c3;
+    box-shadow: 0 0 0 3px rgba(131, 135, 195, .2);
 }
 
 /* =========================
    FORMULARIO MODERNO
 ========================= */
 
-form{
-    display:flex;
-    flex-direction:column;
-    gap:16px;
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
-    background:white;
-    padding:25px;
+    background: white;
+    padding: 25px;
 
-    border-radius:16px;
+    border-radius: 16px;
 
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
 
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
 /* INPUTS */
 
 input,
-select{
-    padding:10px 12px;
+select {
+    padding: 10px 12px;
 
-    border:1px solid #d6d8f5;
-    border-radius:10px;
+    border: 1px solid #d6d8f5;
+    border-radius: 10px;
 
-    background:#f9f9ff;
+    background: #f9f9ff;
 
-    transition:.3s;
+    transition: .3s;
 }
 
 input:focus,
-select:focus{
-    outline:none;
-    border-color:#8387c3;
-    background:white;
+select:focus {
+    outline: none;
+    border-color: #8387c3;
+    background: white;
 
-    box-shadow:0 0 0 3px rgba(131,135,195,.15);
+    box-shadow: 0 0 0 3px rgba(131, 135, 195, .15);
 }
 
 /* =========================
    BOTONES
 ========================= */
 
-button{
-    padding:10px 15px;
+button {
+    padding: 10px 15px;
 
-    background:#8387c3;
-    border:none;
-    border-radius:10px;
+    background: #8387c3;
+    border: none;
+    border-radius: 10px;
 
-    color:white;
-    font-weight:bold;
+    color: white;
+    font-weight: bold;
 
-    cursor:pointer;
-    transition:.3s;
+    cursor: pointer;
+    transition: .3s;
 }
 
-button:hover{
-    background:#6c70b5;
-    transform:translateY(-2px);
+button:hover {
+    background: #6c70b5;
+    transform: translateY(-2px);
 }
 
 /* BOTÓN AGREGAR */
 
-.btn-agregar{
-    background:#6c70b5;
-    padding:12px 20px;
-    font-size:15px;
+.btn-agregar {
+    background: #6c70b5;
+    padding: 11px 20px;
+    font-size: 14px;
 }
 
-.btn-agregar:hover{
-    background:#5b5fa3;
-}
-
-/* =========================
-   CONTENEDOR ACCIONES
-========================= */
-
-.acciones-superior{
-    display:flex;
-    justify-content:flex-end;
-    margin-bottom:15px;
+.btn-agregar:hover {
+    background: #5b5fa3;
 }
 
 /* =========================
    TABLA MODERNA
 ========================= */
 
-table{
-    width:100%;
-    border-collapse:collapse;
+table {
+    width: 100%;
+    border-collapse: collapse;
 
-    background:white;
+    background: white;
 
-    border-radius:16px;
-    overflow:hidden;
+    border-radius: 16px;
+    overflow: hidden;
 
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
 }
 
 /* HEADER */
 
-th{
-    background:#8387c3;
-    color:white;
+th {
 
-    padding:15px;
-    text-align:center;
-    font-weight:bold;
+    background: #8387c3;
+
+    color: white;
+
+    padding: 12px 10px;
+
+    text-align: center;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
 }
 
 /* CELDAS */
 
-td{
-    padding:15px;
-    text-align:center;
+td {
+    padding: 10px;
+    text-align: center;
 
-    border-bottom:1px solid #f0f0ff;
+    border-bottom: 1px solid #f0f0ff;
 
-    vertical-align:middle;
+    vertical-align: middle;
 }
 
 /* HOVER FILAS */
 
 tr:hover{
-    background:#f3f4ff;
+
+    background:#eef1ff;
+
+    transform:scale(1.002);
+
+    transition:.2s;
+
 }
 
 /* =========================
    IMAGEN PRODUCTO
 ========================= */
 
-td img{
-    width:85px;
-    height:85px;
+td img {
+    width: 60px;
+    height: 60px;
 
-    object-fit:cover;
+    object-fit: cover;
 
-    border-radius:10px;
+    border-radius: 10px;
 
-    display:block;
-    margin:auto;
+    display: block;
+    margin: auto;
 }
 
 /* =========================
    ACCIONES
 ========================= */
 
-.acciones{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    align-items:center;
+.acciones {
+
+    display: flex;
+
+    flex-direction: row;
+
+    gap: 10px;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-wrap: nowrap;
+
 }
 
-.acciones button{
-    width:120px;
+.acciones button {
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    width: auto;
 
-    gap:8px;
+    padding: 9px 14px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 6px;
+
+    border-radius: 10px;
+
+    white-space: nowrap;
+
 }
+
 
 /* =========================
    BOTÓN REGRESAR
 ========================= */
 
-.btn-regresar{
-    margin:20px 0;
-    padding:10px 20px;
+.btn-regresar {
+    margin: 5px 0 15px 0;
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #8387c3;
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-regresar:hover {
+    background: #6c70b5;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   BADGES ESTADO
+========================= */
+
+.estado-disponible {
+
+    background: #d4f8d4;
+
+    color: #157015;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-weight: bold;
+
+}
+
+.estado-vendido {
+
+    background: #ffd8d8;
+
+    color: #a10000;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-weight: bold;
+
+}
+
+
+.btn-excel {
+
+    background: #1d9b5f;
+
+}
+
+.btn-excel:hover {
+
+    background: #157347;
+
+}
+
+.btn-pdf {
+
+    background: #c0392b;
+
+}
+
+.btn-pdf:hover {
+
+    background: #992d22;
+
+}
+
+/* BUSCADOR CON BOTON*/
+
+.buscador-container {
+
+    width: 100%;
+
+}
+
+.buscador-container input {
+
+    width: 100%;
+
+    margin: 0;
+
+}
+
+/* BOTON LIMPIAR*/
+
+.btn-limpiar {
+
+    background: #d9534f;
+
+    white-space: nowrap;
+
+}
+
+.btn-limpiar:hover {
+
+    background: #b63d3d;
+
+}
+
+/* =========================
+   MODAL DETALLE
+========================= */
+
+.modal-detalle {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, .6);
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999;
+
+}
+
+/* CONTENIDO */
+
+.modal-detalle-contenido {
+
+    background: white;
+
+    width: 85%;
+    max-width: 950px;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    position: relative;
+
+    animation: aparecer .3s ease;
+
+}
+
+/* GRID */
+
+.detalle-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        350px 1fr;
+
+    gap: 30px;
+
+    align-items: start;
+
+}
+
+/* IMAGEN */
+
+.detalle-imagen img {
+
+    width: 100%;
+
+    height: 350px;
+
+    object-fit: cover;
+
+    border-radius: 18px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+
+}
+
+/* INFO */
+
+.detalle-info h2 {
+
+    color: #8387c3;
+
+    margin-bottom: 20px;
+
+}
+
+.detalle-info p {
+
+    margin: 12px 0;
+
+    font-size: 16px;
+
+    line-height: 1.5;
+
+}
+
+/* CERRAR */
+
+.cerrar-modal {
+
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    background: #e74c3c;
+
+    border: none;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+}
+
+/* ANIMACION */
+
+@keyframes aparecer {
+
+    from {
+
+        transform: scale(.9);
+        opacity: 0;
+
+    }
+
+    to {
+
+        transform: scale(1);
+        opacity: 1;
+
+    }
+
+}
+
+/* =========================
+   TOOLBAR PRODUCTOS
+========================= */
+
+.toolbar-productos {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+
+}
+
+
+/* FILAS */
+
+.toolbar-top{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.toolbar-bottom{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+}
+
+/* BUSCADOR */
+
+.buscador-container {
+
+    flex: 1;
+
+}
+
+/* EXPORTAR */
+
+.exportar-container {
+
+    display: flex;
+
+    gap: 12px;
+
+}
+/* =========================
+   BOTONES TOOLBAR
+========================= */
+
+.toolbar-top .btn-agregar{
+
+    min-width:180px;
+
+}
+
+.toolbar-bottom{
+
+    margin-top:-5px;
+
+}
+
+.toolbar-bottom .btn-limpiar{
+
+    min-width:170px;
+
+}
+/* ===================================
+   TOOLBAR MODERNA
+=================================== */
+
+.toolbar-productos{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+    margin-bottom:12px;
+
+}
+
+/* FILA SUPERIOR */
+
+.barra-superior{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+}
+
+/* INPUT */
+
+.barra-superior input{
+
+    flex:1;
+
+    min-width:300px;
+
+}
+
+/* FILA INFERIOR */
+
+.barra-inferior{
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+/* BOTONES TOOLBAR */
+
+.barra-superior button,
+.barra-inferior button{
+
+    height:45px;
+
+    padding:0 18px;
 
     border:none;
-    border-radius:10px;
 
-    background:#8387c3;
-    color:white;
+    border-radius:12px;
+
+    font-size:14px;
 
     font-weight:bold;
 
     cursor:pointer;
+
     transition:.3s;
+
 }
 
-.btn-regresar:hover{
-    background:#6c70b5;
-    transform:translateY(-2px);
+/* LIMPIAR */
+
+.btn-limpiar{
+
+    background:#e2534a;
+
+    color:white;
+
+}
+
+.btn-limpiar:hover{
+
+    background:#c9443c;
+
+}
+
+/* EXCEL */
+
+.btn-excel{
+
+    background:#1f9d55;
+
+    color:white;
+
+}
+
+.btn-excel:hover{
+
+    background:#188447;
+
+}
+
+/* PDF */
+
+.btn-pdf{
+
+    background:#c73b2f;
+
+    color:white;
+
+}
+
+.btn-pdf:hover{
+
+    background:#ab3127;
+
 }
