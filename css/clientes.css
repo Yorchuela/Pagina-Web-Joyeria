@@ -1,186 +1,633 @@
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color:#8387c3;
+/* =========================
+   RESET
+========================= */
+
+*{
     margin:0;
-    padding:30px;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    overflow-x:hidden;
+}
+
+/* =========================
+   BODY
+========================= */
+
+body{
+
+    font-family:'Segoe UI',sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8387c3,
+            #6c70b5
+        );
+
     min-height:100vh;
+
+    padding:30px 15px;
+
+    color:#222;
 }
 
-/* 🔥 CONTENEDOR */
+/* =========================
+   CONTENEDOR
+========================= */
+
 .container{
-    max-width:1100px;
+
+    width:100%;
+
+    max-width:1200px;
+
     margin:auto;
-    background-color:#ffffff;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0px 10px 25px #00000033;
+
+    background:
+        rgba(255,255,255,.97);
+
+    backdrop-filter:blur(10px);
+
+    padding:40px;
+
+    border-radius:28px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.15);
 }
 
-/* 🔥 TITULO */
+/* =========================
+   TITULO
+========================= */
+
 h2{
+
     text-align:center;
-    color:#333;
-    margin-bottom:30px;
+
+    color:#1e293b;
+
+    font-size:48px;
+
+    margin-bottom:35px;
 }
 
-/* 🔥 BARRA SUPERIOR */
+/* =========================
+   TOP BAR
+========================= */
+
 .top-bar{
+
     display:flex;
+
     justify-content:space-between;
-    align-items:end;
-    gap:15px;
+
+    align-items:flex-end;
+
+    gap:20px;
+
     flex-wrap:wrap;
-    margin-bottom:25px;
+
+    margin-bottom:35px;
 }
 
-/* 🔥 BUSQUEDA */
+/* =========================
+   BUSQUEDA
+========================= */
+
 .busqueda{
+
     display:flex;
-    gap:10px;
+
+    gap:15px;
+
     align-items:center;
+
     flex-wrap:wrap;
+
     flex:1;
 }
 
+/* =========================
+   LABELS
+========================= */
+
 label{
-    font-weight:bold;
-    color:#333;
+
+    font-weight:700;
+
+    color:#374151;
+
+    font-size:15px;
 }
+
+/* =========================
+   INPUTS
+========================= */
 
 select,
 input{
-    padding:10px;
-    border:1px solid #d0d4ff;
-    border-radius:6px;
-    background-color:#f5f6ff;
-    font-size:14px;
+
+    padding:14px 16px;
+
+    border:2px solid #dbe2ff;
+
+    border-radius:14px;
+
+    background:#f7f8ff;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    outline:none;
 }
 
-/* 🔥 INPUT MÁS GRANDE */
+select:focus,
+input:focus{
+
+    border-color:#5566c8;
+
+    background:white;
+
+    box-shadow:
+        0 0 0 4px rgba(85,102,200,.12);
+}
+
+/* INPUT BUSCADOR */
+
 #buscador{
-    min-width:250px;
+
+    min-width:280px;
+
+    flex:1;
 }
 
-/* 🔥 BOTONES */
+/* =========================
+   BOTONES
+========================= */
+
 button{
-    padding:10px 18px;
-    background-color:#8387c3;
+
+    padding:14px 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5566c8,
+            #6f7cff
+        );
+
     color:white;
+
     border:none;
-    border-radius:6px;
+
+    border-radius:14px;
+
     cursor:pointer;
+
     font-weight:bold;
-    transition:0.3s;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.12);
 }
 
 button:hover{
-    background-color:#5566c8;
+
+    transform:translateY(-3px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #4957b3,
+            #5d69ea
+        );
 }
 
-/* 🔥 BOTÓN ALTA */
+/* =========================
+   BOTON ALTA
+========================= */
+
 .btn-alta{
+
     text-decoration:none;
 }
 
 .btn-alta button{
-    background-color:#5566c8;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4f46e5,
+            #6366f1
+        );
 }
 
-/* 🔥 TABLA */
-table{
+.btn-alta button:hover{
+
+    background:
+        linear-gradient(
+            135deg,
+            #4338ca,
+            #4f46e5
+        );
+}
+
+/* =========================
+   TABLA
+========================= */
+
+.table-container{
+
     width:100%;
+
+    overflow-x:auto;
+
+    border-radius:20px;
+}
+
+table{
+
+    width:100%;
+
     border-collapse:collapse;
-    background-color:#ffffff;
+
+    background:white;
+
     overflow:hidden;
-    border-radius:10px;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.10);
 }
 
-/* 🔥 ENCABEZADOS */
+/* ENCABEZADOS */
+
 th{
-    background-color:#5566c8;
-    color:#ffffff;
-    padding:14px;
-    font-size:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5566c8,
+            #6f7cff
+        );
+
+    color:white;
+
+    padding:18px;
+
+    font-size:15px;
+
+    white-space:nowrap;
 }
 
-/* 🔥 CELDAS */
+/* CELDAS */
+
 td{
-    padding:14px;
+
+    padding:16px;
+
     border-bottom:1px solid #eee;
+
     text-align:center;
+
+    font-size:14px;
+
+    white-space:nowrap;
 }
 
-/* 🔥 EFECTO HOVER */
+/* HOVER FILAS */
+
 tr:hover{
-    background-color:#f5f6ff;
+
+    background:#f5f6ff;
 }
 
-/* 🔥 BOTONES TABLA */
+/* =========================
+   ACCIONES
+========================= */
+
 .acciones{
+
     display:flex;
+
     justify-content:center;
+
     gap:10px;
+
+    flex-wrap:wrap;
 }
+
+/* =========================
+   BOTON EDITAR
+========================= */
 
 .btn-editar{
-    background-color:#4CAF50;
+
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #22c55e
+        );
 }
 
 .btn-editar:hover{
-    background-color:#388E3C;
+
+    background:
+        linear-gradient(
+            135deg,
+            #15803d,
+            #16a34a
+        );
 }
 
+/* =========================
+   BOTON ELIMINAR
+========================= */
+
 .btn-eliminar{
-    background-color:#e74c3c;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #ef4444
+        );
 }
 
 .btn-eliminar:hover{
-    background-color:#c0392b;
+
+    background:
+        linear-gradient(
+            135deg,
+            #b91c1c,
+            #dc2626
+        );
 }
-/* 🔥 MODAL */
+
+/* =========================
+   MODAL
+========================= */
 
 .modal{
+
     display:none;
+
     position:fixed;
-    z-index:1000;
+
+    z-index:5000;
+
     left:0;
+
     top:0;
+
     width:100%;
+
     height:100%;
-    background-color:#00000066;
+
+    background:
+        rgba(0,0,0,.55);
+
+    backdrop-filter:blur(4px);
+
+    padding:20px;
 }
+
+/* =========================
+   MODAL CONTENT
+========================= */
 
 .modal-content{
-    background-color:#ffffff;
-    width:90%;
-    max-width:500px;
-    margin:80px auto;
-    padding:25px;
-    border-radius:12px;
-    box-shadow:0px 10px 25px #00000033;
+
+    background:white;
+
+    width:100%;
+
+    max-width:520px;
+
+    margin:60px auto;
+
+    padding:35px 30px;
+
+    border-radius:28px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.25);
+
     display:flex;
+
     flex-direction:column;
-    gap:12px;
+
+    gap:15px;
+
+    animation:modalEntrada .3s ease;
 }
+
+/* ANIMACION */
+
+@keyframes modalEntrada{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(-20px)
+            scale(.95);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+/* TITULO MODAL */
 
 .modal-content h3{
+
     text-align:center;
-    color:#333;
+
+    color:#1e293b;
+
+    font-size:28px;
+
+    margin-bottom:10px;
 }
 
+/* BOTONES MODAL */
+
 .modal-buttons{
+
     display:flex;
-    gap:10px;
+
+    gap:12px;
+
+    margin-top:10px;
 }
 
 .modal-buttons button{
+
     flex:1;
 }
 
+/* CANCELAR */
+
 .btn-cancelar{
-    background-color:#999;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6b7280,
+            #9ca3af
+        );
 }
 
 .btn-cancelar:hover{
-    background-color:#777;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4b5563,
+            #6b7280
+        );
+}
+
+/* =========================
+   RESPONSIVE TABLET
+========================= */
+
+@media(max-width:992px){
+
+    h2{
+
+        font-size:40px;
+    }
+
+    .top-bar{
+
+        flex-direction:column;
+
+        align-items:stretch;
+    }
+
+    .busqueda{
+
+        width:100%;
+    }
+
+    #buscador{
+
+        width:100%;
+    }
+}
+
+/* =========================
+   RESPONSIVE MOVIL
+========================= */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:20px 10px;
+    }
+
+    .container{
+
+        padding:25px 18px;
+    }
+
+    h2{
+
+        font-size:34px;
+    }
+
+    .busqueda{
+
+        flex-direction:column;
+
+        align-items:stretch;
+    }
+
+    select,
+    input{
+
+        width:100%;
+    }
+
+    button{
+
+        width:100%;
+    }
+
+    .acciones{
+
+        flex-direction:column;
+    }
+
+    table{
+
+        min-width:700px;
+    }
+
+    th,
+    td{
+
+        font-size:13px;
+
+        padding:12px;
+    }
+
+    .modal-content{
+
+        padding:25px 18px;
+
+        margin:40px auto;
+    }
+
+    .modal-content h3{
+
+        font-size:24px;
+    }
+
+    .modal-buttons{
+
+        flex-direction:column;
+    }
+}
+
+/* =========================
+   CELULARES PEQUEÑOS
+========================= */
+
+@media(max-width:480px){
+
+    h2{
+
+        font-size:28px;
+    }
+
+    .container{
+
+        border-radius:22px;
+    }
+
+    .modal-content{
+
+        border-radius:22px;
+    }
 }
