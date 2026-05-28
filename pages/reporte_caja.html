@@ -5,6 +5,8 @@
 
     <meta charset="UTF-8">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>
 
         Reporte de Caja
@@ -17,47 +19,15 @@
 
 <body>
 
-    <!-- BOTÓN REGRESAR -->
+    <!-- BOTON -->
 
-   <a href="Reportes.html" class="btn-volver">
-    ← Regresar
-</a>
+    <a href="javascript:history.back()"
+     class="btn-volver">
 
-    <!-- MENÚ -->
+        ← Regresar
 
-    <ul>
+    </a>
 
-        <li>
-
-            <a href="reporte_caja.html">
-
-                Reporte de Caja
-
-            </a>
-
-        </li>
-
-        <li>
-
-            <a href="reporte_ventas.html">
-
-                Reporte de Ventas
-
-            </a>
-
-        </li>
-
-        <li>
-
-            <a href="reporte_inventario.html">
-
-                Reporte de Inventario
-
-            </a>
-
-        </li>
-
-    </ul>
 
     <div class="container">
 
@@ -67,21 +37,179 @@
 
         </h2>
 
-        <!-- FILTRO -->
+        <!-- TOP -->
 
-        <label>
+        <div class="top-inventario">
 
-            Filtrar por fecha
+            <!-- BOTONES -->
 
-        </label>
+            <div class="acciones-reportes">
 
-        <input type="date" id="filtroFecha">
+                <button class="btn-excel" onclick="exportarExcel()">
 
-        <button onclick="filtrarCaja()">
+                    📗 Exportar Excel
 
-            Filtrar
+                </button>
 
-        </button>
+                <button class="btn-pdf" onclick="exportarPDF()">
+
+                    📕 Exportar PDF
+
+                </button>
+
+            </div>
+
+            <!-- CARDS -->
+
+            <div class="cards-inventario">
+
+                <!-- INGRESOS -->
+
+                <div class="card-resumen">
+
+                    <div class="icono-card">
+
+                        💵
+
+                    </div>
+
+                    <div>
+
+                        <p>
+
+                            Ingresos
+
+                        </p>
+
+                        <h3 id="cardIngresos">
+
+                            $0
+
+                        </h3>
+
+                    </div>
+
+                </div>
+
+                <!-- EGRESOS -->
+
+                <div class="card-resumen">
+
+                    <div class="icono-card">
+
+                        🔄
+
+                    </div>
+
+                    <div>
+
+                        <p>
+
+                            Egresos
+
+                        </p>
+
+                        <h3 id="cardEgresos">
+
+                            $0
+
+                        </h3>
+
+                    </div>
+
+                </div>
+
+                <!-- GANANCIA -->
+
+                <div class="card-resumen">
+
+                    <div class="icono-card">
+
+                        💰
+
+                    </div>
+
+                    <div>
+
+                        <p>
+
+                            Ganancia
+
+                        </p>
+
+                        <h3 id="cardGanancia">
+
+                            $0
+
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- FILTROS -->
+
+        <div class="panel-filtros">
+
+            <select id="tipoReporte">
+
+                <option value="diario">
+
+                    📅 Diario
+
+                </option>
+
+                <option value="semanal">
+
+                    🗓 Semanal
+
+                </option>
+
+                <option value="mensual">
+
+                    📆 Mensual
+
+                </option>
+
+                <option value="anual">
+
+                    🧾 Anual
+
+                </option>
+
+                <option value="personalizado">
+
+                    ⚙ Personalizado
+
+                </option>
+
+            </select>
+
+            <input type="date" id="fechaInicio">
+
+            <input type="date" id="fechaFin">
+
+            <input type="month" id="mesInput">
+
+            <input type="number" id="anioInput" placeholder="Año" min="2020" max="2100" maxlength="4">
+
+            <button onclick="filtrarCaja()">
+
+                🔍 Filtrar
+
+            </button>
+
+            <button class="btn-limpiar" onclick="limpiarFiltros()">
+
+                ✖ Limpiar
+
+            </button>
+
+        </div>
 
         <!-- TABLA -->
 
@@ -99,13 +227,25 @@
 
                     <th>
 
-                        Ingresos
+                        Ventas
 
                     </th>
 
                     <th>
 
-                        Egresos (Devoluciones)
+                        Efectivo
+
+                    </th>
+
+                    <th>
+
+                        Tarjeta
+
+                    </th>
+
+                    <th>
+
+                        Egresos
 
                     </th>
 
@@ -119,49 +259,25 @@
 
             </thead>
 
-            <tbody id="tablaCaja"></tbody>
+            <tbody id="tablaCaja">
+
+            </tbody>
 
         </table>
 
-        <h3>
-
-            Ingresos Totales: $
-
-            <span id="ingresos">
-
-                0
-
-            </span>
-
-        </h3>
-
-        <h3>
-
-            Egresos Totales: $
-
-            <span id="egresos">
-
-                0
-
-            </span>
-
-        </h3>
-
-        <h3>
-
-            Ganancia Neta: $
-
-            <span id="ganancia">
-
-                0
-
-            </span>
-
-        </h3>
-
+        
     </div>
 
-    <script src="reporte_caja.js"></script>
+
+    <!-- LIBRERIAS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+    <script src="../js/reporte_caja.js"></script>
 
     <script src="../js/protect.js"></script>
 
