@@ -212,7 +212,7 @@ else {
             Ventas
         </a>
 
-        <a href="./pages/reporte_caja.html"
+        <a href="./pages/reportes.html"
            id="reportes">
             Reportes
         </a>
