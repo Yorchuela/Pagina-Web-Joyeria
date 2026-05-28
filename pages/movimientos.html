@@ -2,71 +2,366 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        Gestión Inventario
+
+    </title>
+
     <link rel="stylesheet" href="../css/movimiento_inventario.css">
-    <title>Movimientos de Inventario</title>
+
 </head>
 
 <body>
 
-    <form onsubmit="registrarMovimiento(event)">
+    <div class="contenedor">
 
-        <h2>Movimientos</h2>
+        <!-- HEADER -->
 
-        <!-- PRODUCTO -->
-        <label>Producto</label>
-        <select id="producto" required></select>
+        <div class="header">
 
-        <!-- TIPO -->
-        <label>Tipo de movimiento</label>
-        <select id="tipo" required>
-            <option disabled selected>Seleccione una opción</option>
-            <option value="entrada">Entrada</option>
-            <option value="salida">Salida</option>
-        </select>
+            <button class="btn-regresar" onclick="window.location.href='dashboard_almacen.html'">
 
-        <!-- CANTIDAD -->
-        <label>Cantidad</label>
-        <input type="number" id="cantidad" value="1" min="1" readonly>
-        <!-- MOTIVO -->
-        <label>Motivo</label>
-        <select id="motivo" required>
-            <option disabled selected>Seleccione una opción</option>
-            <option>Venta</option>
-            <option>Devolución</option>
-            <option>Daño</option>
-            <option>Compra a proveedor</option>
-        </select>
+                ⬅ Regresar
 
-        <button type="submit">Guardar Movimiento</button>
+            </button>
 
-    </form>
+            <h2>
 
-    <hr>
+                📦 Gestión de Inventario
 
-    <h3>Historial de Movimientos</h3>
+            </h2>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Tipo</th>
-                <th>Cantidad</th>
-                <th>Motivo</th>
-            </tr>
-        </thead>
-        <tbody id="tablaMovimientos"></tbody>
-    </table>
+            <button class="btn-historial" onclick="abrirModalHistorial()">
 
-    
+                📋 Ver Historial
+
+            </button>
+
+        </div>
+
+        <!-- FORM -->
+
+        <div class="form-card">
+
+            <h3>
+
+                Registrar Movimiento
+
+            </h3>
+
+            <form onsubmit="registrarMovimiento(event)">
+
+                <!-- PRODUCTO -->
+
+                <label>
+
+                    Producto
+
+                </label>
+
+                <input type="text" id="productoSeleccionado" placeholder="Ningún producto seleccionado" readonly>
+
+                <input type="hidden" id="producto">
+
+                <button type="button" class="btn-buscar-producto" onclick="abrirModalProductos()">
+
+                    🔍 Buscar Producto
+
+                </button>
+
+                <!-- TIPO -->
+
+                <label>
+
+                    Tipo de movimiento
+
+                </label>
+
+                <select id="tipo" required>
+
+                    <option disabled selected>
+
+                        Seleccione una opción
+
+                    </option>
+
+                    <option value="entrada">
+
+                        Entrada
+
+                    </option>
+
+                    <option value="salida">
+
+                        Salida
+
+                    </option>
+
+                </select>
+
+                <!-- CANTIDAD -->
+
+                <label>
+
+                    Cantidad
+
+                </label>
+
+                <input type="number" id="cantidad" value="1" min="1" readonly>
+
+                <!-- MOTIVO -->
+
+                <label>
+
+                    Motivo
+
+                </label>
+
+                <select id="motivo" required>
+
+                    <option disabled selected>
+
+                        Seleccione una opción
+
+                    </option>
+
+                    <option>
+
+                        Venta
+
+                    </option>
+
+                    <option>
+
+                        Devolución
+
+                    </option>
+
+                    <option>
+
+                        Daño
+
+                    </option>
+
+                </select>
+
+                <button type="submit">
+
+                    Guardar Movimiento
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL HISTORIAL -->
+
+    <div class="modal" id="modalHistorial">
+
+        <div class="modal-contenido modal-grande">
+
+            <div class="modal-header">
+
+                <h3>
+
+                    📋 Historial de Movimientos
+
+                </h3>
+
+                <button class="btn-cerrar" onclick="cerrarModalHistorial()">
+
+                    ✖
+
+                </button>
+
+            </div>
+
+            <!-- FILTROS -->
+
+            <div class="filtros">
+
+                <div class="busqueda-box">
+
+                    <input type="text" id="buscadorMovimiento" placeholder="Buscar por producto o ID..."
+                        onkeyup="filtrarMovimientos()">
+
+                </div>
+
+                <div class="fechas-box">
+
+                    <label>
+
+                        📅 Seleccionar rango de fechas
+
+                    </label>
+
+                    <div class="fechas-inputs">
+
+                        <input type="date" id="fechaInicio">
+
+                        <input type="date" id="fechaFin">
+
+                        <button class="btn-filtrar" onclick="filtrarPorFecha()">
+
+                            Filtrar
+
+                        </button>
+                        <button class="btn-limpiar" onclick="limpiarFiltros()">
+
+                            Limpiar
+
+                        </button>
+                        <button class="btn-excel" onclick="exportarExcel()">
+
+                            📥 Exportar Excel
+
+                        </button>
+                        <button class="btn-pdf" onclick="exportarPDF()">
+
+                            📄 Exportar PDF
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- TABLA -->
+
+            <div class="tabla-contenedor">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID Movimiento</th>
+
+                            <th>ID Producto</th>
+
+                            <th>Producto</th>
+
+                            <th>Tipo</th>
+
+                            <th>Cantidad</th>
+
+                            <th>Motivo</th>
+
+                            <th>Usuario</th>
+
+                            <th>Fecha</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tablaMovimientos">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <!-- MODAL PRODUCTOS -->
+
+<div class="modal" id="modalProductos">
+
+    <div class="modal-contenido modal-grande">
+
+        <div class="modal-header">
+
+            <h3>
+
+                📦 Seleccionar Producto
+
+            </h3>
+
+            <button
+                class="btn-cerrar"
+                onclick="cerrarModalProductos()"
+            >
+
+                ✖
+
+            </button>
+
+        </div>
+
+        <!-- BUSCADOR -->
+
+        <input
+            type="text"
+            id="buscadorProducto"
+            placeholder="Buscar producto..."
+            onkeyup="filtrarProductos()"
+        >
+
+        <!-- TABLA -->
+
+        <div class="tabla-contenedor">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Producto</th>
+
+                        <th>Estado</th>
+
+                        <th>Acción</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tablaProductos">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
 </body>
 
 <script src="../js/movimientos.js"></script>
 
 <script src="../js/auth.js"></script>
+
 <script>
-    verificarRol(["Administrador", "Inventario"]);
+
+    verificarRol([
+        "Administrador",
+        "Inventario"
+    ]);
+
 </script>
 
 </html>
