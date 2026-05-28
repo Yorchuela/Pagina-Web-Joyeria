@@ -5,15 +5,13 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         Login Joyeria
     </title>
 
-    <link rel="stylesheet"
-          href="../css/login.css">
+    <link rel="stylesheet" href="../css/login.css">
 
 </head>
 
@@ -35,12 +33,7 @@
                 Correo Electrónico
             </label>
 
-            <input
-                type="email"
-                id="correo"
-                placeholder="example@gmail.com"
-                required
-            >
+            <input type="email" id="correo" placeholder="example@gmail.com" required>
 
             <!-- PASSWORD -->
 
@@ -48,20 +41,11 @@
                 Contraseña
             </label>
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Ingrese su contraseña"
-                required
-            >
+            <input type="password" id="password" placeholder="Ingrese su contraseña" required>
 
             <!-- RECUPERAR PASSWORD -->
 
-            <a
-                href="#"
-                class="link-password"
-                onclick="recuperarPassword()"
-            >
+            <a href="#" class="link-password" onclick="recuperarPassword()">
 
                 ¿Olvidaste tu contraseña?
 
@@ -85,14 +69,58 @@
                 ¿No tienes cuenta?
             </p>
 
-            <a
-                href="Altas.html"
-                class="crear-cuenta"
-            >
+            <a href="Altas.html" class="crear-cuenta">
 
                 Crear cuenta
 
             </a>
+
+        </div>
+
+    </div>
+    <!-- MODAL RECUPERAR PASSWORD -->
+
+    <!-- MODAL RECUPERAR -->
+
+    <div class="modal-password" id="modalPassword">
+
+        <div class="modal-contenido">
+
+            <span class="cerrar-modal" onclick="cerrarModalPassword()">
+
+                ✕
+
+            </span>
+
+            <h3 id="tituloModal">
+
+                Recuperar Contraseña
+
+            </h3>
+
+            <p id="textoModal">
+
+                Ingresa tu correo electrónico
+
+            </p>
+
+            <input type="email" id="inputRecuperacion" placeholder="example@gmail.com">
+
+            <div class="acciones-modal">
+
+                <button class="btn-cancelar" onclick="cerrarModalPassword()">
+
+                    Cancelar
+
+                </button>
+
+                <button class="btn-enviar" onclick="continuarRecuperacion()">
+
+                    Continuar
+
+                </button>
+
+            </div>
 
         </div>
 

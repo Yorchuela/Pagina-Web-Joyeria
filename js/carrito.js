@@ -19,12 +19,21 @@ function mostrarCarrito() {
         document.getElementById(
             'total'
         );
-
-    let carrito =
+    const carrito =
 
         JSON.parse(
-            localStorage.getItem('carrito')
+            localStorage.getItem("carrito")
         ) || [];
+
+    /* BACKUP */
+
+    localStorage.setItem(
+
+        "carritoBackup",
+
+        JSON.stringify(carrito)
+
+    );
 
     contenedor.innerHTML = "";
 
@@ -181,15 +190,15 @@ function mostrarCarrito() {
 /* ELIMINAR */
 /* ========================= */
 
-function eliminarProducto(index){
+function eliminarProducto(index) {
 
     const confirmar =
 
-    confirm(
-        '¿Seguro que deseas eliminar este producto del carrito?'
-    );
+        confirm(
+            '¿Seguro que deseas eliminar este producto del carrito?'
+        );
 
-    if(!confirmar){
+    if (!confirmar) {
 
         return;
 
@@ -197,11 +206,11 @@ function eliminarProducto(index){
 
     let carrito =
 
-    JSON.parse(
-        localStorage.getItem('carrito')
-    ) || [];
+        JSON.parse(
+            localStorage.getItem('carrito')
+        ) || [];
 
-    carrito.splice(index,1);
+    carrito.splice(index, 1);
 
     localStorage.setItem(
 
@@ -230,22 +239,22 @@ function volverCatalogo() {
 /* COMPRAR */
 /* ========================= */
 
-async function comprar(){
+async function comprar() {
 
     const rol =
 
-    localStorage.getItem('rol');
+        localStorage.getItem('rol');
 
     /* VALIDAR LOGIN */
 
-    if(rol !== 'Cliente'){
+    if (rol !== 'Cliente') {
 
         alert(
             'Debes iniciar sesión como Cliente'
         );
 
         window.location.href =
-        './login.html';
+            './login.html';
 
         return;
 
@@ -255,13 +264,13 @@ async function comprar(){
 
     const carrito =
 
-    JSON.parse(
-        localStorage.getItem('carrito')
-    ) || [];
+        JSON.parse(
+            localStorage.getItem('carrito')
+        ) || [];
 
     /* VALIDAR CARRITO */
 
-    if(carrito.length === 0){
+    if (carrito.length === 0) {
 
         alert(
             'Carrito vacío'
@@ -275,42 +284,42 @@ async function comprar(){
 
     const id_cliente =
 
-    localStorage.getItem(
-        'id_cliente'
-    );
+        localStorage.getItem(
+            'id_cliente'
+        );
 
-    try{
+    try {
 
         const response =
 
-        await fetch(
+            await fetch(
 
-            'http://localhost:3000/ventas',
+                'http://localhost:3000/ventas',
 
-            {
+                {
 
-                method:'POST',
+                    method: 'POST',
 
-                headers:{
-                    'Content-Type':
-                    'application/json'
-                },
+                    headers: {
+                        'Content-Type':
+                            'application/json'
+                    },
 
-                body:JSON.stringify({
+                    body: JSON.stringify({
 
-                    id_cliente,
-                    carrito
+                        id_cliente,
+                        carrito
 
-                })
+                    })
 
-            }
+                }
 
-        );
+            );
 
         const data =
-        await response.json();
+            await response.json();
 
-        if(data.success){
+        if (data.success) {
 
             alert(
                 'Compra realizada correctamente'
@@ -324,10 +333,458 @@ async function comprar(){
 
         }
 
-    } catch(error){
+    } catch (error) {
 
         console.log(error);
 
     }
 
 }
+/* ABRIR MODAL */
+
+function comprar() {
+
+    const carrito =
+
+        JSON.parse(
+            localStorage.getItem("carrito")
+        ) || [];
+
+    if (carrito.length === 0) {
+
+        alert(
+            "Tu carrito está vacío"
+        );
+
+        return;
+    }
+
+    document.getElementById(
+
+        "modalPago"
+
+    ).classList.add(
+
+        "active"
+
+    );
+
+}
+
+/* CERRAR MODAL */
+
+function cerrarModalPago() {
+
+    document.getElementById(
+
+        "modalPago"
+
+    ).classList.remove(
+
+        "active"
+
+    );
+
+}
+
+/* PROCESAR PAGO */
+
+async function procesarPago() {
+
+    const titular =
+
+        document.getElementById(
+            "titular"
+        ).value.trim();
+
+    const tarjeta =
+
+        document.getElementById(
+            "tarjeta"
+        ).value.trim();
+
+    const cvv =
+
+        document.getElementById(
+            "cvv"
+        ).value.trim();
+
+    const vencimiento =
+
+        document.getElementById(
+            "vencimiento"
+        ).value.trim();
+
+    /* VALIDACIONES */
+
+    if (
+
+        !titular ||
+        !tarjeta ||
+        !cvv ||
+        !vencimiento
+
+    ) {
+
+        alert(
+            "Complete todos los campos"
+        );
+
+        return;
+    }
+
+    /* TARJETA */
+
+    if (!/^\d{16}$/.test(tarjeta)) {
+
+        alert(
+            "La tarjeta debe tener 16 dígitos"
+        );
+
+        return;
+    }
+
+    /* CVV */
+
+    if (!/^\d{3}$/.test(cvv)) {
+
+        alert(
+            "CVV inválido"
+        );
+
+        return;
+    }
+
+    /* FECHA */
+
+    if (!/^\d{2}\/\d{2}$/.test(vencimiento)) {
+
+        alert(
+            "Fecha inválida"
+        );
+
+        return;
+    }
+
+    /* PROCESANDO */
+
+    alert(
+        "Procesando pago..."
+    );
+
+    const carrito =
+
+        JSON.parse(
+            localStorage.getItem("carrito")
+        ) || [];
+
+    const usuario =
+
+        JSON.parse(
+            localStorage.getItem("usuario")
+        );
+
+    const total = carrito.reduce(
+
+        (acc, p) =>
+
+            acc + Number(p.precio),
+
+        0
+
+    );
+
+    try {
+
+        const response =
+
+            await fetch(
+
+                'http://localhost:3000/ventas',
+
+                {
+
+                    method: 'POST',
+
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+
+                    body: JSON.stringify({
+
+                        id_cliente:
+                            usuario.id_usuario,
+
+                        id_usuario:
+                            usuario.id_usuario,
+
+                        carrito,
+
+                        metodo_pago:
+                            "Tarjeta",
+
+                        subtotal: total,
+
+                        descuento: 0,
+
+                        total
+
+                    })
+
+                }
+
+            );
+
+        const data =
+
+            await response.json();
+
+
+        if (!response.ok) {
+
+            alert(
+
+                data.message ||
+
+                "Error al procesar compra"
+
+            );
+
+            return;
+        }
+
+        if (!data.success) {
+
+            alert(data.message);
+
+            return;
+        }
+
+        /* LIMPIAR */
+
+        localStorage.removeItem(
+            "carrito"
+        );
+
+        cerrarModalPago();
+
+        mostrarTicket(total);
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        alert(
+            "Error servidor"
+        );
+
+    }
+
+}
+
+/* CERRAR */
+
+function cerrarTicket() {
+
+    window.location.href =
+
+        "./catalogo.html";
+
+}
+/* EXPORTAR PDF */
+
+function exportarTicketPDF() {
+
+    const { jsPDF } =
+        window.jspdf;
+
+    const doc =
+        new jsPDF();
+
+    /* TITULO */
+
+    doc.setFontSize(22);
+
+    doc.text(
+
+        "YORCH JEWELRY",
+
+        14,
+
+        20
+
+    );
+
+    /* SUB */
+
+    doc.setFontSize(14);
+
+    doc.text(
+
+        "Ticket de Compra",
+
+        14,
+
+        32
+
+    );
+
+    /* INFO */
+
+    doc.setFontSize(11);
+
+    doc.text(
+
+        document.getElementById(
+            "folioCompra"
+        ).textContent,
+
+        14,
+
+        45
+
+    );
+
+    doc.text(
+
+        document.getElementById(
+            "fechaCompra"
+        ).textContent,
+
+        14,
+
+        55
+
+    );
+
+    doc.text(
+
+        document.getElementById(
+            "totalCompra"
+        ).textContent,
+
+        14,
+
+        65
+
+    );
+
+    /* PRODUCTOS */
+
+    const carrito =
+
+        JSON.parse(
+            localStorage.getItem("carritoBackup")
+        ) || [];
+
+    const filas = [];
+
+    carrito.forEach(p => {
+
+        filas.push([
+
+            p.id_producto,
+
+            p.nombre_producto,
+
+            `$${Number(
+                p.precio
+            ).toLocaleString()
+            } `
+
+        ]);
+
+    });
+
+    doc.autoTable({
+
+        startY: 80,
+
+        head: [[
+            "ID",
+            "Producto",
+            "Precio"
+        ]],
+
+        body: filas,
+
+        headStyles: {
+
+            fillColor: [99, 102, 241]
+
+        }
+
+    });
+
+    doc.save(
+
+        "ticket_compra.pdf"
+
+    );
+
+}
+
+/* MOSTRAR TICKET */
+
+function mostrarTicket(total) {
+
+    const modal =
+
+        document.getElementById(
+            "modalTicket"
+        );
+
+    const fecha =
+
+        new Date().toLocaleString(
+            'es-MX'
+        );
+
+    const folio =
+
+        Math.floor(
+            100000 + Math.random() * 900000
+        );
+
+    document.getElementById(
+        "folioCompra"
+    ).textContent =
+
+        `Folio: #${folio}`;
+
+    document.getElementById(
+        "fechaCompra"
+    ).textContent =
+
+        `Fecha: ${fecha}`;
+
+    document.getElementById(
+        "totalCompra"
+    ).textContent =
+
+        `Total pagado: $${Number(total).toLocaleString('es-MX')}`;
+
+    modal.classList.add(
+        "active"
+    );
+
+}
+
+
+/* CERRAR TICKET */
+
+function cerrarTicket() {
+
+    document.getElementById(
+        "modalTicket"
+    ).classList.remove(
+        "active"
+    );
+
+    window.location.href =
+        "../index.html";
+
+}
+

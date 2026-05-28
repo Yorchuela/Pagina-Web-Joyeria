@@ -5,8 +5,17 @@
 const rol =
     localStorage.getItem("rol") || "Invitado";
 
+const usuario =
+
+    JSON.parse(
+        localStorage.getItem("usuario")
+    );
+
 const nombreUsuario =
-    localStorage.getItem("usuario") || "";
+
+    usuario
+        ? usuario.nombre
+        : "Invitado";
 
 console.log("ROL ACTUAL:", rol);
 
@@ -28,8 +37,16 @@ const categorias =
     document.getElementById("categorias");
 
 const container =
-    document.getElementById("cardsContainer");
 
+    document.getElementById(
+        "cardsContainer"
+    )
+
+    ||
+
+    document.getElementById(
+        "contenedorCategorias"
+    );
 const menu =
     document.getElementById("menu");
 

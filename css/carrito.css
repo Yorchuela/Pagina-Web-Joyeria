@@ -666,3 +666,219 @@ h1{
         font-size:16px;
     }
 }
+/* =========================
+   MODAL PAGO
+========================= */
+
+.modal-pago,
+.modal-ticket{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(15,23,42,.60);
+
+    backdrop-filter:blur(8px);
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+
+    padding:20px;
+}
+
+/* ACTIVO */
+
+.modal-pago.active,
+.modal-ticket.active{
+
+    display:flex;
+}
+
+/* CONTENIDO */
+
+.modal-contenido,
+.ticket-contenido{
+
+    width:100%;
+
+    max-width:500px;
+
+    background:white;
+
+    border-radius:28px;
+
+    padding:35px;
+
+    position:relative;
+
+    animation:fadeModal .35s ease;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25);
+}
+
+/* ANIMACION */
+
+@keyframes fadeModal{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(20px)
+            scale(.95);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+/* CERRAR */
+
+.cerrar-modal{
+
+    position:absolute;
+
+    top:18px;
+
+    right:22px;
+
+    cursor:pointer;
+
+    font-size:22px;
+
+    color:#64748b;
+}
+
+/* TITULO */
+
+.modal-contenido h2,
+.ticket-contenido h2{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    color:#0f172a;
+}
+
+/* TEXTO */
+
+.texto-sucursal{
+
+    background:
+        rgba(99,102,241,.08);
+
+    padding:15px;
+
+    border-radius:14px;
+
+    margin-bottom:20px;
+
+    color:#475569;
+
+    line-height:1.6;
+}
+
+/* LABEL */
+
+.modal-contenido label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    margin-top:15px;
+
+    font-weight:700;
+}
+
+/* INPUT */
+
+.modal-contenido input{
+
+    width:100%;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    border:
+        1px solid #dbe4ff;
+
+    background:#f8fafc;
+
+    font-size:15px;
+}
+
+/* FILA */
+
+.fila-pago{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+}
+
+/* BOTON */
+
+.btn-pagar,
+.btn-ticket,
+.btn-cerrar-ticket{
+
+    width:100%;
+
+    border:none;
+
+    padding:16px;
+
+    border-radius:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    margin-top:20px;
+
+    transition:.3s;
+}
+
+/* PAGAR */
+
+.btn-pagar,
+.btn-ticket{
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #818cf8
+        );
+
+    color:white;
+}
+
+/* CERRAR */
+
+.btn-cerrar-ticket{
+
+    background:#e2e8f0;
+
+    color:#0f172a;
+}

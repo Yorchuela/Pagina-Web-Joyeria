@@ -13,42 +13,43 @@
 
 <body>
 
-<div class="contenedor-regresar">
-    <button class="btn-regresar" onclick="history.back()">
-        ← Regresar
-    </button>
-</div>
+    <div class="contenedor-regresar">
+        <button class="btn-regresar" onclick="history.back()">
+            ← Regresar
+        </button>
+    </div>
 
-<form onsubmit="registrar(event)">
+    <form onsubmit="registrar(event)">
 
-    <h2>Crear cuenta</h2>
+        <h2>Crear cuenta</h2>
 
-    <label>Correo Electronico</label>
-    <input type="email" id="correo" required>
+        <label>Correo Electronico</label>
+        <input type="email" id="correo" required>
 
-    <label>Nombre</label>
-    <input type="text" id="nombre" required>
+        <label>Nombre</label>
+        <input type="text" id="nombre" maxlength="30" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="Solo se permiten letras" required>
 
-    <label>Apellido Paterno</label>
-    <input type="text" id="ap" required>
+        <label>Apellido Paterno</label>
+        <input type="text" id="ap" maxlength="30" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="Solo se permiten letras" required>
 
-    <label>Apellido Materno</label>
-    <input type="text" id="am" required>
+        <label>Apellido Materno</label>
+        <input type="text" id="am" maxlength="30" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="Solo se permiten letras" required>
 
-    <label>Teléfono</label>
-    <input type="tel" id="telefono" maxlength="10" required>
+        <label>Teléfono</label>
+        <input type="tel" id="telefono" maxlength="10" required>
 
-    <label>Contraseña</label>
-    <input type="password" id="password" required>
+        <label>Contraseña</label>
+        <input type="password" id="password" required>
 
-    <label>Confirme su contraseña</label>
-    <input type="password" id="confirmPassword" required>
+        <label>Confirme su contraseña</label>
+        <input type="password" id="confirmPassword" required>
 
-    <button type="submit">Guardar</button>
+        <button type="submit">Guardar</button>
 
-</form>
+    </form>
 
-<script src="../js/altas.js"></script>
+    <script src="../js/altas.js"></script>
 
 </body>
+
 </html>
