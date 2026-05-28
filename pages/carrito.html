@@ -9,48 +9,220 @@
         Carrito
     </title>
 
-    <link
-        rel="stylesheet"
-        href="../css/carrito.css"
-    >
+    <link rel="stylesheet" href="../css/carrito.css">
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <h1>
-        🛒 Mi Carrito
-    </h1>
+        <h1>
+            🛒 Mi Carrito
+        </h1>
 
-   <button
-    class="btn-volver"
-    onclick="history.back()"
->
+        <button class="btn-volver" onclick="history.back()">
 
-    ⬅ Regresar
+            ⬅ Regresar
 
-</button>
+        </button>
 
-    <div id="contenedorCarrito">
+        <div id="contenedorCarrito">
+
+        </div>
+
+        <div class="total-box">
+
+            <h2>
+
+                Total:
+
+                <span id="total">
+
+                    $0
+
+                </span>
+
+            </h2>
+
+        </div>
+
+        <button class="btn-comprar" onclick="comprar()">
+
+            Finalizar compra
+
+        </button>
+
+    </div>
+    <!-- MODAL PAGO -->
+
+    <div class="modal-pago" id="modalPago">
+
+        <div class="modal-contenido">
+
+            <span class="cerrar-modal" onclick="cerrarModalPago()">
+
+                ✖
+
+            </span>
+
+            <h2>
+
+                💳 Realizar Pago
+
+            </h2>
+
+            <p class="texto-sucursal">
+
+                Por el momento no realizamos envíos.
+                Su producto deberá recogerse
+                en sucursal.
+
+            </p>
+
+            <!-- TITULAR -->
+
+            <label>
+
+                Nombre completo de la persona que recogerá el producto
+
+            </label>
+
+            <input type="text" id="titular" placeholder="Nombre completo">
+
+            <!-- TARJETA -->
+
+            <label>
+
+                Número de tarjeta
+
+            </label>
+
+            <input type="text" id="tarjeta" maxlength="16" placeholder="1234123412341234">
+
+            <!-- FLEX -->
+
+            <div class="fila-pago">
+
+                <div>
+
+                    <label>
+
+                        CVV
+
+                    </label>
+
+                    <input type="text" id="cvv" maxlength="3" placeholder="123">
+
+                </div>
+
+                <div>
+
+                    <label>
+
+                        Vencimiento
+
+                    </label>
+
+                    <input type="text" id="vencimiento" maxlength="5" placeholder="MM/AA">
+
+                </div>
+
+            </div>
+
+            <!-- BOTON -->
+
+            <button class="btn-pagar" onclick="procesarPago()">
+
+                Confirmar pago
+
+            </button>
+
+        </div>
 
     </div>
 
+    <!-- MODAL TICKET -->
+
+    <div class="modal-ticket" id="modalTicket">
+
+        <div class="ticket-contenido">
+
+            <h2>
+
+                ✅ Compra Exitosa
+
+            </h2>
+
+            <p id="folioCompra">
+
+            </p>
+
+            <p id="fechaCompra">
+
+            </p>
+
+            <p id="totalCompra">
+
+            </p>
+
+            <button class="btn-ticket" onclick="exportarTicketPDF()">
+
+                📄 Descargar Ticket
+
+            </button>
+
+            <button class="btn-cerrar-ticket" onclick="cerrarTicket()">
+
+                Cerrar
+
+            </button>
+
+        </div>
+
+    </div>
+    
+    <!-- MODAL TICKET -->
+
+    <div class="modal-ticket" id="modalTicket">
+
+        <div class="ticket-box">
+
+            <h2>
+                ✅ Compra realizada
+            </h2>
+
+            <p id="folioCompra"></p>
+
+            <p id="fechaCompra"></p>
+
+            <p id="totalCompra"></p>
+
+            <button onclick="exportarTicketPDF()">
+
+                📄 Descargar Ticket PDF
+
+            </button>
+
+            <button onclick="cerrarTicket()">
+
+                Cerrar
+
+            </button>
+
+        </div>
+
+    </div>
     
 
-    <button
-        class="btn-comprar"
-        onclick="comprar()"
-    >
 
-        Finalizar compra
+    <!-- JSPDF -->
 
-    </button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 
-<script src="../js/carrito.js"></script>
+    <script src="../js/carrito.js"></script>
 
 </body>
 

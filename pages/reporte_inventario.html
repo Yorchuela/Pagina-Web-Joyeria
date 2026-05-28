@@ -1,53 +1,237 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>Reporte de Inventario</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        Reporte de Inventario
+
+    </title>
+
     <link rel="stylesheet" href="../css/reportes.css">
+
 </head>
+
 <body>
 
-   <a href="javascript:history.back()" class="btn-volver">
-    ← Regresar
-</a>
+    <a href="javascript:history.back()" class="btn-volver">
 
-<a
-    href="../index.html"
-    class="btn-inicio"
->
+        ← Regresar
 
-    🏠 Inicio
-
-</a>
-
-    <!-- MENÚ -->
-    <ul>
-        <li><a href="reporte_caja.html">Reporte de Caja</a></li>
-        <li><a href="reporte_ventas.html">Reporte de Ventas</a></li>
-        <li><a href="reporte_inventario.html">Reporte de Inventario</a></li>
-    </ul>
+    </a>
 
     <div class="container">
-        <h2>Reporte de Inventario</h2>
 
-        <label>Filtrar stock bajo (menos de)</label>
-        <input type="number" id="filtroStock" placeholder="Ej: 10">
+        <h2>
 
-        <button onclick="filtrarStock()">Filtrar</button>
+            Reporte de Inventario
+
+        </h2>
+
+        <!-- EXPORTAR -->
+
+        <div class="top-inventario">
+
+            <div class="acciones-reportes">
+
+                <button class="btn-excel">
+
+                    📗 Exportar Excel
+
+                </button>
+
+                <button class="btn-pdf">
+
+                    📕 Exportar PDF
+
+                </button>
+
+            </div>
+
+            <div class="cards-inventario">
+
+                <div class="card-resumen">
+
+                    <span class="icono-card">
+
+                        📦
+
+                    </span>
+
+                    <div>
+
+                        <p>Total piezas</p>
+
+                        <h3 id="totalPiezas">
+
+                            0
+
+                        </h3>
+
+                    </div>
+
+                </div>
+
+                <div class="card-resumen">
+
+                    <span class="icono-card">
+
+                        💎
+
+                    </span>
+
+                    <div>
+
+                        <p>Valor inventario</p>
+
+                        <h3>
+
+                            $<span id="valorInventario">
+
+                                0
+
+                            </span>
+
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- FILTROS -->
+
+        <div class="panel-filtros">
+
+            <input type="text" id="busqueda" placeholder="Buscar por ID o producto...">
+
+            <select id="filtroCategoria">
+
+                <option value="">
+
+                    Todas las categorías
+
+                </option>
+
+            </select>
+
+            <select id="filtroEstado">
+
+                <option value="">
+
+                    Todos los estados
+
+                </option>
+
+                <option value="Disponible">
+
+                    Disponible
+
+                </option>
+
+                <option value="Vendido">
+
+                    Vendido
+
+                </option>
+
+            </select>
+
+            <button onclick="filtrarInventario()">
+
+                🔍 Filtrar
+
+            </button>
+
+            <button class="btn-limpiar" onclick="limpiarFiltros()">
+
+                ✖ Limpiar
+
+            </button>
+
+        </div>
+
+
+        <!-- TABLA -->
 
         <table>
+
             <thead>
+
                 <tr>
+
+                    <th>ID</th>
+
+                    <th> 👁 </th>
+
                     <th>Producto</th>
-                    <th>Stock</th>
+
+                    <th>Categoría</th>
+
+                    <th>Kilataje</th>
+
                     <th>Estado</th>
+
+                    <th>Precio</th>
+
                 </tr>
+
             </thead>
-            <tbody id="tablaInventario"></tbody>
+
+            <tbody id="tablaInventario">
+
+            </tbody>
+
         </table>
+
     </div>
 
-    <script src="reporte_inventario.js"></script>
+    <!-- MODAL -->
+
+    <div class="modal" id="modalDetalle">
+
+        <div class="modal-contenido">
+
+            <span class="cerrar" onclick="cerrarModal()">
+
+                ✖
+
+            </span>
+
+            <h3>
+
+                Detalle Producto
+
+            </h3>
+
+            <div id="detalleProducto">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- LIBRERIAS -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
 </body>
+
+<script src="../js/reporte_inventario.js"></script>
+
 <script src="../js/protect.js"></script>
+
 </html>

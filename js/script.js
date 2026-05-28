@@ -6,7 +6,10 @@ const rol =
     localStorage.getItem("rol") || "Invitado";
 
 const nombreUsuario =
-    localStorage.getItem("usuario") || "";
+
+    usuario
+        ? usuario.nombre
+        : "Invitado";
 
 console.log("ROL ACTUAL:", rol);
 
@@ -28,8 +31,16 @@ const categorias =
     document.getElementById("categorias");
 
 const container =
-    document.getElementById("cardsContainer");
 
+    document.getElementById(
+        "cardsContainer"
+    )
+
+    ||
+
+    document.getElementById(
+        "contenedorCategorias"
+    );
 const menu =
     document.getElementById("menu");
 
@@ -145,26 +156,84 @@ if (rol === "Invitado" || rol === "Cliente") {
 
     if (dashboard) {
         dashboard.style.display = "block";
+        dashboard.style.display = "block";
     }
 
     if (categorias) {
+        categorias.style.display = "none";
         categorias.style.display = "none";
     }
 
     if (tituloHero) {
         tituloHero.textContent =
             "Bienvenido a YORCH JEWELRY";
+            "Bienvenido a YORCH JEWELRY";
     }
 
     if (textoHero) {
         textoHero.textContent =
             "Explora nuestros productos exclusivos";
+            "Explora nuestros productos exclusivos";
     }
 
     if (btnHero) {
 
+
         btnHero.textContent =
             "Comprar ahora";
+
+        btnHero.onclick = () => {
+
+            window.location.href =
+                estaEnPages
+                    ? "./catalogo.html"
+                    : "./pages/catalogo.html";
+        };
+    }
+
+    if (bienvenida) {
+
+        bienvenida.textContent =
+            rol === "Cliente"
+                ? "Panel de Cliente"
+                : "Catálogo Principal";
+    }
+
+    container.appendChild(
+        card(
+            "🛍️",
+            "Productos",
+            "Explora el catálogo completo de joyería.",
+            "./pages/catalogo.html"
+        )
+    );
+
+    container.appendChild(
+        card(
+            "📂",
+            "Categorías",
+            "Consulta productos por categorías.",
+            "./pages/categorias.html"
+        )
+    );
+
+    container.appendChild(
+        card(
+            "🛒",
+            "Carrito",
+            "Revisa y administra tus compras.",
+            "./pages/carrito.html"
+        )
+    );
+
+    container.appendChild(
+        card(
+            "💎",
+            "Colecciones",
+            "Descubre piezas exclusivas y nuevas.",
+            "./pages/catalogo.html"
+        )
+    );
 
         btnHero.onclick = () => {
 
@@ -259,6 +328,7 @@ else {
         </a>
 
         <a href="./pages/reporte_caja.html"
+        <a href="./pages/reporte_caja.html"
            id="reportes">
             Reportes
         </a>
@@ -270,7 +340,34 @@ else {
 
     if (rol === "Administrador") {
 
+
         menu.innerHTML += `
+            <a href="./pages/dashboard.html">
+                Panel Administrador
+            </a>
+        `;
+
+        if (tituloHero) {
+            tituloHero.textContent =
+                "Administración Total";
+        }
+
+        if (textoHero) {
+            textoHero.textContent =
+                "Control completo del sistema y operaciones";
+        }
+
+        if (btnHero) {
+
+            btnHero.textContent =
+                "Ir al panel";
+
+            btnHero.onclick = () => {
+
+                window.location.href =
+                    "./pages/dashboard.html";
+            };
+        }
             <a href="./pages/dashboard.html">
                 Panel Administrador
             </a>
@@ -403,6 +500,33 @@ else {
             bienvenida.textContent =
                 "Panel de Cajero";
         }
+
+        if (tituloHero) {
+            tituloHero.textContent =
+                "Panel de Ventas";
+        }
+
+        if (textoHero) {
+            textoHero.textContent =
+                "Gestiona ventas y atención a clientes";
+        }
+
+        if (btnHero) {
+
+            btnHero.textContent =
+                "Nueva venta";
+
+            btnHero.onclick = () => {
+
+                window.location.href =
+                    "./pages/reporte_ventas.html";
+            };
+        }
+
+        if (bienvenida) {
+            bienvenida.textContent =
+                "Panel de Cajero";
+        }
     }
 
     /* =========================
@@ -441,6 +565,33 @@ else {
             }
 
         }, 0);
+
+        if (tituloHero) {
+            tituloHero.textContent =
+                "Gestión de Inventario";
+        }
+
+        if (textoHero) {
+            textoHero.textContent =
+                "Administra productos y controla existencias";
+        }
+
+        if (btnHero) {
+
+            btnHero.textContent =
+                "Ver inventario";
+
+            btnHero.onclick = () => {
+
+                window.location.href =
+                    "./pages/dashboard_almacen.html";
+            };
+        }
+
+        if (bienvenida) {
+            bienvenida.textContent =
+                "Panel de Inventario";
+        }
 
         if (tituloHero) {
             tituloHero.textContent =

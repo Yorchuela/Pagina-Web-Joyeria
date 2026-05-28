@@ -1,56 +1,160 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte de Ventas</title>
     <link rel="stylesheet" href="../css/reportes.css">
 </head>
+
 <body>
-<a href="javascript:history.back()" class="btn-volver">
-    ← Regresar
-</a>
-<!-- BOTON IR A INICIO -->
 
-<a
-    href="../index.html"
-    class="btn-inicio"
->
-
-    🏠 Inicio
-
-</a>
-    <!-- 🔥 MENÚ -->
-    <ul>
-        <li><a href="reporte_caja.html">Reporte de Caja</a></li>
-        <li><a href="reporte_ventas.html">Reporte de Ventas</a></li>
-        <li><a href="reporte_inventario.html">Reporte de Inventario</a></li>
-    </ul>
+    <a href="javascript:history.back()" class="btn-volver">
+        ← Regresar
+    </a>
 
     <div class="container">
         <h2>Reporte de Ventas</h2>
+        <!-- EXPORTAR -->
 
-        <!-- 🔍 FILTRO -->
-        <label>Filtrar por fecha</label>
-        <input type="date" id="filtroFecha">
+        <div class="acciones-reportes">
 
-        <button onclick="filtrar()">Filtrar</button>
+            <button class="btn-excel" onclick="exportarExcel()">
+
+                📗 Exportar Excel
+
+            </button>
+
+            <button class="btn-pdf" onclick="exportarPDF()">
+
+                📕 Exportar PDF
+                
+
+            </button>
+
+        </div>
+
+        <!-- FILTROS -->
+
+        <div class="panel-filtros">
+
+            <select id="tipoReporte">
+
+                <option value="diario">
+                    📅 Diario
+                </option>
+
+                <option value="semanal">
+                    🗓 Semanal
+                </option>
+
+                <option value="mensual">
+                    📆 Mensual
+                </option>
+
+                <option value="anual">
+                    🧾 Anual
+                </option>
+
+                <option value="personalizado">
+                    ⚙ Personalizado
+                </option>
+
+            </select>
+
+            <!-- FECHA NORMAL -->
+
+            <input type="date" id="fechaInicio">
+
+            <!-- FECHA FINAL -->
+
+            <input type="date" id="fechaFin">
+
+            <!-- MES -->
+
+            <input type="month" id="mesInput">
+
+            <!-- AÑO -->
+
+            <input type="number" id="anioInput" min="2020" max="2100" placeholder="Año">
+
+            <!-- BOTON -->
+
+            <button id="btnFiltrar" onclick="filtrar()">
+
+                🔍 Filtrar
+
+            </button>
+
+            <button class="btn-limpiar" onclick="limpiarFiltros()">
+
+                ✖ Limpiar
+
+            </button>
+
+        </div>
         <!-- 📊 TABLA -->
         <table>
             <thead>
+
                 <tr>
+
+                    <th>ID</th>
+
+                    <th>👁</th>
+
                     <th>Producto</th>
-                    <th>Cantidad</th>
+
+                    <th>Categoría</th>
+
+                    <th>Tipo venta</th>
+
+                    <th>Fecha venta</th>
+
                     <th>Total</th>
+
                 </tr>
+
             </thead>
             <tbody id="tablaVentas"></tbody>
         </table>
 
-        <h3>Total general: $<span id="totalGeneral">0</span></h3>
+        <h3>Gran Total: <span id="totalGeneral">0</span></h3>
     </div>
+    <!-- MODAL DETALLE -->
 
-    <script src="reporte_ventas.js"></script>
+    <div class="modal" id="modalDetalle">
+
+        <div class="modal-contenido">
+
+            <span class="cerrar" onclick="cerrarModal()">
+
+                ✖
+
+            </span>
+
+            <h3>
+
+                Detalle de Venta
+
+            </h3>
+
+            <div id="detalleVenta">
+
+            </div>
+
+        </div>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 </body>
+
+<script src="../js/reporte_ventas.js"></script>
 <script src="../js/protect.js"></script>
+
 </html>

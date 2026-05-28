@@ -115,9 +115,7 @@ app.post('/movimientos', (req, res) => {
                 });
 
             }
-            res.json({
-                success: true
-            });
+            res.json(result);
 
         }
 
@@ -1022,7 +1020,7 @@ app.get('/productos', (req, res) => {
             P.id_producto,
             P.nombre_producto,
             P.descripcion,
-            p.id_categoria,
+            P.id_categoria,
             P.serie,
             P.certificado_autenticidad,
             P.kilataje,
@@ -1033,10 +1031,14 @@ app.get('/productos', (req, res) => {
 
             C.nombre_categoria
 
-        FROM Productos P
+        FROM productos P
 
-        INNER JOIN Categorias C
+        INNER JOIN categorias C
         ON P.id_categoria = C.id_categoria
+
+        WHERE P.estado_producto='Disponible'
+
+        ORDER BY P.id_producto DESC
     
     `;
 
@@ -1046,15 +1048,14 @@ app.get('/productos', (req, res) => {
 
             console.log(err);
 
-            res.status(500).json({
+            return res.status(500).json({
                 success: false
             });
 
-        } else {
-
-            res.json(result);
-
         }
+
+        res.json(result);
+
 
     });
 
@@ -1527,9 +1528,11 @@ app.put(
     });
 /* CREAR VENTA */ /*Trigger y stored procedure*/
 
+
 app.post('/ventas', (req, res) => {
 
     const {
+
         id_cliente,
         id_usuario,
         carrito,
@@ -1537,7 +1540,32 @@ app.post('/ventas', (req, res) => {
         subtotal,
         descuento,
         total
+
     } = req.body;
+
+    /* VALIDAR */
+
+    if (!id_usuario) {
+
+        return res.status(400).json({
+
+            success: false,
+            message: "Usuario inválido"
+
+        });
+
+    }
+
+    if (!carrito || carrito.length === 0) {
+
+        return res.status(400).json({
+
+            success: false,
+            message: "Carrito vacío"
+
+        });
+
+    }
 
     /* METODO PAGO */
 
@@ -1548,20 +1576,21 @@ app.post('/ventas', (req, res) => {
         id_metodo_pago = 2;
 
     }
-
-    /* REGISTRAR CADA PRODUCTO */
+    
 
     let ventasProcesadas = 0;
+
+    let errorEnVenta = false;
 
     carrito.forEach(p => {
 
         const sql = `
 
-        CALL registrarVenta(
-            ?, ?, ?, ?, ?, ?
-        )
+            CALL registrarVenta(
+                ?, ?, ?, ?, ?, ?
+            )
 
-    `;
+        `;
 
         db.query(
 
@@ -1580,7 +1609,19 @@ app.post('/ventas', (req, res) => {
 
             (err, result) => {
 
+                /* EVITAR DOBLE RESPUESTA */
+
+                if (errorEnVenta) {
+
+                    return;
+
+                }
+
+                /* ERROR */
+
                 if (err) {
+
+                    errorEnVenta = true;
 
                     console.log(err);
 
@@ -1595,15 +1636,14 @@ app.post('/ventas', (req, res) => {
 
                 ventasProcesadas++;
 
-                /* TERMINO */
+                /* TERMINÓ TODO */
 
-                if (
-                    ventasProcesadas === carrito.length
-                ) {
+                if (ventasProcesadas === carrito.length) {
 
-                    res.json({
+                    return res.json({
 
-                        success: true
+                        success: true,
+                        message: "Compra realizada correctamente"
 
                     });
 
@@ -1616,6 +1656,9 @@ app.post('/ventas', (req, res) => {
     });
 
 });
+
+
+
 /* OBTENER VENTAS */ 
 
 app.get('/ventas', (req, res) => {

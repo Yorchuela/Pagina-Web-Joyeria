@@ -350,120 +350,490 @@ tr:hover{
         margin-left:20px;
     }
 }
-
 /* =========================
-   CONTENEDOR BOTONES
+   PANEL FILTROS
 ========================= */
 
-.top-buttons{
+.panel-filtros{
+
+    display:grid;
+
+    grid-template-columns:
+        170px
+        1fr
+        1fr
+        140px
+        140px;
+
+    gap:12px;
+
+    align-items:center;
+
+    margin-bottom:18px;
+}
+
+/* INPUTS */
+
+.panel-filtros select,
+.panel-filtros input{
+
+    width:100%;
+
+    height:48px;
+
+    padding:0 14px;
+
+    border:1px solid #dbe4ff;
+
+    border-radius:12px;
+
+    background:#f8fafc;
+
+    font-size:14px;
+}
+
+/* BOTONES FILTROS */
+
+.panel-filtros button{
+
+    height:48px;
+
+    margin:0;
+
+    padding:0 18px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+/* =========================
+   ACCIONES REPORTES
+========================= */
+
+.acciones-reportes{
 
     display:flex;
 
-    gap:15px;
+    gap:14px;
 
-    margin:25px;
+    margin-bottom:25px;
+}
 
-    flex-wrap:wrap;
+.acciones-reportes button{
+
+    width:auto;
+
+    padding:12px 22px;
+
+    margin:0;
+
+    border-radius:12px;
+
+    font-size:14px;
+
+    font-weight:bold;
 }
 
 /* =========================
-   BOTON REGRESAR
+   COLORES
 ========================= */
 
-.btn-volver{
+.btn-excel{
 
-    padding:12px 20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5566c8,
-            #6f7cff
-        );
-
-    color:white;
-
-    text-decoration:none;
-
-    font-weight:bold;
-
-    border-radius:14px;
-
-    transition:.3s;
-
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.15);
+    background:#16a34a;
 }
 
-.btn-volver:hover{
+.btn-excel:hover{
 
-    transform:translateY(-3px);
-
-    background:
-        linear-gradient(
-            135deg,
-            #4957b3,
-            #5d69ea
-        );
+    background:#15803d;
 }
 
-/* =========================
-   BOTON INICIO
-========================= */
+.btn-pdf{
 
-.btn-inicio{
-
-    padding:12px 20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #16a34a,
-            #22c55e
-        );
-
-    color:white;
-
-    text-decoration:none;
-
-    font-weight:bold;
-
-    border-radius:14px;
-
-    transition:.3s;
-
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.15);
+    background:#dc2626;
 }
 
-.btn-inicio:hover{
+.btn-pdf:hover{
 
-    transform:translateY(-3px);
+    background:#b91c1c;
+}
 
-    background:
-        linear-gradient(
-            135deg,
-            #15803d,
-            #16a34a
-        );
+.btn-limpiar{
+
+    background:#ef4444;
+}
+
+.btn-limpiar:hover{
+
+    background:#dc2626;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media(max-width:768px){
+@media(max-width:950px){
 
-    .top-buttons{
+    .panel-filtros{
 
-        margin:15px;
+        grid-template-columns:1fr;
+    }
+
+    .acciones-reportes{
 
         flex-direction:column;
     }
 
-    .btn-volver,
-    .btn-inicio{
+}
+/* =========================
+   ACCIONES REPORTES
+========================= */
 
-        text-align:center;
-    }
+.acciones-reportes{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:25px;
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.btn-excel{
+
+    background:#16a34a;
+}
+
+.btn-excel:hover{
+
+    background:#15803d;
+}
+
+.btn-pdf{
+
+    background:#dc2626;
+}
+
+.btn-pdf:hover{
+
+    background:#b91c1c;
+}
+
+.btn-limpiar{
+
+    background:#ef4444;
+}
+
+.btn-limpiar:hover{
+
+    background:#dc2626;
+}
+#fechaFin,
+#mesInput,
+#anioInput{
+
+    display:none;
+
+}
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,.5);
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:999;
+}
+
+.modal-contenido{
+
+    background:white;
+
+    width:500px;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    position:relative;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.2);
+}
+
+.modal-contenido h3{
+
+    margin-bottom:25px;
+
+    text-align:center;
+
+    color:#4f46e5;
+}
+
+.modal-contenido p{
+
+    margin-bottom:12px;
+
+    font-size:15px;
+}
+
+.cerrar{
+
+    position:absolute;
+
+    top:15px;
+    right:20px;
+
+    cursor:pointer;
+
+    font-size:22px;
+
+    color:red;
+}
+
+/* BOTON OJO */
+
+.btn-ver{
+
+    background:#6366f1;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 12px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.btn-ver:hover{
+
+    background:#4338ca;
+
+}
+/* =========================
+   ESTADOS INVENTARIO
+========================= */
+
+.estado{
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    display:inline-block;
+}
+
+/* DISPONIBLE */
+
+.estado.Disponible{
+
+    background:#dcfce7;
+
+    color:#15803d;
+}
+
+/* VENDIDO */
+
+.estado.Vendido{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+}
+
+/* APARTADO */
+
+.estado.Apartado{
+
+    background:#fef3c7;
+
+    color:#d97706;
+}
+/* =========================
+   CARDS INVENTARIO
+========================= */
+
+.cards-inventario{
+
+    display:flex;
+
+    gap:20px;
+
+    margin-top:20px;
+
+    margin-bottom:25px;
+
+    flex-wrap:wrap;
+
+}
+
+.card-resumen{
+
+    flex:1;
+
+    min-width:260px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:18px 22px;
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.08);
+
+    border:
+        1px solid #eef2ff;
+
+}
+
+.icono-card{
+
+    font-size:42px;
+
+}
+
+.card-resumen p{
+
+    color:#64748b;
+
+    font-size:15px;
+
+    margin-bottom:6px;
+
+}
+
+.card-resumen h3{
+
+    margin:0;
+
+    color:#6366f1;
+
+    font-size:30px;
+
+}
+/* =========================
+   TOP INVENTARIO
+========================= */
+
+.top-inventario{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:25px;
+
+    flex-wrap:wrap;
+
+}
+
+/* CARDS */
+
+.cards-inventario{
+
+    display:flex;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
+
+/* CARD */
+
+.card-resumen{
+
+    min-width:240px;
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:18px 22px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.06);
+
+    border:
+        1px solid #eef2ff;
+
+}
+
+/* ICONOS */
+
+.icono-card{
+
+    font-size:38px;
+
+}
+
+/* TEXTO */
+
+.card-resumen p{
+
+    color:#64748b;
+
+    font-size:14px;
+
+    margin-bottom:5px;
+
+}
+
+.card-resumen h3{
+
+    margin:0;
+
+    color:#6366f1;
+
+    font-size:30px;
+
 }

@@ -18,22 +18,23 @@ async function login(event) {
     }
 
     try {
-
+        
         const response =
-            await fetch('http://localhost:3000/login', {
+       
+        await fetch('http://localhost:3000/login', {
 
-                method: 'POST',
+            method: 'POST',
 
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+            headers: {
+                'Content-Type': 'application/json'
+            },
 
-                body: JSON.stringify({
-                    correo,
-                    password
-                })
+            body: JSON.stringify({
+                correo,
+                password
+            })
 
-            });
+        });
 
         const data = await response.json();
 
@@ -45,12 +46,22 @@ async function login(event) {
             );
 
             localStorage.setItem(
+
                 "usuario",
-                data.usuario.nombre
-            );
-            localStorage.setItem(
-                "id_usuario",
-                data.usuario.id_usuario
+
+                JSON.stringify({
+
+                    id_usuario:
+                        data.usuario.id_usuario,
+
+                    nombre:
+                        data.usuario.nombre,
+
+                    rol:
+                        data.usuario.nombre_rol
+
+                })
+
             );
 
             alert('Login correcto');
@@ -74,75 +85,107 @@ async function login(event) {
 }
 /* RECUPERAR PASSWORD */
 
-async function recuperarPassword() {
+/* VARIABLES */
 
-    const correo =
-        prompt("Ingrese su correo");
+let pasoRecuperacion = 1;
 
-    if (!correo) {
+let correoTemporal = "";
 
-        return;
+/* ABRIR MODAL */
 
-    }
+function recuperarPassword() {
 
-    try {
+    pasoRecuperacion = 1;
 
-        /* ENVIAR CÓDIGO */
+    document.getElementById(
 
-        const response =
-            await fetch(
-                'http://localhost:3000/recover-password',
-                {
+        "modalPassword"
 
-                    method: 'POST',
+    ).classList.add(
 
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+        "active"
 
-                    body: JSON.stringify({
-                        correo
-                    })
+    );
 
-                });
+    document.getElementById(
 
-        const data = await response.json();
+        "tituloModal"
 
-        alert(data.message);
+    ).textContent =
 
-        /* SI NO EXISTE CORREO */
+        "Recuperar Contraseña";
 
-        if (!data.success) {
+    document.getElementById(
+
+        "textoModal"
+
+    ).textContent =
+
+        "Ingresa tu correo electrónico";
+
+    document.getElementById(
+
+        "inputRecuperacion"
+
+    ).value = "";
+
+    document.getElementById(
+
+        "inputRecuperacion"
+
+    ).type = "email";
+
+}
+
+/* CERRAR MODAL */
+
+function cerrarModalPassword() {
+
+    document.getElementById(
+
+        "modalPassword"
+
+    ).classList.remove(
+
+        "active"
+
+    );
+
+}
+
+/* CONTINUAR */
+
+async function continuarRecuperacion() {
+
+    const input =
+
+        document.getElementById(
+
+            "inputRecuperacion"
+
+        );
+
+    const valor = input.value.trim();
+
+    /* PASO 1 */
+
+    if (pasoRecuperacion === 1) {
+
+        if (!valor) {
+
+            alert("Ingrese su correo");
 
             return;
-
         }
 
-        /* PEDIR CÓDIGO */
+        try {
 
-        const codigo =
-            prompt("Ingrese el código enviado");
+            const response =
 
-        /* VALIDAR CÓDIGO */
-
-        let codigoCorrecto = false;
-
-        while (!codigoCorrecto) {
-
-            const codigo =
-                prompt("Ingrese el código enviado");
-
-            /* SI CANCELA */
-
-            if (codigo === null) {
-                alert("Recuperación cancelada");
-                return;
-
-            }
-
-            const validar =
                 await fetch(
-                    'http://localhost:3000/validar-codigo',
+
+                    'http://localhost:3000/recover-password',
+
                     {
 
                         method: 'POST',
@@ -152,65 +195,200 @@ async function recuperarPassword() {
                         },
 
                         body: JSON.stringify({
-                            codigo
+
+                            correo: valor
+
                         })
 
-                    });
+                    }
 
-            const dataValidar =
-                await validar.json();
+                );
 
-            /* CÓDIGO CORRECTO */
+            const data =
 
-            if (dataValidar.success) {
+                await response.json();
 
-                codigoCorrecto = true;
+            alert(data.message);
 
-            } else {
+            if (!data.success) {
 
-                alert(dataValidar.message);
-
+                return;
             }
+
+            correoTemporal = valor;
+
+            pasoRecuperacion = 2;
+
+            document.getElementById(
+
+                "tituloModal"
+
+            ).textContent =
+
+                "Código de Verificación";
+
+            document.getElementById(
+
+                "textoModal"
+
+            ).textContent =
+
+                "Ingresa el código enviado";
+
+            input.value = "";
+
+            input.type = "text";
 
         }
 
-        /* NUEVA PASSWORD */
+        catch (error) {
 
-        const nuevaPassword =
-            prompt("Ingrese nueva contraseña");
+            console.log(error);
 
-        /* CAMBIAR PASSWORD */
+            alert("Error servidor");
 
-        const responseReset =
-            await fetch(
-                'http://localhost:3000/reset-password',
-                {
+        }
 
-                    method: 'POST',
+    }
 
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+    /* PASO 2 */
 
-                    body: JSON.stringify({
+    else if (pasoRecuperacion === 2) {
 
-                        correo,
-                        nuevaPassword
+        if (!valor) {
 
-                    })
+            alert("Ingrese el código");
 
-                });
+            return;
+        }
 
-        const dataReset =
-            await responseReset.json();
+        try {
 
-        alert(dataReset.message);
+            const validar =
 
-    } catch (error) {
+                await fetch(
 
-        console.log(error);
+                    'http://localhost:3000/validar-codigo',
 
-        alert('Error servidor');
+                    {
+
+                        method: 'POST',
+
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+
+                        body: JSON.stringify({
+
+                            codigo: valor
+
+                        })
+
+                    }
+
+                );
+
+            const dataValidar =
+
+                await validar.json();
+
+            if (!dataValidar.success) {
+
+                alert(dataValidar.message);
+
+                return;
+            }
+
+            pasoRecuperacion = 3;
+
+            document.getElementById(
+
+                "tituloModal"
+
+            ).textContent =
+
+                "Nueva Contraseña";
+
+            document.getElementById(
+
+                "textoModal"
+
+            ).textContent =
+
+                "Ingrese su nueva contraseña";
+
+            input.value = "";
+
+            input.type = "password";
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+            alert("Error servidor");
+
+        }
+
+    }
+
+    /* PASO 3 */
+
+    else if (pasoRecuperacion === 3) {
+
+        if (!valor) {
+
+            alert("Ingrese la nueva contraseña");
+
+            return;
+        }
+
+        try {
+
+            const responseReset =
+
+                await fetch(
+
+                    'http://localhost:3000/reset-password',
+
+                    {
+
+                        method: 'POST',
+
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+
+                        body: JSON.stringify({
+
+                            correo: correoTemporal,
+
+                            nuevaPassword: valor
+
+                        })
+
+                    }
+
+                );
+
+            const dataReset =
+
+                await responseReset.json();
+
+            alert(dataReset.message);
+
+            cerrarModalPassword();
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+            alert("Error servidor");
+
+        }
 
     }
 
