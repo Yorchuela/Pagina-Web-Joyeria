@@ -1525,7 +1525,7 @@ app.put(
         );
 
     });
-/* CREAR VENTA */
+/* CREAR VENTA */ /*Trigger y stored procedure*/
 
 app.post('/ventas', (req, res) => {
 
@@ -1616,7 +1616,7 @@ app.post('/ventas', (req, res) => {
     });
 
 });
-/* OBTENER VENTAS */ /*Trigger y stored procedure*/
+/* OBTENER VENTAS */ 
 
 app.get('/ventas', (req, res) => {
 
