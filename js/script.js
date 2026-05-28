@@ -5,6 +5,12 @@
 const rol =
     localStorage.getItem("rol") || "Invitado";
 
+const usuario =
+
+    JSON.parse(
+        localStorage.getItem("usuario")
+    );
+
 const nombreUsuario =
 
     usuario
@@ -41,6 +47,7 @@ const container =
     document.getElementById(
         "contenedorCategorias"
     );
+
 const menu =
     document.getElementById("menu");
 
@@ -156,84 +163,26 @@ if (rol === "Invitado" || rol === "Cliente") {
 
     if (dashboard) {
         dashboard.style.display = "block";
-        dashboard.style.display = "block";
     }
 
     if (categorias) {
-        categorias.style.display = "none";
         categorias.style.display = "none";
     }
 
     if (tituloHero) {
         tituloHero.textContent =
             "Bienvenido a YORCH JEWELRY";
-            "Bienvenido a YORCH JEWELRY";
     }
 
     if (textoHero) {
         textoHero.textContent =
             "Explora nuestros productos exclusivos";
-            "Explora nuestros productos exclusivos";
     }
 
     if (btnHero) {
 
-
         btnHero.textContent =
             "Comprar ahora";
-
-        btnHero.onclick = () => {
-
-            window.location.href =
-                estaEnPages
-                    ? "./catalogo.html"
-                    : "./pages/catalogo.html";
-        };
-    }
-
-    if (bienvenida) {
-
-        bienvenida.textContent =
-            rol === "Cliente"
-                ? "Panel de Cliente"
-                : "Catálogo Principal";
-    }
-
-    container.appendChild(
-        card(
-            "🛍️",
-            "Productos",
-            "Explora el catálogo completo de joyería.",
-            "./pages/catalogo.html"
-        )
-    );
-
-    container.appendChild(
-        card(
-            "📂",
-            "Categorías",
-            "Consulta productos por categorías.",
-            "./pages/categorias.html"
-        )
-    );
-
-    container.appendChild(
-        card(
-            "🛒",
-            "Carrito",
-            "Revisa y administra tus compras.",
-            "./pages/carrito.html"
-        )
-    );
-
-    container.appendChild(
-        card(
-            "💎",
-            "Colecciones",
-            "Descubre piezas exclusivas y nuevas.",
-            "./pages/catalogo.html"
-        )
-    );
 
         btnHero.onclick = () => {
 
@@ -307,69 +256,47 @@ else {
 
     btnLogout.style.display = "inline-block";
 
-    menu.innerHTML = `
-        <a href="index.html">
-            Inicio
-        </a>
-
-        <a href="./pages/clientes.html"
-           id="clientes">
-            Clientes
-        </a>
-
-        <a href="./pages/productos.html"
-           id="productos">
-            Productos
-        </a>
-
-        <a href="./pages/reporte_ventas.html"
-           id="ventas">
-            Ventas
-        </a>
-
-        <a href="./pages/reporte_caja.html"
-        <a href="./pages/reporte_caja.html"
-           id="reportes">
-            Reportes
-        </a>
-    `;
-
     /* =========================
        ADMINISTRADOR
     ========================= */
 
     if (rol === "Administrador") {
 
-
-        menu.innerHTML += `
-            <a href="./pages/dashboard.html">
-                Panel Administrador
+        menu.innerHTML = `
+            <a href="index.html">
+                Inicio
             </a>
-        `;
 
-        if (tituloHero) {
-            tituloHero.textContent =
-                "Administración Total";
-        }
-
-        if (textoHero) {
-            textoHero.textContent =
-                "Control completo del sistema y operaciones";
-        }
-
-        if (btnHero) {
-
-            btnHero.textContent =
-                "Ir al panel";
-
-            btnHero.onclick = () => {
-
-                window.location.href =
-                    "./pages/dashboard.html";
-            };
-        }
             <a href="./pages/dashboard.html">
-                Panel Administrador
+                Dashboard
+            </a>
+
+            <a href="./pages/clientes.html">
+                Clientes
+            </a>
+
+            <a href="./pages/productos.html">
+                Productos
+            </a>
+
+            <a href="./pages/reporte_ventas.html">
+                Ventas
+            </a>
+
+            <a href="./pages/reporte_caja.html">
+                Reportes
+            </a>
+
+            <a href="./pages/usuarios.html">
+                Usuarios
+            </a>
+
+            <a href="./pages/devoluciones.html">
+                Devoluciones
+            </a>
+
+            <a href="./pages/movimientos.html">
+                Inventario
             </a>
         `;
 
@@ -432,7 +359,7 @@ else {
                 "📊",
                 "Reportes",
                 "Visualiza estadísticas y reportes del negocio.",
-                "./pages/Reporte_caja.html"
+                "./pages/Reportes.html"
             )
         );
 
@@ -453,6 +380,15 @@ else {
                 "./pages/productos.html"
             )
         );
+
+        container.appendChild(
+            card(
+                "🔄",
+                "Devoluciones",
+                "Gestiona devoluciones y reembolsos.",
+                "./pages/devoluciones.html"
+            )
+        );
     }
 
     /* =========================
@@ -461,19 +397,32 @@ else {
 
     if (rol === "Vendedor") {
 
-        menu.innerHTML += `
+        menu.innerHTML = `
+            <a href="index.html">
+                Inicio
+            </a>
+
             <a href="./pages/dashboard_cajero.html">
                 Panel Cajero
             </a>
+
+            <a href="./pages/reporte_ventas.html">
+                Ventas
+            </a>
+
+            <a href="./pages/tickets.html">
+                Tickets
+            </a>
+
+            <a href="./pages/clientes.html">
+                Clientes
+            </a>
+
+            <a href="./pages/devoluciones.html">
+                Devoluciones
+            </a>
         `;
 
-        const reportes =
-            document.getElementById("reportes");
-
-        if (reportes) {
-            reportes.style.display = "none";
-        }
-
         if (tituloHero) {
             tituloHero.textContent =
                 "Panel de Ventas";
@@ -501,32 +450,41 @@ else {
                 "Panel de Cajero";
         }
 
-        if (tituloHero) {
-            tituloHero.textContent =
-                "Panel de Ventas";
-        }
+        container.appendChild(
+            card(
+                "💰",
+                "Ventas",
+                "Realiza ventas y genera tickets.",
+                "./pages/reporte_ventas.html"
+            )
+        );
 
-        if (textoHero) {
-            textoHero.textContent =
-                "Gestiona ventas y atención a clientes";
-        }
+        container.appendChild(
+            card(
+                "🧾",
+                "Tickets",
+                "Consulta y genera tickets de compra.",
+                "./pages/tickets.html"
+            )
+        );
 
-        if (btnHero) {
+        container.appendChild(
+            card(
+                "👥",
+                "Clientes",
+                "Consulta información de clientes.",
+                "./pages/clientes.html"
+            )
+        );
 
-            btnHero.textContent =
-                "Nueva venta";
-
-            btnHero.onclick = () => {
-
-                window.location.href =
-                    "./pages/reporte_ventas.html";
-            };
-        }
-
-        if (bienvenida) {
-            bienvenida.textContent =
-                "Panel de Cajero";
-        }
+        container.appendChild(
+            card(
+                "🔄",
+                "Devoluciones",
+                "Gestiona devoluciones de clientes.",
+                "./pages/devoluciones.html"
+            )
+        );
     }
 
     /* =========================
@@ -535,37 +493,32 @@ else {
 
     if (rol === "Inventario") {
 
-        menu.innerHTML += `
+        menu.innerHTML = `
+            <a href="index.html">
+                Inicio
+            </a>
+
             <a href="./pages/dashboard_almacen.html">
                 Panel Almacén
             </a>
+
+            <a href="./pages/productos.html">
+                Productos
+            </a>
+
+            <a href="./pages/agregar_producto.html">
+                Agregar Producto
+            </a>
+
+            <a href="./pages/movimientos.html">
+                Movimientos
+            </a>
+
+            <a href="./pages/devoluciones.html">
+                Devoluciones
+            </a>
         `;
 
-        setTimeout(() => {
-
-            const ventas =
-                document.getElementById("ventas");
-
-            const clientes =
-                document.getElementById("clientes");
-
-            const reportes =
-                document.getElementById("reportes");
-
-            if (ventas) {
-                ventas.style.display = "none";
-            }
-
-            if (clientes) {
-                clientes.style.display = "none";
-            }
-
-            if (reportes) {
-                reportes.style.display = "none";
-            }
-
-        }, 0);
-
         if (tituloHero) {
             tituloHero.textContent =
                 "Gestión de Inventario";
@@ -593,32 +546,41 @@ else {
                 "Panel de Inventario";
         }
 
-        if (tituloHero) {
-            tituloHero.textContent =
-                "Gestión de Inventario";
-        }
+        container.appendChild(
+            card(
+                "📦",
+                "Inventario",
+                "Administra productos y controla existencias.",
+                "./pages/dashboard_almacen.html"
+            )
+        );
 
-        if (textoHero) {
-            textoHero.textContent =
-                "Administra productos y controla existencias";
-        }
+        container.appendChild(
+            card(
+                "➕",
+                "Agregar Productos",
+                "Registra nuevos productos al sistema.",
+                "./pages/agregar_producto.html"
+            )
+        );
 
-        if (btnHero) {
+        container.appendChild(
+            card(
+                "🔄",
+                "Devoluciones",
+                "Gestiona devoluciones y productos regresados.",
+                "./pages/devoluciones.html"
+            )
+        );
 
-            btnHero.textContent =
-                "Ver inventario";
-
-            btnHero.onclick = () => {
-
-                window.location.href =
-                    "./pages/dashboard_almacen.html";
-            };
-        }
-
-        if (bienvenida) {
-            bienvenida.textContent =
-                "Panel de Inventario";
-        }
+        container.appendChild(
+            card(
+                "📋",
+                "Movimientos",
+                "Consulta entradas y salidas de inventario.",
+                "./pages/movimientos.html"
+            )
+        );
     }
 }
 
