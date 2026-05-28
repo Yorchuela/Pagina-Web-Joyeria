@@ -308,7 +308,7 @@ else {
                 "💰",
                 "Ventas",
                 "Controla ventas y movimientos del sistema.",
-                "./pages/reporte_ventas.html"
+                "./pages/Reportes.html"
             )
         );
 
@@ -335,7 +335,7 @@ else {
                 "📊",
                 "Reportes",
                 "Visualiza estadísticas y reportes del negocio.",
-                "./pages/Reporte_caja.html"
+                "./pages/Reportes.html"
             )
         );
 
